@@ -1,0 +1,45 @@
+.navbar {
+    width: 100%;
+    align-items: center;
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: grey;
+}
+
+.navbar .navContent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    /* not too sure about "max-width" or "width" */
+    width: 100%;
+    /* check what the margin settings are*/
+    margin: 0 auto;
+}
+
+.navbar .siteLogo {
+    color: white;
+    font-size: 20px;
+    margin-left: 20px;
+}
+
+.navbar .navContent .navLinks {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    list-style-type: none;
+    color: white;
+}
+.navbar .navContent .navLinks li {
+    color: white;
+    font-size: 20px;
+    margin: 20px;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+}
