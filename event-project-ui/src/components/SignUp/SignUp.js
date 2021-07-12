@@ -10,6 +10,7 @@ export default function Signup(){
     const navigate = useNavigate()
     const [isProcessing, setIsProcessing] = useState(false)
     const [errors, setErrors] = useState({})
+    const [showMenu, setShowMenu] = useState(false)
     const [form, setForm] = useState({
         accountType:"",
         firstName: "",
@@ -72,6 +73,24 @@ export default function Signup(){
                 <br/>
 
                 <div className="form">
+                    <div className="dropdown">
+                        <button>
+                            What kind of account is this?
+                        </button>
+
+                        {
+                            showMenu? (
+                            <div className="menu">
+                                <button> Personal </button>
+                                <button> Organizer </button>
+                            </div>
+                            )
+                            : (
+                                null
+                            )
+                        }
+                    </div>
+
                     <div className="input-field">
                         <label htmlFor="firstName">First Name</label>
                         <input
