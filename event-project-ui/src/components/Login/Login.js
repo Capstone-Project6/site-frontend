@@ -55,11 +55,14 @@ export default function Login() {
         <div className="Login">
             <div className="card">
                 <h2> Login</h2>
+
+                 {errors.form && <span className="error">{errors.form}</span>}
                 <br/>
 
                 <div className="form">
                     <div className="input-field">
                         <label htmlFor="email"> Email </label>
+                        {/* <input type="email" name="email" placeholder="Email" value={form.email} onChange={handleOnInputChange} /> */}
                         <input type="email" name="email" placeholder="Email"></input>
                         {/* {errors.email && <span className="error">{errors.email}</span>} */}
                     </div>
@@ -71,12 +74,20 @@ export default function Login() {
                             name="password"
                             placeholder="Password"
                         />
+                        {/* for above input:
+                            value={form.password}
+                            onChange={handleOnInputChange} 
+                        */}
                         {/* {errors.password && <span className="error">{errors.password}</span>} */}
                     </div>
 
                     <button className="btn">
                         Login
                     </button>
+
+                    {/* <button className="btn" disabled={isProcessing} onClick={handleOnSubmit}>
+                        {isProcessing ? "Loading..." : "Login"}
+                    </button> */}
                 </div>
             </div>
         </div>

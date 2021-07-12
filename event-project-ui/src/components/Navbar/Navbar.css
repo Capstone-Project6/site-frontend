@@ -1,11 +1,13 @@
 .navbar {
     width: 100%;
     align-items: center;
-    display: flex;
-    position: absolute;
+    /* display: flex; */
+    /* position: absolute; */
     top: 0;
     left: 0;
     background-color: grey;
+    margin-bottom: 20px;
+    /* display: block; */
 }
 
 .navbar .navContent {
