@@ -12,11 +12,12 @@ export default function Navbar({ user, handleLogout }){
                 </Link>
                 {/* the links to various pages */}
                 <ul className="navLinks">
-                    {user?.email? (  
+                    {user?.email? ( 
                         <>
                             <li>
                                 <span>{user.email}</span>
                             </li>
+
                             <li>
                                 <span onClick={handleLogout}> Logout</span>
                             </li>
