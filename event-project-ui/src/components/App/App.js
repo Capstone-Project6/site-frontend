@@ -9,13 +9,23 @@ import Signup from '../SignUp/SignUp';
 import './App.css';
 
 function App() {
+  //This const holds the user information
   const [user, setUser] = useState({})
+  //This const will hold an event
   const [events, setEvents] = useState([])
+  //This const handles errors
   const [error, setError] = useState(null)
+  //This const determines if events are being fetched
   const [isFetching, setIsFetching] = useState(false)
 
   useEffect(() => {
+    //The user is being fetched using the api token and the apiClient file
     const fetchUser = async () => {
+
+      //THIS COULD BE THE ISSUE!!!
+
+
+      //fetchUserFromToken() returns the user (by using auth/me)
       const { data } = await apiClient.fetchUserFromToken()
       if (data) {
         setUser(data.user)
@@ -38,7 +48,6 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        {/* ADDED PARAMS*/}
         <Navbar user={user} setUser={setUser} handleLogout={handleLogout}/>
         <Routes>
           <Route path="/" element={<Home user={user} error={error} />}></Route>

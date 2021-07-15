@@ -1,7 +1,9 @@
 import axios from "axios"
 
 class ApiClient {
+  //DO I NEED TO PUT THE REMOTE HOST URL?
   constructor(remoteHostUrl) {
+    //CHANGED THIS VALUE
     this.remoteHostUrl = remoteHostUrl
     this.token = null
     this.tokenName = "event_finder_token"
@@ -31,6 +33,13 @@ class ApiClient {
     }
   }
 
+  async fetchUserFromToken() {
+    return await this.request({ endpoint: `auth/me`, method: `GET` })
+  }
+
+  
+  //IS THIS REFERRING TO THE API? 
+
   async signupUser(credentials) {
     return await this.request({ endpoint: `auth/register`, method: `POST`, data: credentials })
   }
@@ -45,6 +54,7 @@ class ApiClient {
   }
 }
 
-const API = new ApiClient(process.env.REACT_APP_REMOTE_HOST_URL || "http://localhost:3001")
+//CHANGED TO LOCAL HOST AT 3000
+const API = new ApiClient(process.env.REACT_APP_REMOTE_HOST_URL || "http://localhost:3000")
 
 export default API
