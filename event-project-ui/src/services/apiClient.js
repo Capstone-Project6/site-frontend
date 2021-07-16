@@ -37,8 +37,10 @@ class ApiClient {
     return await this.request({ endpoint: `auth/me`, method: `GET` })
   }
 
-  
-  //IS THIS REFERRING TO THE API? 
+  //DOUBLE CHECK ENDPOINT
+  async listEvents() {
+    return await this.request({ endpoint: `events`, method: `GET` })
+  }
 
   async signupUser(credentials) {
     return await this.request({ endpoint: `auth/register`, method: `POST`, data: credentials })
