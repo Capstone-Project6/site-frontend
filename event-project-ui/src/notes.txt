@@ -1,0 +1,7 @@
+7/16/21
+
+Goals
+- write/tweak all code for the homepage's connection
+- style the card components
+- work on search bar
+- work on searched results page?

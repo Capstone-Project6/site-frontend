@@ -1,10 +1,27 @@
+import React from 'react';
+import { useState } from 'react';
+import ToggleButton from '@material-ui/lab/ToggleButton';
+import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 // import { Link } from "react-router-dom"
 import partyPhoto from "../../partyPhoto.jpg"
 import Event from '../Event/Event'
 import './Home.css'
 
 //the Home function takes in an object that is an array of events
-export default function Home( { user, isFetching, events, error}){
+export default function Home( { user, isFetching, events, error }){
+    const[userLoggedIn, setUserLoggedIn] = useState(false);
+    const [topEventsBtnClicked, setTopEventsBtnClicked] = useState(true);
+    const[recommendedBtnClicked, setRecommendedBtnClicked] = useState(false);
+    const [alignment, setAlignment] = useState('left');
+
+    const handleAlignment = (event, newAlignment) => {
+        setAlignment(newAlignment);
+    };
+
+    // if( user?.email? ) {
+    //     setUserLoggedIn(true);
+    // }
+
     const data = [
         { 
             id: 1,
@@ -82,7 +99,23 @@ export default function Home( { user, isFetching, events, error}){
 
     return(
         <div className="home">
-            <h1 className="homePageTitle"> Events </h1>
+            {user?.email? (
+            <ToggleButtonGroup
+                value={alignment}
+                exclusive
+                onChange={handleAlignment}
+                aria-label="text alignment"
+            >
+                <ToggleButton onClick={() => {setTopEventsBtnClicked(true); setRecommendedBtnClicked(false); }} value="left" aria-label="left aligned">
+                    Top Events
+                </ToggleButton>
+                <ToggleButton onClick={() => {setRecommendedBtnClicked(true); setTopEventsBtnClicked(false);}} value="right" aria-label="right aligned">
+                    Recommended Events
+                </ToggleButton>
+            </ToggleButtonGroup>
+            ): null}
+
+            <h1 className="homePageTitle"> Top Events </h1>
             
             <div className = "feed"> 
                 {/* {error ? <h2 className="error">{error}</h2> : null}
@@ -92,23 +125,9 @@ export default function Home( { user, isFetching, events, error}){
                 ))} */}
 
                 {data.map((event) => (
-                    <Event event={event} key={event.id} />
+                    <Event event={event} user={user} key={event.id} />
                 ))}
             </div>
         </div>
     )
 }
-// pseudocode: 
-//   - Each event is a card
-// <div class="card">
-//     <img className="eventImage" src=# />
-//     <div className="eventCardInfo">
-//         <h2 className="eventName"> Event Name</h2>
-//         <div className="eventCardDetails"> 
-//             <p> Date </p>
-//             <p> Time </p>
-//             <p> State, City <p/>
-//             <p> Venue </p>
-//         </div>
-//     </div>
-// </div> 

@@ -57,6 +57,6 @@ class ApiClient {
 }
 
 //CHANGED TO LOCAL HOST AT 3000
-const API = new ApiClient(process.env.REACT_APP_REMOTE_HOST_URL || "http://localhost:3000")
+const API = new ApiClient(process.env.REACT_APP_REMOTE_HOST_URL || "http://localhost:3001")
 
 export default API

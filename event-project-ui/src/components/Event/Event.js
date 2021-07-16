@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 // import { Link } from "react-router-dom"
 import "./Event.css"
 import { makeStyles } from '@material-ui/core/styles';
@@ -17,9 +18,9 @@ const useStyles = makeStyles({
 });
 
 //add this param: { event }
-export default function Event( { event }) {
+export default function Event( { event, user }) {
     const classes = useStyles();
-
+    
     return (
         // pseudocode: 
         //   - Each event is a card
