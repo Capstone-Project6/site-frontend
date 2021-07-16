@@ -4,6 +4,7 @@ import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 // import { Link } from "react-router-dom"
 import partyPhoto from "../../partyPhoto.jpg"
+import concertPhoto from "../../concertPhoto.jpg"
 import Event from '../Event/Event'
 import './Home.css'
 
@@ -22,7 +23,7 @@ export default function Home( { user, isFetching, events, error }){
     //     setUserLoggedIn(true);
     // }
 
-    const data = [
+    const topEventsData = [
         { 
             id: 1,
             eventImage: partyPhoto,
@@ -97,6 +98,81 @@ export default function Home( { user, isFetching, events, error }){
         },
     ];
 
+    const recommendedEventsData = [
+        { 
+            id: 1,
+            eventImage: concertPhoto,
+            eventName: "Fun Event",
+            eventDescription: "Check out our fun event!",
+            date: "August 2, 2021",
+            beginningTime: " 9:00pm",
+            endTime: "1:00am"
+        },
+        {
+            id: 2,
+            eventImage: concertPhoto,
+            eventName: "Fun Event",
+            eventDescription: "Check out our fun event!",
+            date: "August 2, 2021",
+            beginningTime: " 9:00pm",
+            endTime: "1:00am"
+        },
+        {
+            id: 3,
+            eventImage: concertPhoto,
+            eventName: "Fun Event",
+            eventDescription: "Check out our fun event!",
+            date: "August 2, 2021",
+            beginningTime: " 9:00pm",
+            endTime: "1:00am"
+        },
+        {
+            id: 4,
+            eventImage: concertPhoto,
+            eventName: "Fun Event",
+            eventDescription: "Check out our fun event!",
+            date: "August 2, 2021",
+            beginningTime: " 9:00pm",
+            endTime: "1:00am"
+        },
+        {
+            id: 5,
+            eventImage: concertPhoto,
+            eventName: "Fun Event",
+            eventDescription: "Check out our fun event!",
+            date: "August 2, 2021",
+            beginningTime: " 9:00pm",
+            endTime: "1:00am"
+        },
+        {
+            id: 6,
+            eventImage: concertPhoto,
+            eventName: "Fun Event",
+            eventDescription: "Check out our fun event!",
+            date: "August 2, 2021",
+            beginningTime: " 9:00pm",
+            endTime: "1:00am"
+        },
+        {
+            id: 7,
+            eventImage: concertPhoto,
+            eventName: "Fun Event",
+            eventDescription: "Check out our fun event!",
+            date: "August 2, 2021",
+            beginningTime: " 9:00pm",
+            endTime: "1:00am"
+        },
+        {
+            id: 8,
+            eventImage: concertPhoto,
+            eventName: "Fun Event",
+            eventDescription: "Check out our fun event!",
+            date: "August 2, 2021",
+            beginningTime: " 9:00pm",
+            endTime: "1:00am"
+        },
+    ];
+
     return(
         <div className="home">
             {user?.email? (
@@ -115,18 +191,42 @@ export default function Home( { user, isFetching, events, error }){
             </ToggleButtonGroup>
             ): null}
 
-            <h1 className="homePageTitle"> Top Events </h1>
-            
+            {/* CHANGE CODE HERE */}
+            {/* It is probably better to combine this if else statement with the one in the feed div! */}
+            { topEventsBtnClicked ? (
+                <h1 className="homePageTitle">Top Events</h1>
+            ) : (
+                <h1 className="homePageTitle">Recommended Events</h1>
+            )}
             <div className = "feed"> 
                 {/* {error ? <h2 className="error">{error}</h2> : null}
                 {isFetching ? <h2>Loading...</h2> : null}
                 {events?.map((event) => (
                     <Event event={event} key={event.id} />
                 ))} */}
+                
+                {user?.email? (
+                     topEventsBtnClicked ? (
+                            topEventsData.map((event) => (
+                                <Event event={event} user={user} key={event.id} />
+                            ))
+                        ) : (
+                            //instead this will be a user's RECOMMENDED events
+                            recommendedEventsData.map((event) => (
+                                <Event event={event} user={user} key={event.id} />
+                            ))
+                        )
+                ) : (
+                    <>
+                        {topEventsData.map((event) => (
+                            <Event event={event} user={user} key={event.id} />
+                        ))}
+                    </>
+                )}
 
-                {data.map((event) => (
+                {/* {topEventsData.map((event) => (
                     <Event event={event} user={user} key={event.id} />
-                ))}
+                ))} */}
             </div>
         </div>
     )
