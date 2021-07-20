@@ -57,12 +57,6 @@ export default function Event( { event, user }) {
                         </CardContent>
                     </CardActionArea>
                     <CardActions>
-                        <Button size="small" color="primary">
-                            Share
-                        </Button>
-                        <Button size="small" color="primary">
-                            Learn More
-                        </Button>
                     </CardActions>
                 </Card>
         </div>
