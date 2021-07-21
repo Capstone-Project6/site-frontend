@@ -38,7 +38,7 @@ export default function Navbar({ user, handleLogout }){
                                 <span>{user.email}</span>
                             </li>
 
-                            <li>
+                            <li className="logout">
                                 <span onClick={handleLogout}> Logout</span>
                             </li>
                         </>

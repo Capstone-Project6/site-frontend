@@ -4,7 +4,7 @@ import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import Sports from "../../Sports.jpg"
 import Music from "../../Music.jpg"
-import Event from '../Event/Event'
+import InterestsCard from './InterestsCard';
 import Charity from '../../Charity.jpg'
 import Food from '../../Food.jpg'
 import "./Interests.css"
@@ -20,26 +20,20 @@ export default function Interests( { user, isFetching, events, error }){
         { 
             id: 1,
             eventImage: Sports,
-            eventName: "Sports",
-            eventDescription: "Find tickets for your favorite sporting events!",
         },
         {
             id: 2,
             eventImage: Music,
-            eventName: "Music",
-            eventDescription: "Attend concerts, music festivals, karaoke nights, and more!",
+
         },
         {
             id: 3,
             eventImage: Food,
-            eventName: "Food",
-            eventDescription: "Learn about different food events in your area!",
         },
         {
             id: 4,
             eventImage: Charity,
-            eventName: "Charity",
-            eventDescription: "Find events that allow you to give back to the community!",
+
         },
 
     ];
@@ -47,10 +41,13 @@ export default function Interests( { user, isFetching, events, error }){
     return (
         <div>
             <h1 className="Header">What are your Interests?</h1>
+            
                                <>
+                               
                                <div className="interests">
+                                   
                         {interestsCategories.map((interests) => (
-                            <Event event={interests} user={user} key={interests.id} />
+                            <InterestsCard event={interests} user={user} key={interests.id} />
                         ))}
                         </div>
                     </>
