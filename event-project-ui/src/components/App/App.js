@@ -7,6 +7,7 @@ import Home from '../Home/Home';
 import Login from '../Login/Login';
 import Signup from '../SignUp/SignUp';
 import Interests from '../Interests/Interests';
+import Filter from '../Filter/Filter';
 import './App.css';
 
 function App() {
@@ -72,6 +73,7 @@ function App() {
           <Route path="/login" element={<Login user={user} setUser={setUser} />}></Route>
           <Route path="/signup" element={<Signup user={user} setUser={setUser} />}></Route>
           <Route path="/interests" element={<Interests user={user} setUser={setUser} />}></Route>
+          <Route path="/filter" element={<Filter user={user} setUser={setUser} />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
