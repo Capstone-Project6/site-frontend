@@ -37,13 +37,14 @@ export default function Navbar({ user, handleLogout }){
                             {/* <li>
                                 <span>{user.email}</span>
                             </li> */}
-                            <li>
+                            {/* <li>
                                 <Link to="/eventgoerProfile"> 
                                     <span> {user.first_name}</span>
                                     <span> </span>
                                 </Link>
-                            </li>
-                            <li>
+                            </li> */}
+
+                            <li className="logout">
                                 <span onClick={handleLogout}> Logout</span>
                             </li>
                         </>
