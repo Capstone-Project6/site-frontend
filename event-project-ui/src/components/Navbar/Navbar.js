@@ -14,10 +14,15 @@ export default function Navbar({ user, handleLogout }){
                 <ul className="navLinks">
                     {user?.email? ( 
                         <>
-                            <li>
+                            {/* <li>
                                 <span>{user.email}</span>
+                            </li> */}
+                            <li>
+                                <Link to="/eventgoerProfile"> 
+                                    <span> {user.first_name}</span>
+                                    <span> </span>
+                                </Link>
                             </li>
-
                             <li>
                                 <span onClick={handleLogout}> Logout</span>
                             </li>

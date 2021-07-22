@@ -8,62 +8,75 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
+import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { flexbox } from '@material-ui/system';
 
 const useStyles = makeStyles({
     root: {
         maxWidth: 345,
+    },
+    paddingRight: {
+        paddingRight: 5,
     },
 });
 
 //add this param: { event }
 export default function Event( { event, user }) {
     const classes = useStyles();
-    
+    console.log("Event", event)
     return (
-        // pseudocode: 
-        //   - Each event is a card
-            // <div class="card">
-            //     <img className="eventImage" src=# />
-            //     <div className="eventCardInfo">
-            //         <h2 className="eventName"> Event Name</h2>
-            //         <div className="eventCardDetails"> 
-            //             <p> Date </p>
-            //             <p> Time </p>
-            //             <p> State, City <p/>
-            //             <p> Venue </p>
-            //         </div>
-            //     </div>
-            // </div>
-
         <div className="individualEvent">
+            {/* <h1> {event["Event Name"]} </h1> */}
+                {/* <h1> {event.event_name}</h1>  */}
                 <Card className={classes.root}>
                     <CardActionArea>
                         <CardMedia
                             component="img"
-                            alt="Contemplative Reptile"
+                            alt={event["Event Name"]}
                             height="140"
-                            image={event.eventImage}
-                            title={event.eventName}
+                            title={event["Event Name"]}
+                            image={event.event_image}
                         />
                         <CardContent>
                             <Typography gutterBottom variant="h5" component="h2">
-                                {event.eventName}
-                            </Typography>
-                            <Typography variant="body2" color="textSecondary" component="p">
-                                {event.eventDescription}
-                            </Typography>
+                            {event["Event Name"]}
+                            </Typography> 
+                            {/* <Grid container>
+                                <Grid item className={classes.paddingRight}>
+                                    <Typography variant="body2" color="textSecondary" component="p">
+                                        {event.date}
+                                    </Typography>
+                                </Grid>
+                                <Grid item>
+                                    <Typography variant="body2" color="textSecondary" component="p">
+                                        {event.beginningTime} - {event.endTime}
+                                    </Typography>
+                                </Grid>
+                            </Grid>
+                            <Grid container>
+                                <Grid item className={classes.paddingRight}>
+                                    <Typography variant="body2" color="textSecondary" component="p">
+                                        {event.location}
+                                    </Typography>
+                                </Grid>
+                                <Grid item>
+                                    <Typography variant="body2" color="textSecondary" component="p">
+                                        {event.venue}
+                                    </Typography>
+                                </Grid> 
+                            </Grid>  */}
                         </CardContent>
                     </CardActionArea>
-                    <CardActions>
+                    {/* <CardActions>
                         <Button size="small" color="primary">
                             Share
                         </Button>
                         <Button size="small" color="primary">
                             Learn More
                         </Button>
-                    </CardActions>
+                    </CardActions> */}
                 </Card>
         </div>
 

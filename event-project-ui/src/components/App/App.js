@@ -6,6 +6,7 @@ import Navbar from '../Navbar/Navbar';
 import Home from '../Home/Home';
 import Login from '../Login/Login';
 import Signup from '../SignUp/SignUp';
+import EventgoerProfile from '../EventgoerProfile/EventgoerProfile';
 import './App.css';
 
 function App() {
@@ -24,8 +25,9 @@ function App() {
       setIsFetching(true)
 
       const { data, error } = await apiClient.listEvents()
+      console.log("data", data)
       if (data) {
-        setEvents(data.events)
+        setEvents(data.feed)
       }
       if (error) {
         setError(error)
@@ -60,6 +62,8 @@ function App() {
     setError(null)
   }
   
+ console.log(events)
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -68,6 +72,8 @@ function App() {
           <Route path="/" element={<Home user={user} error={error} events={events} isFetching={isFetching} />}></Route>
           <Route path="/login" element={<Login user={user} setUser={setUser} />}></Route>
           <Route path="/signup" element={<Signup user={user} setUser={setUser} />}></Route>
+          {/* what should the person's link to the page be called? Some websites use their username as the link */}
+          <Route path="/eventgoerProfile" element={<EventgoerProfile user={user}/>}></Route>
         </Routes>
       </BrowserRouter>
     </div>

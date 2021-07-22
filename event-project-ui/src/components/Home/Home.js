@@ -23,155 +23,187 @@ export default function Home( { user, isFetching, events, error }){
     //     setUserLoggedIn(true);
     // }
 
-    const topEventsData = [
-        { 
-            id: 1,
-            eventImage: partyPhoto,
-            eventName: "Loft Party",
-            eventDescription: "Check out our fun event!",
-            date: "August 2, 2021",
-            beginningTime: " 9:00pm",
-            endTime: "1:00am"
-        },
-        {
-            id: 2,
-            eventImage: partyPhoto,
-            eventName: "Loft Party",
-            eventDescription: "Check out our fun event!",
-            date: "August 2, 2021",
-            beginningTime: " 9:00pm",
-            endTime: "1:00am"
-        },
-        {
-            id: 3,
-            eventImage: partyPhoto,
-            eventName: "Loft Party",
-            eventDescription: "Check out our fun event!",
-            date: "August 2, 2021",
-            beginningTime: " 9:00pm",
-            endTime: "1:00am"
-        },
-        {
-            id: 4,
-            eventImage: partyPhoto,
-            eventName: "Loft Party",
-            eventDescription: "Check out our fun event!",
-            date: "August 2, 2021",
-            beginningTime: " 9:00pm",
-            endTime: "1:00am"
-        },
-        {
-            id: 5,
-            eventImage: partyPhoto,
-            eventName: "Loft Party",
-            eventDescription: "Check out our fun event!",
-            date: "August 2, 2021",
-            beginningTime: " 9:00pm",
-            endTime: "1:00am"
-        },
-        {
-            id: 6,
-            eventImage: partyPhoto,
-            eventName: "Loft Party",
-            eventDescription: "Check out our fun event!",
-            date: "August 2, 2021",
-            beginningTime: " 9:00pm",
-            endTime: "1:00am"
-        },
-        {
-            id: 7,
-            eventImage: partyPhoto,
-            eventName: "Loft Party",
-            eventDescription: "Check out our fun event!",
-            date: "August 2, 2021",
-            beginningTime: " 9:00pm",
-            endTime: "1:00am"
-        },
-        {
-            id: 8,
-            eventImage: partyPhoto,
-            eventName: "Loft Party",
-            eventDescription: "Check out our fun event!",
-            date: "August 2, 2021",
-            beginningTime: " 9:00pm",
-            endTime: "1:00am"
-        },
-    ];
+    // const topEventsData = [
+    //     { 
+    //         id: 1,
+    //         eventImage: partyPhoto,
+    //         eventName: "Loft Party",
+    //         eventDescription: "Check out our fun event!",
+    //         date: "August 2, 2021",
+    //         beginningTime: " 9:00pm",
+    //         endTime: "1:00am",
+    //         location: "Atlanta, GA",
+    //         venue: "The Loft"
+    //     },
+    //     {
+    //         id: 2,
+    //         eventImage: partyPhoto,
+    //         eventName: "Loft Party",
+    //         eventDescription: "Check out our fun event!",
+    //         date: "August 2, 2021",
+    //         beginningTime: " 9:00pm",
+    //         endTime: "1:00am",
+    //         location: "Atlanta, GA",
+    //         venue: "The Loft"
+    //     },
+    //     {
+    //         id: 3,
+    //         eventImage: partyPhoto,
+    //         eventName: "Loft Party",
+    //         eventDescription: "Check out our fun event!",
+    //         date: "August 2, 2021",
+    //         beginningTime: " 9:00pm",
+    //         endTime: "1:00am",
+    //         location: "Atlanta, GA",
+    //         venue: "The Loft"
+    //     },
+    //     {
+    //         id: 4,
+    //         eventImage: partyPhoto,
+    //         eventName: "Loft Party",
+    //         eventDescription: "Check out our fun event!",
+    //         date: "August 2, 2021",
+    //         beginningTime: " 9:00pm",
+    //         endTime: "1:00am",
+    //         location: "Atlanta, GA",
+    //         venue: "The Loft"
+    //     },
+    //     {
+    //         id: 5,
+    //         eventImage: partyPhoto,
+    //         eventName: "Loft Party",
+    //         eventDescription: "Check out our fun event!",
+    //         date: "August 2, 2021",
+    //         beginningTime: " 9:00pm",
+    //         endTime: "1:00am",
+    //         location: "Atlanta, GA",
+    //         venue: "The Loft"
+    //     },
+    //     {
+    //         id: 6,
+    //         eventImage: partyPhoto,
+    //         eventName: "Loft Party",
+    //         eventDescription: "Check out our fun event!",
+    //         date: "August 2, 2021",
+    //         beginningTime: " 9:00pm",
+    //         endTime: "1:00am",
+    //         location: "Atlanta, GA",
+    //         venue: "The Loft"
+    //     },
+    //     {
+    //         id: 7,
+    //         eventImage: partyPhoto,
+    //         eventName: "Loft Party",
+    //         eventDescription: "Check out our fun event!",
+    //         date: "August 2, 2021",
+    //         beginningTime: " 9:00pm",
+    //         endTime: "1:00am",
+    //         location: "Atlanta, GA",
+    //         venue: "The Loft"
+    //     },
+    //     {
+    //         id: 8,
+    //         eventImage: partyPhoto,
+    //         eventName: "Loft Party",
+    //         eventDescription: "Check out our fun event!",
+    //         date: "August 2, 2021",
+    //         beginningTime: " 9:00pm",
+    //         endTime: "1:00am",
+    //         location: "Atlanta, GA",
+    //         venue: "The Loft"
+    //     },
+    // ];
 
-    const recommendedEventsData = [
-        { 
-            id: 1,
-            eventImage: concertPhoto,
-            eventName: "Fun Event",
-            eventDescription: "Check out our fun event!",
-            date: "August 2, 2021",
-            beginningTime: " 9:00pm",
-            endTime: "1:00am"
-        },
-        {
-            id: 2,
-            eventImage: concertPhoto,
-            eventName: "Fun Event",
-            eventDescription: "Check out our fun event!",
-            date: "August 2, 2021",
-            beginningTime: " 9:00pm",
-            endTime: "1:00am"
-        },
-        {
-            id: 3,
-            eventImage: concertPhoto,
-            eventName: "Fun Event",
-            eventDescription: "Check out our fun event!",
-            date: "August 2, 2021",
-            beginningTime: " 9:00pm",
-            endTime: "1:00am"
-        },
-        {
-            id: 4,
-            eventImage: concertPhoto,
-            eventName: "Fun Event",
-            eventDescription: "Check out our fun event!",
-            date: "August 2, 2021",
-            beginningTime: " 9:00pm",
-            endTime: "1:00am"
-        },
-        {
-            id: 5,
-            eventImage: concertPhoto,
-            eventName: "Fun Event",
-            eventDescription: "Check out our fun event!",
-            date: "August 2, 2021",
-            beginningTime: " 9:00pm",
-            endTime: "1:00am"
-        },
-        {
-            id: 6,
-            eventImage: concertPhoto,
-            eventName: "Fun Event",
-            eventDescription: "Check out our fun event!",
-            date: "August 2, 2021",
-            beginningTime: " 9:00pm",
-            endTime: "1:00am"
-        },
-        {
-            id: 7,
-            eventImage: concertPhoto,
-            eventName: "Fun Event",
-            eventDescription: "Check out our fun event!",
-            date: "August 2, 2021",
-            beginningTime: " 9:00pm",
-            endTime: "1:00am"
-        },
-        {
-            id: 8,
-            eventImage: concertPhoto,
-            eventName: "Fun Event",
-            eventDescription: "Check out our fun event!",
-            date: "August 2, 2021",
-            beginningTime: " 9:00pm",
-            endTime: "1:00am"
-        },
-    ];
+    // const recommendedEventsData = [
+    //     { 
+    //         id: 1,
+    //         eventImage: concertPhoto,
+    //         eventName: "Fun Event",
+    //         eventDescription: "Check out our fun event!",
+    //         date: "August 2, 2021",
+    //         beginningTime: " 9:00pm",
+    //         endTime: "1:00am",
+    //         location: "Atlanta, GA",
+    //         venue: "The Loft"
+    //     },
+    //     {
+    //         id: 2,
+    //         eventImage: concertPhoto,
+    //         eventName: "Fun Event",
+    //         eventDescription: "Check out our fun event!",
+    //         date: "August 2, 2021",
+    //         beginningTime: " 9:00pm",
+    //         endTime: "1:00am",
+    //         location: "Atlanta, GA",
+    //         venue: "The Loft"
+    //     },
+    //     {
+    //         id: 3,
+    //         eventImage: concertPhoto,
+    //         eventName: "Fun Event",
+    //         eventDescription: "Check out our fun event!",
+    //         date: "August 2, 2021",
+    //         beginningTime: " 9:00pm",
+    //         endTime: "1:00am",
+    //         location: "Atlanta, GA",
+    //         venue: "The Loft"
+    //     },
+    //     {
+    //         id: 4,
+    //         eventImage: concertPhoto,
+    //         eventName: "Fun Event",
+    //         eventDescription: "Check out our fun event!",
+    //         date: "August 2, 2021",
+    //         beginningTime: " 9:00pm",
+    //         endTime: "1:00am",
+    //         location: "Atlanta, GA",
+    //         venue: "The Loft"
+    //     },
+    //     {
+    //         id: 5,
+    //         eventImage: concertPhoto,
+    //         eventName: "Fun Event",
+    //         eventDescription: "Check out our fun event!",
+    //         date: "August 2, 2021",
+    //         beginningTime: " 9:00pm",
+    //         endTime: "1:00am",
+    //         location: "Atlanta, GA",
+    //         venue: "The Loft"
+    //     },
+    //     {
+    //         id: 6,
+    //         eventImage: concertPhoto,
+    //         eventName: "Fun Event",
+    //         eventDescription: "Check out our fun event!",
+    //         date: "August 2, 2021",
+    //         beginningTime: " 9:00pm",
+    //         endTime: "1:00am",
+    //         location: "Atlanta, GA",
+    //         venue: "The Loft"
+    //     },
+    //     {
+    //         id: 7,
+    //         eventImage: concertPhoto,
+    //         eventName: "Fun Event",
+    //         eventDescription: "Check out our fun event!",
+    //         date: "August 2, 2021",
+    //         beginningTime: " 9:00pm",
+    //         endTime: "1:00am",
+    //         location: "Atlanta, GA",
+    //         venue: "The Loft"
+    //     },
+    //     {
+    //         id: 8,
+    //         eventImage: concertPhoto,
+    //         eventName: "Fun Event",
+    //         eventDescription: "Check out our fun event!",
+    //         date: "August 2, 2021",
+    //         beginningTime: " 9:00pm",
+    //         endTime: "1:00am",
+    //         location: "Atlanta, GA",
+    //         venue: "The Loft"
+    //     },
+    // ];
 
     return(
         <div className="home">
@@ -199,34 +231,29 @@ export default function Home( { user, isFetching, events, error }){
                 <h1 className="homePageTitle">Recommended Events</h1>
             )}
             <div className = "feed"> 
-                {/* {error ? <h2 className="error">{error}</h2> : null}
-                {isFetching ? <h2>Loading...</h2> : null}
-                {events?.map((event) => (
-                    <Event event={event} key={event.id} />
-                ))} */}
                 
                 {user?.email? (
                      topEventsBtnClicked ? (
-                            topEventsData.map((event) => (
+                            // topEventsData.map((event) => (
+                            //     <Event event={event} user={user} key={event.id} />
+                            // ))
+                            events.map((event) => (
                                 <Event event={event} user={user} key={event.id} />
                             ))
                         ) : (
                             //instead this will be a user's RECOMMENDED events
-                            recommendedEventsData.map((event) => (
+                            events.map((event) => (
                                 <Event event={event} user={user} key={event.id} />
                             ))
                         )
                 ) : (
                     <>
-                        {topEventsData.map((event) => (
+                        {events.map((event) => (
                             <Event event={event} user={user} key={event.id} />
                         ))}
                     </>
                 )}
 
-                {/* {topEventsData.map((event) => (
-                    <Event event={event} user={user} key={event.id} />
-                ))} */}
             </div>
         </div>
     )
