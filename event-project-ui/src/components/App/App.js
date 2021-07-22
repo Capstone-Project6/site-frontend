@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import {BrowserRouter, Routes, Route } from 'react-router-dom';
+import {BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 // import axios from 'axios';
 import apiClient from "../../services/apiClient"
 import Navbar from '../Navbar/Navbar';
@@ -18,6 +18,9 @@ function App() {
   const [error, setError] = useState(null)
   //This const determines if events are being fetched
   const [isFetching, setIsFetching] = useState(false)
+
+  // const [showSearch, setShowSearch] = useState(true)
+  
 
 
   useEffect(() => {

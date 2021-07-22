@@ -1,8 +1,15 @@
-import {Link} from 'react-router-dom'
+import {Link, useLocation} from 'react-router-dom'
 import './Navbar.css'
+import SearchBar from "material-ui-search-bar";
+import React from 'react'
 
 //added parameter
 export default function Navbar({ user, handleLogout }){
+    const [searchValue, setSearchValue] = React.useState("")
+    const location = useLocation()
+    const showSearch = location.pathname !== "/signup" && location.pathname !== "/login"
+    console.log(location)
+
     return(
         <nav className="navbar">
             <div class="navContent">
@@ -10,6 +17,19 @@ export default function Navbar({ user, handleLogout }){
                 <Link to="/">
                     <h1 className="siteLogo"> Site Name</h1>
                 </Link>
+                {/* <form id="search-form" autocomplete="off">
+         <input id="search-input" type="text" size="50" placeholder="Enter a category, event name, organizer name, etc." name="event-search"/>
+         <button class="search-button">Search Events</button>
+        </form> */}
+        {showSearch &&
+          <SearchBar
+          value={searchValue}
+          onChange={(newValue) => {setSearchValue(newValue)}}
+          onRequestSearch={() => {
+              console.log("enter")
+          }}
+  />
+        }
                 {/* the links to various pages */}
                 <ul className="navLinks">
                     {user?.email? ( 
