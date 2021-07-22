@@ -6,6 +6,7 @@ import Navbar from '../Navbar/Navbar';
 import Home from '../Home/Home';
 import Login from '../Login/Login';
 import Signup from '../SignUp/SignUp';
+import Create from '../createEvent/createEvent'
 import './App.css';
 
 function App() {
@@ -63,11 +64,12 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar user={user} setUser={setUser} handleLogout={handleLogout}/>
+        <Navbar user={user} setUser={setUser} handleLogout={handleLogout} />
         <Routes>
           <Route path="/" element={<Home user={user} error={error} events={events} isFetching={isFetching} />}></Route>
           <Route path="/login" element={<Login user={user} setUser={setUser} />}></Route>
           <Route path="/signup" element={<Signup user={user} setUser={setUser} />}></Route>
+          <Route path="/create" element={<Create/>}></Route>
         </Routes>
       </BrowserRouter>
     </div>

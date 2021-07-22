@@ -1,8 +1,8 @@
-import {Link} from 'react-router-dom'
+import {Link, Route} from 'react-router-dom'
 import './Navbar.css'
 
 //added parameter
-export default function Navbar({ user, handleLogout }){
+export default function Navbar({ user, handleLogout}){
     return(
         <nav className="navbar">
             <div class="navContent">
@@ -18,9 +18,14 @@ export default function Navbar({ user, handleLogout }){
                                 <span>{user.email}</span>
                             </li>
 
+                            <li className="makeEvent">
+                                <Link to="/create">Create Event</Link>
+                            </li>
+
                             <li>
                                 <span onClick={handleLogout}> Logout</span>
                             </li>
+                            
                         </>
                     ) : (
                         <>
@@ -30,6 +35,7 @@ export default function Navbar({ user, handleLogout }){
                             <li className="signUpLabel">
                                 <Link to="/signup">Sign Up</Link>
                             </li>
+
                         </>
                     )}
                 </ul>
