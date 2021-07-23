@@ -7,9 +7,9 @@ import Home from '../Home/Home';
 import Login from '../Login/Login';
 import Signup from '../SignUp/SignUp';
 import Interests from '../Interests/Interests';
+import Filter from '../Filter/Filter';
 import './App.css';
 import { useNavigate} from "react-router-dom";
-import Filter from '../Filter/Filter';
 
 
 function App() {
