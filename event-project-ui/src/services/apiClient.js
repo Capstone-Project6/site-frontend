@@ -68,6 +68,10 @@ class ApiClient {
     return await this.request({ endpoint: `auth/login`, method: `POST`, data: credentials })
   }
 
+  // async editProfile({ userId, profileUpdate}) {
+  //   return await this.request({ endpoint: `profile/${userId}`, method: `PATCH`, data: profileUpdate })
+  // }
+
   async logoutUser() {
     this.setToken(null)
     localStorage.setItem(this.tokenName, "")
