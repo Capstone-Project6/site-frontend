@@ -18,7 +18,7 @@ const useStyles = makeStyles({
         maxWidth: 345,
     },
     paddingRight: {
-        paddingRight: 5,
+        paddingRight: 30,
     },
 });
 
@@ -28,8 +28,6 @@ export default function Event( { event, user }) {
     console.log("Event", event)
     return (
         <div className="individualEvent">
-            {/* <h1> {event["Event Name"]} </h1> */}
-                {/* <h1> {event.event_name}</h1>  */}
                 <Card className={classes.root}>
                     <CardActionArea>
                         <CardMedia
@@ -37,36 +35,42 @@ export default function Event( { event, user }) {
                             alt={event["Event Name"]}
                             height="140"
                             title={event["Event Name"]}
-                            image={event.event_image}
+                            image={event["Event Image"]}
                         />
                         <CardContent>
                             <Typography gutterBottom variant="h5" component="h2">
                             {event["Event Name"]}
                             </Typography> 
-                            {/* <Grid container>
-                                <Grid item className={classes.paddingRight}>
-                                    <Typography variant="body2" color="textSecondary" component="p">
-                                        {event.date}
-                                    </Typography>
-                                </Grid>
-                                <Grid item>
-                                    <Typography variant="body2" color="textSecondary" component="p">
-                                        {event.beginningTime} - {event.endTime}
-                                    </Typography>
-                                </Grid>
-                            </Grid>
                             <Grid container>
                                 <Grid item className={classes.paddingRight}>
                                     <Typography variant="body2" color="textSecondary" component="p">
-                                        {event.location}
+                                        {event["Beginning Date"]}
                                     </Typography>
                                 </Grid>
                                 <Grid item>
                                     <Typography variant="body2" color="textSecondary" component="p">
-                                        {event.venue}
+                                        {event["Beginning Time"]} - {event["Ending Time"]}
+                                    </Typography>
+                                </Grid>
+                            </Grid>
+                            {/* <Grid container>
+                                <Grid item className={classes.paddingRight}>
+                                    <Typography variant="body2" color="textSecondary" component="p">
+                                        {event.City}, {event.State}
+                                    </Typography>
+                                </Grid>
+                                <Grid item>
+                                    <Typography variant="body2" color="textSecondary" component="p">
+                                        {event.Venue}
                                     </Typography>
                                 </Grid> 
                             </Grid>  */}
+                            <Typography variant="body2" color="textSecondary" component="p">
+                                {event.City}, {event.State}
+                            </Typography>
+                            <Typography variant="body2" color="textSecondary" component="p">
+                                {event.Venue}
+                            </Typography>
                         </CardContent>
                     </CardActionArea>
                     <CardActions>

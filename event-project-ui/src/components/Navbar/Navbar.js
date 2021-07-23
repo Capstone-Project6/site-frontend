@@ -1,7 +1,8 @@
-import {Link, useLocation} from 'react-router-dom'
-import './Navbar.css'
-import SearchBar from "material-ui-search-bar";
 import React from 'react'
+import {Link, useLocation} from 'react-router-dom'
+import profileIcon from "../../profileIcon.png"
+import SearchBar from "material-ui-search-bar";
+import './Navbar.css'
 
 //added parameter
 export default function Navbar({ user, handleLogout }){
@@ -37,12 +38,11 @@ export default function Navbar({ user, handleLogout }){
                             {/* <li>
                                 <span>{user.email}</span>
                             </li> */}
-                            {/* <li>
-                                <Link to="/eventgoerProfile"> 
-                                    <span> {user.first_name}</span>
-                                    <span> </span>
+                            <li>
+                                <Link className="profileButton" to="/eventgoerProfile"> 
+                                    <span className="profileButtonItem"> {user.email} <img className="profileIcon" src={profileIcon} alt="profile icon"/> </span>
                                 </Link>
-                            </li> */}
+                            </li>
 
                             <li className="logout">
                                 <span onClick={handleLogout}> Logout</span>

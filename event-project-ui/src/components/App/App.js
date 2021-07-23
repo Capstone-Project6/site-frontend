@@ -7,6 +7,7 @@ import Home from '../Home/Home';
 import Login from '../Login/Login';
 import Signup from '../SignUp/SignUp';
 import Interests from '../Interests/Interests';
+import EventgoerProfile from '../EventgoerProfile/EventgoerProfile';
 import './App.css';
 
 function App() {
@@ -18,6 +19,8 @@ function App() {
   const [error, setError] = useState(null)
   //This const determines if events are being fetched
   const [isFetching, setIsFetching] = useState(false)
+
+  // const [posts, setPosts] = useState([])
 
   
 
@@ -58,6 +61,19 @@ function App() {
       }
   }, [])
 
+
+  // const updatePost = ({ postId, postUpdate }) => {
+  //   setPosts((oldPosts) => {
+  //     return oldPosts.map((post) => {
+  //       if (post.id === Number(postId)) {
+  //         return { ...post, ...postUpdate }
+  //       }
+
+  //       return post
+  //     })
+  //   })
+  // }
+
   const handleLogout = async () => {
     await apiClient.logoutUser()
     setUser({})
@@ -66,8 +82,8 @@ function App() {
   
  console.log(events)
 
-  return (
-    <div className="App">
+ return (
+   <div className="App">
       <BrowserRouter>
         <Navbar user={user} setUser={setUser} handleLogout={handleLogout}/>
         <Routes>
@@ -75,6 +91,8 @@ function App() {
           <Route path="/login" element={<Login user={user} setUser={setUser} />}></Route>
           <Route path="/signup" element={<Signup user={user} setUser={setUser} />}></Route>
           <Route path="/interests" element={<Interests user={user} setUser={setUser} />}></Route>
+          {/* updatePost={updatePost} */}
+          <Route path="/eventgoerProfile" element={<EventgoerProfile user={user} />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
