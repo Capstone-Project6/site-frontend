@@ -17,6 +17,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import Event from '../Event/Event'
 
 const drawerWidth = 240;
 
@@ -77,8 +78,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PersistentDrawerLeft() {
-  const classes = useStyles();
+export default function Filter ({user, filteredEvents}){
+    const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -89,9 +90,9 @@ export default function PersistentDrawerLeft() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
-  return (
-    <div className={classes.root}>
+    return (
+        <div>
+            <div className={classes.root}>
       <CssBaseline />
         <Toolbar>
           <IconButton 
@@ -138,7 +139,9 @@ export default function PersistentDrawerLeft() {
       >
       </main>
     </div>
-  );
+    {filteredEvents.map((event) => (
+        <Event event={event} user={user} key={event.id} />
+    ))}
+    </div>
+    )
 }
-
-
