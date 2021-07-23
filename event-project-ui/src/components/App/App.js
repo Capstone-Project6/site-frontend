@@ -8,6 +8,9 @@ import Login from '../Login/Login';
 import Signup from '../SignUp/SignUp';
 import Interests from '../Interests/Interests';
 import './App.css';
+import { useNavigate} from "react-router-dom";
+import Filter from '../Filter/Filter';
+
 
 function App() {
   //This const holds the user information
@@ -19,8 +22,10 @@ function App() {
   //This const determines if events are being fetched
   const [isFetching, setIsFetching] = useState(false)
 
-  
+  const [filteredEvents, setFilteredEvents] = useState([])
 
+
+  
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -63,18 +68,20 @@ function App() {
     setUser({})
     setError(null)
   }
-  
- console.log(events)
+
+console.log(filteredEvents)  
+//  console.log(events)
 
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar user={user} setUser={setUser} handleLogout={handleLogout}/>
+        <Navbar user={user} setUser={setUser} handleLogout={handleLogout} setFilteredEvents={setFilteredEvents}/>
         <Routes>
           <Route path="/" element={<Home user={user} error={error} events={events} isFetching={isFetching} />}></Route>
           <Route path="/login" element={<Login user={user} setUser={setUser} />}></Route>
           <Route path="/signup" element={<Signup user={user} setUser={setUser} />}></Route>
           <Route path="/interests" element={<Interests user={user} setUser={setUser} />}></Route>
+          <Route path="/filter" element={<Filter user={user} setUser={setUser} filteredEvents={filteredEvents}/>}></Route>
         </Routes>
       </BrowserRouter>
     </div>

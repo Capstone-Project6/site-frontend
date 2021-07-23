@@ -2,10 +2,21 @@ import {Link, useLocation} from 'react-router-dom'
 import './Navbar.css'
 import SearchBar from "material-ui-search-bar";
 import React from 'react'
+import { useNavigate} from "react-router-dom";
+import Event from "../Event/Event"
+import { useState, useEffect } from 'react';
+import apiClient from "../../services/apiClient"
 
 //added parameter
-export default function Navbar({ user, handleLogout }){
-    const [searchValue, setSearchValue] = React.useState("")
+export default function Navbar({ user, handleLogout, setFilteredEvents }){
+    const [searchTerm, setSearchTerm] = useState("")
+  //This const will hold an event
+  const [events, setEvents] = useState([])
+  //This const handles errors
+  const [error, setError] = useState(null)
+  //This const determines if events are being fetched
+  const [isFetching, setIsFetching] = useState(false)
+    const navigate = useNavigate();
     const location = useLocation()
     const showSearch = location.pathname !== "/signup" && location.pathname !== "/login"
     console.log(location)
@@ -22,11 +33,13 @@ export default function Navbar({ user, handleLogout }){
          <button class="search-button">Search Events</button>
         </form> */}
         {showSearch &&
-          <SearchBar
-          value={searchValue}
-          onChange={(newValue) => {setSearchValue(newValue)}}
-          onRequestSearch={() => {
-              console.log("enter")
+          <SearchBar id="searchBar"
+          placeholder="Search Events"
+          value={searchTerm}
+          onChange={(newValue) => {setSearchTerm(newValue)}}
+           onRequestSearch= {async () => {          
+            navigate("/filter")
+            setFilteredEvents(await apiClient.searchEvents(searchTerm))
           }}
   />
         }
