@@ -9,3 +9,15 @@
     margin-left: 110px;
 
 }
+.venue {
+    position: relative;
+    top: 310px;
+    left: 110px;
+}
+
+.dateTime {
+    position:absolute;
+    top: 1000px;
+    left: 110px;
+
+}

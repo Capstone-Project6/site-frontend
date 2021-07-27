@@ -3,11 +3,13 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
 import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import TextField from '@material-ui/core/TextField';
+import { positions } from '@material-ui/system';
 import "./createEvent.css"
 
 //Add City and State
@@ -20,14 +22,53 @@ import {
 
 // This is for the category dropdown
 const useStyles = makeStyles((theme) => ({
+    /* For the Dropdown menu */
     formControl: {
       margin: theme.spacing(1),
       minWidth: 120,
+      top: 200,
+      right: 500,
+      
     },
+    /* For the Dropdown menu */
     selectEmpty: {
       marginTop: theme.spacing(2),
     },
+    /* For the text box */
+    root: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        width: '600px',
+        marginLeft:'220px',
+        
+    },
+    /* For the text box */
+    textField: {
+        marginLeft: theme.spacing(1),
+        marginRight: theme.spacing(1),
+        width: '40ch',
+      },
+      /* For the venue buttons */
+    margin: {
+        margin: theme.spacing(4),
+        left:220,
+        top: 100
+    },
+    venueText: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        width: '600px',
+        marginLeft:'220px',        
+    },
+    eventMargin: {
+        margin: theme.spacing(4),
+        left:60,
+        top: 580 
+    }
+
   }));
+
+ 
 
  
 
@@ -50,14 +91,53 @@ export default function CreateEvent() {
     <div className="createPage">
     <h1 className="Title">Let's Create an Event!</h1>
     <h2 className="basicInfo">Basic Info</h2>
+    <h2 className="venue">Location</h2>
+    <h2 className="dateTime">Date and Time</h2>
+    
     
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <Grid container justifyContent="space-around">
       
+      {/*Text input for user to fill out form of basic event info */}
+      <div className={classes.root}>
+        <TextField
+            id="outlined-full-width"
+            label="Event Name"
+            style={{ margin: 5 }}
+            placeholder="Event Name"
+            fullWidth
+            margin="normal"
+            InputLabelProps={{
+            shrink: true,
+            }}
+            variant="outlined"
+        />
+        <TextField
+            id="outlined-full-width"
+            label="Event Description"
+            style={{ margin: 5 }}
+            placeholder="Event Description"
+            fullWidth
+            margin="normal"
+            InputLabelProps={{
+            shrink: true,
+            }}
+            variant="outlined"
+        />
+        <TextField
+            id="outlined-full-width"
+            label="Event Organizer"
+            style={{ margin: 5 }}
+            placeholder="Event Organizer"
+            fullWidth
+            margin="normal"
+            InputLabelProps={{
+            shrink: true,
+            }}
+            variant="outlined"
+        />
+      </div>
       
-      <h3 className="eventName">Event Name</h3>
-      <h3 className="eventName">Event Organizer</h3>
-      <h3 className="eventDescription">Event Description</h3>
 
         {/* Event Category dropdown from Material UI*/}
       <FormControl variant="outlined" className={classes.formControl}>
@@ -78,6 +158,26 @@ export default function CreateEvent() {
           <MenuItem value={30}>Charity</MenuItem>
         </Select>
       </FormControl>
+
+        {/* Venue Type Buttons  */}
+        <Button variant="outlined" size="large" color="primary" className={classes.margin}>
+          Venue
+        </Button>   
+        <Button variant="outlined" size="large" color="primary" className={classes.margin}>
+          Online
+        </Button>   
+        <Button variant="outlined" size="large" color="primary" className={classes.margin}>
+          To Be Announced
+        </Button>  
+
+        {/* Buttons of how often this event would occur */}
+        <Button variant="outlined" size="large" color="primary" className={classes.eventMargin}>
+          Single Event 
+        </Button>   
+        <Button variant="outlined" size="large" color="primary" className={classes.eventMargin}>
+          Recurrent Event
+        </Button>  
+
 
    {/* Event Calendar and time from Material UI*/} 
         <KeyboardDatePicker
