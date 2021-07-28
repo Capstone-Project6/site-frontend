@@ -50,8 +50,8 @@ const useStyles = makeStyles((theme) => ({
       },
       /* For the venue buttons */
     margin: {
-        margin: theme.spacing(4),
-        left:220,
+        margin: theme.spacing(3),
+        left:200,
         top: 100
     },
     venueText: {
@@ -113,16 +113,12 @@ export default function CreateEvent() {
             variant="outlined"
         />
         <TextField
-            id="outlined-full-width"
-            label="Event Description"
-            style={{ margin: 5 }}
-            placeholder="Event Description"
-            fullWidth
-            margin="normal"
-            InputLabelProps={{
-            shrink: true,
-            }}
-            variant="outlined"
+          id="outlined-multiline-static"
+          label="description"
+          multiline
+          rows={4}
+          defaultValue="Description"
+          variant="outlined"
         />
         <TextField
             id="outlined-full-width"
