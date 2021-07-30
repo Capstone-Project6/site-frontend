@@ -8,7 +8,7 @@ import './Home.css'
 
 //the Home function takes in an object that is an array of events
 export default function Home( { user, isFetching, events, error }){
-    const[userLoggedIn, setUserLoggedIn] = useState(false);
+    // const[userLoggedIn, setUserLoggedIn] = useState(false);
     const [topEventsBtnClicked, setTopEventsBtnClicked] = useState(true);
     const[recommendedBtnClicked, setRecommendedBtnClicked] = useState(false);
     const [alignment, setAlignment] = useState('left');

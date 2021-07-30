@@ -3,8 +3,8 @@ import {Link, useLocation} from 'react-router-dom'
 import profileIcon from "../../profileIcon.png"
 import SearchBar from "material-ui-search-bar";
 import { useNavigate} from "react-router-dom";
-import Event from "../Event/Event"
-import { useState, useEffect } from 'react';
+// import Event from "../Event/Event"
+import { useState} from 'react';
 import apiClient from "../../services/apiClient"
 import './Navbar.css'
 
@@ -12,11 +12,11 @@ import './Navbar.css'
 export default function Navbar({ user, handleLogout, setFilteredEvents }){
     const [searchTerm, setSearchTerm] = useState("")
   //This const will hold an event
-  const [events, setEvents] = useState([])
+//   const [events, setEvents] = useState([])
   //This const handles errors
-  const [error, setError] = useState(null)
+//   const [error, setError] = useState(null)
   //This const determines if events are being fetched
-  const [isFetching, setIsFetching] = useState(false)
+//   const [isFetching, setIsFetching] = useState(false)
     const navigate = useNavigate();
     const location = useLocation()
     const showSearch = location.pathname !== "/signup" && location.pathname !== "/login"

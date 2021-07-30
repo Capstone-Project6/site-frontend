@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import {BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
 // import axios from 'axios';
 import apiClient from "../../services/apiClient"
 import Navbar from '../Navbar/Navbar';
@@ -10,7 +10,7 @@ import Interests from '../Interests/Interests';
 import EventgoerProfile from '../EventgoerProfile/EventgoerProfile';
 import Filter from '../Filter/Filter';
 import './App.css';
-import { useNavigate} from "react-router-dom";
+// import { useNavigate} from "react-router-dom";
 
 
 function App() {
@@ -24,9 +24,6 @@ function App() {
   const [isFetching, setIsFetching] = useState(false)
 
   const [filteredEvents, setFilteredEvents] = useState([])
-
-  // const [posts, setPosts] = useState([])
-
   
 
   
@@ -86,9 +83,6 @@ function App() {
     setError(null)
   }
 
-console.log(filteredEvents)  
-//  console.log(events)
-
  return (
    <div className="App">
       <BrowserRouter>
@@ -100,7 +94,7 @@ console.log(filteredEvents)
           <Route path="/interests" element={<Interests user={user} setUser={setUser} />}></Route>
           <Route path="/filter" element={<Filter user={user} setUser={setUser} filteredEvents={filteredEvents}/>}></Route>
           {/* updatePost={updatePost} */}
-          <Route path="/eventgoerProfile" element={<EventgoerProfile user={user} />}></Route>
+          <Route path="/eventgoerProfile" element={<EventgoerProfile user={user} setUser={setUser} />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
