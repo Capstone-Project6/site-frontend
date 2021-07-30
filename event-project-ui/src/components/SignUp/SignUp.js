@@ -24,7 +24,7 @@ export default function Signup({ user, setUser }){
         if (user?.email) {
           navigate("/")
         }
-    }, [user, navigate])
+    }, [])
     
     const handleOnInputChange = (event) => {
         if (event.target.name === "email") {
@@ -53,6 +53,7 @@ export default function Signup({ user, setUser }){
         if (data) {
             setUser(data.user)
             apiClient.setToken(data.token)
+            navigate("/interests");
         }
         if (error) {
             setErrors((e) => ({ ...e, form: error }))

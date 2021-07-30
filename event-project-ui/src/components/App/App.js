@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import {BrowserRouter, Routes, Route } from 'react-router-dom';
+import {BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 // import axios from 'axios';
 import apiClient from "../../services/apiClient"
 import Navbar from '../Navbar/Navbar';
@@ -7,7 +7,12 @@ import Home from '../Home/Home';
 import Login from '../Login/Login';
 import Signup from '../SignUp/SignUp';
 import Create from '../createEvent/createEvent'
+import Interests from '../Interests/interests';
+import EventgoerProfile from '../EventgoerProfile/EventgoerProfile';
+import Filter from '../Filter/Filter';
 import './App.css';
+import { useNavigate} from "react-router-dom";
+
 
 function App() {
   //This const holds the user information
@@ -19,14 +24,22 @@ function App() {
   //This const determines if events are being fetched
   const [isFetching, setIsFetching] = useState(false)
 
+  const [filteredEvents, setFilteredEvents] = useState([])
+
+  // const [posts, setPosts] = useState([])
+
+  
+
+  
 
   useEffect(() => {
     const fetchEvents = async () => {
       setIsFetching(true)
 
       const { data, error } = await apiClient.listEvents()
+      console.log("data", data)
       if (data) {
-        setEvents(data.events)
+        setEvents(data.feed)
       }
       if (error) {
         setError(error)
@@ -55,21 +68,41 @@ function App() {
       }
   }, [])
 
+
+  // const updatePost = ({ postId, postUpdate }) => {
+  //   setPosts((oldPosts) => {
+  //     return oldPosts.map((post) => {
+  //       if (post.id === Number(postId)) {
+  //         return { ...post, ...postUpdate }
+  //       }
+
+  //       return post
+  //     })
+  //   })
+  // }
+
   const handleLogout = async () => {
     await apiClient.logoutUser()
     setUser({})
     setError(null)
   }
-  
-  return (
-    <div className="App">
+
+console.log(filteredEvents)  
+//  console.log(events)
+
+ return (
+   <div className="App">
       <BrowserRouter>
-        <Navbar user={user} setUser={setUser} handleLogout={handleLogout} />
+        <Navbar user={user} setUser={setUser} handleLogout={handleLogout} setFilteredEvents={setFilteredEvents}/>
         <Routes>
           <Route path="/" element={<Home user={user} error={error} events={events} isFetching={isFetching} />}></Route>
           <Route path="/login" element={<Login user={user} setUser={setUser} />}></Route>
           <Route path="/signup" element={<Signup user={user} setUser={setUser} />}></Route>
           <Route path="/create" element={<Create/>}></Route>
+          <Route path="/interests" element={<Interests user={user} setUser={setUser} />}></Route>
+          <Route path="/filter" element={<Filter user={user} setUser={setUser} filteredEvents={filteredEvents}/>}></Route>
+          {/* updatePost={updatePost} */}
+          <Route path="/eventgoerProfile" element={<EventgoerProfile user={user} />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

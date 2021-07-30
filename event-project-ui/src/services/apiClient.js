@@ -42,6 +42,24 @@ class ApiClient {
     return await this.request({ endpoint: `events`, method: `GET` })
   }
 
+  async searchEvents(searchTerm) {
+    const eventData = await this.request({endpoint: `events`, method: `GET`})
+    console.log(eventData.data.feed)
+    const filteredEvents = 
+    eventData.data.feed.filter((val) => {
+      if (searchTerm === ""){
+      return false;
+    }
+    else if (val["Event Name"].toLowerCase().includes(searchTerm.toLowerCase())){
+      return true;
+    }
+    else{
+    return false;
+    }
+  })
+  return filteredEvents
+}
+
   async signupUser(credentials) {
     return await this.request({ endpoint: `auth/register`, method: `POST`, data: credentials })
   }
@@ -49,6 +67,10 @@ class ApiClient {
   async loginUser(credentials) {
     return await this.request({ endpoint: `auth/login`, method: `POST`, data: credentials })
   }
+
+  // async editProfile({ userId, profileUpdate}) {
+  //   return await this.request({ endpoint: `profile/${userId}`, method: `PATCH`, data: profileUpdate })
+  // }
 
   async logoutUser() {
     this.setToken(null)
