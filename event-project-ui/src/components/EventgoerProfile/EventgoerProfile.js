@@ -1,5 +1,6 @@
 import {useState, useEffect } from "react"
 // import {Link} from 'react-router-dom'
+import axios from 'axios';
 import apiClient from "../../services/apiClient"
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -29,7 +30,7 @@ const useStyles = makeStyles({
         alignItems: "center"
     },
     profileHeaderContent: {
-        margin: "auto",
+        // margin: "auto",
         width: "40%",
     },
     avatar: {
@@ -58,51 +59,25 @@ const useStyles = makeStyles({
     },
     editButton: {
         height: 25,
-        borderRadius: 20,
     },
     buttonAndDialog: {
         width: 200,
     },
     editBox: {
-        position: "absolute",
-        width: 200,
-        marginRight: "75%",
-        marginBottom: "15%",
+        width: 150,
+        height: 40,
+        background:"grey",
+        color:"white",
     }
 });
 
-// //This function is fetching the current user's profile
-// const fetchUserProfile = async({ userId, setIsFetching, setError, setUser, setprofilePicture, setCity, setState}) => {
-//     setIsFetching(true)
-
-//     //the user's data is fetching using the auth/me endpoint
-//     const{ data, error } = await apiClient.fetchUserFromToken()
-
-//     if(data) {
-//         //The user's data is set using setUser (imported from app.js)
-//         setUser(data.user)
-//         //current profile picture is set
-//         setprofilePicture(data.user.profile_picture)
-//         //current city is set
-//         setCity(data.user.city)
-//         //current state is set
-//         setState(data.user.state)
-//     }
-//     if(error) {
-//         setError(error)
-//     }
-
-//     setIsFetching(false)
-// }
-
 export default function EventgoerProfile({ user, setUser }){
-    //!!! (not sure how to get the user's id)
     //this is the current user's id
     const userId = user.id
     const [error, setError] = useState(null)
     const [isUpdating, setIsUpdating] = useState(false)
     const [isFetching, setIsFetching] = useState(false)
-    // const [profilePicture, setprofilePicture] = useState("")
+    // const [profile_picture, setprofilePicture] = useState("")
     // const [city, setCity] = useState("")
     // const [state, setState] = useState("")
     const [open, setOpen] = useState(false);
@@ -112,59 +87,103 @@ export default function EventgoerProfile({ user, setUser }){
         state: "",
     })
 
-    const classes = useStyles();
+    //CLOUDINARY CONFIGURATION:
+    //The image to be uploaded
+    const [image, setImage] = useState("");
+    //The link to be uploaded to cloudinary
+    const [ url, setUrl ] = useState("");
 
-    //the useEffect calls the fetchUserProfile function and uses the above const as parameters
-    // useEffect(() => {
-    //     fetchUserProfile({ userId, setIsFetching, setError, setUser, setprofilePicture, setCity, setState})
-    // }, [userId, setUser])
-    //!!! (not usre how to correctly set up the useEffect)
-    //, [userId, setUser])
+    const uploadImage = () => {
+        //data holds key/value pairs 
+        const data = new FormData();
+        data.append("file", image);
+        console.log("UPLOADED IMAGE", image)
+        //The upload preset defines the default behavior for uploads
+        data.append("upload_preset", "profilePic");
+        //cloudinary dashboard account
+        data.append("cloud_name","sitegroup6");
+
+        fetch("  https://api.cloudinary.com/v1_1/sitegroup6/image/upload",{
+            method:"post",
+            body: data
+        })
+            .then(resp => resp.json())
+            .then(data => {
+                setUrl(data.url)
+                console.log("PROFILE PICTURE DATA", profileUpdate.profile_picture)
+                console.log("Response data from Cloudinary", data)
+            })
+            .catch(err => setError(err))
+    };
+
+    useEffect(() => {    
+        setProfileUpdate(profileUpdate => ({...profileUpdate, profile_picture: url}))
+    }, [url])
+        
+    console.log("UPLOADED IMAGE LINK", url)
 
     const handleOnInputChange = (event) => {
         setProfileUpdate((u) => ({ ...u, [event.target.name]: event.target.value }))
     }
-
+    
     //This function is run after the "submit" button is clicked on the pop-up
     const handleOnUpdate = async () => {
         setIsUpdating(true)
         setError((e) => ({ ...e, profileUpdate: null }))
-        // console.log("user", user)
+
         const { data, error } = await apiClient.editProfile({ profileUpdate, userId })
-
-        // console.log("DATA FROM editProfile(): ", data)
-        // console.log("profileUpdate:", profileUpdate)
-        // console.log("Current user id", userId)
-
-        const updatedUser = await apiClient.fetchUserFromToken()
-        console.log(updatedUser)
+        console.log("Profile Update", profileUpdate)
+        // console.log("data from editProfile", data)
+        // const updatedUser = await apiClient.fetchUserFromToken()
+        // console.log("Updated User", updatedUser)
         // const { updatedUser } = await apiClient.fetchUserFromToken()
         if (data) {
-        // setUser(updatedUser.user)
-          setUser(updatedUser.data.user)
+            // setUser(updatedUser.user)
+            // setUser(updatedUser.data.user)
+            setUser(data => ({...data, city: profileUpdate.city, state: profileUpdate.state, profile_picture: profileUpdate.profile_picture}))
         }
         if (error) {
-          setError(error)
+            setError(error)
         }
-    
+        
         setIsUpdating(false)
     }
+    
+    // console.log("User", user)
 
     const handleClickOpen = () => {
         setOpen(true);
-      };
+    };
     
-      const handleClose = () => {
+    const handleClose = () => {
         setOpen(false);
-      };
+    };
     
-
+    const classes = useStyles();
+    
     return (
         <div className="eventgoerProfile">
             <Grid container className={classes.header}>
-                <Box className={classes.editBox}>
+                <Grid container item className={classes.profileHeaderContent}>
+                    <Grid container item className={classes.avatarContainer}>
+                        <Avatar alt="profile picture" src={user.profile_picture} className={classes.avatar} />
+                    </Grid>
+                    <Grid container item className={classes.profileHeaderInfo}>
+                        <Typography variant="h5" align="center" component="h1">
+                           {user.first_name} {user.last_name}
+                        </Typography> 
+                        <Typography variant="h6" color="textSecondary" align="center" component="h2">
+                            From {user.city}, {user.state}
+                        </Typography>
+                        <Typography variant="h6" color="textSecondary" align="center" component="h2">
+                            Following
+                        </Typography>
+                    </Grid>
+                </Grid>
+                <Grid className={classes.editBox}>
                     {/* below is the pop up button */}
-                    <Button variant="outlined" color="primary" className={classes.editButton} onClick={handleClickOpen}>
+                    {/* variant="outlined */}
+                    <Button className={classes.editButton} onClick={handleClickOpen}>
                         Edit Profile <EditIcon/>
                     </Button>
                     {/* <EditIcon/> */}
@@ -179,19 +198,9 @@ export default function EventgoerProfile({ user, setUser }){
                                 margin="dense"
                                 id="name"
                                 type="file"
+                                onChange={(e)=> setImage(e.target.files[0])}
                                 InputProps={{ disableUnderline: true }}
                                 fullWidth
-                            />
-                            <TextField
-                                autoFocus
-                                margin="dense"
-                                id="name"
-                                label="Profile Picture"
-                                type="text"
-                                fullWidth
-                                value={profileUpdate.profile_picture} 
-                                onChange={handleOnInputChange}
-                                name="profile_picture"
                             />
                             <TextField
                                 autoFocus
@@ -220,27 +229,11 @@ export default function EventgoerProfile({ user, setUser }){
                             <Button onClick={handleClose} color="primary">
                                 Cancel
                             </Button>
-                            <Button onClick={() => { handleOnUpdate(); handleClose();}} color="primary">
+                            <Button onClick={() => {uploadImage(); handleOnUpdate(); handleClose();}} color="primary">
                                 Submit
                             </Button>
                         </DialogActions>
                     </Dialog>
-                </Box>
-                <Grid container item className={classes.profileHeaderContent}>
-                    <Grid container item className={classes.avatarContainer}>
-                        <Avatar alt="profile picture" src={user.profile_picture} className={classes.avatar} />
-                    </Grid>
-                    <Grid container item className={classes.profileHeaderInfo}>
-                        <Typography variant="h5" align="center" component="h1">
-                           {user.first_name} {user.last_name}
-                        </Typography> 
-                        <Typography variant="h6" color="textSecondary" align="center" component="h2">
-                            From {user.city}, {user.state}
-                        </Typography>
-                        <Typography variant="h6" color="textSecondary" align="center" component="h2">
-                            Following
-                        </Typography>
-                    </Grid>
                 </Grid>
             </Grid>
             <Grid container className={classes.profileTitles} >
