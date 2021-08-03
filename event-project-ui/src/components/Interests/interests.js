@@ -13,6 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { blue } from '@material-ui/core/colors';
 import { CenterFocusStrong } from '@material-ui/icons';
 import { flexbox } from '@material-ui/system';
+import { useNavigate, Link } from "react-router-dom";
 
 const useStyles = makeStyles({
     root: {
@@ -22,52 +23,41 @@ const useStyles = makeStyles({
       padding: '0 30px',
       marginTop: 30,
       justifyContent: "center",
+      alignItems: "center"
 
     },
   });
 
-export default function Interests( { user, isFetching, events, error }){
+export default function Interests( { user, isFetching, interests, error }){
     const classes = useStyles();
     const [alignment, setAlignment] = useState('left');
+    const navigate = useNavigate();
+    const [isProcessing, setIsProcessing] = useState(false);
+    const [errors, setErrors] = useState({});
 
     const handleAlignment = (event, newAlignment) => {
         setAlignment(newAlignment);
     };
+    console.log("interests", interests)
 
-    const interestsCategories = [
-        { 
-            id: 1,
-            eventImage: Sports,
-        },
-        {
-            id: 2,
-            eventImage: Music,
-        },
-        {
-            id: 3,
-            eventImage: Food,
-        },
-        {
-            id: 4,
-            eventImage: Charity,
-        },
 
-    ];
+    const handleOnSubmit = async () => {
+        navigate("/");
+    }
 
     return (
         <div>
             <h1 className="Header">What are your Interests?</h1>
             
                                <>
-                               
                                <div className="interests">
                                    
-                        {interestsCategories.map((interests) => (
-                            <InterestsCard event={interests} user={user} key={interests.id} />
+                        {interests.map((interests) => (
+                            <InterestsCard interest={interests} user={user} key={interests.id} />
                         ))}
                         </div>
                     </>
-                    <Button className={classes.root}>Submit</Button>
+                    <Button className={classes.root} onClick={handleOnSubmit}>Submit</Button>
 
         </div>
     )

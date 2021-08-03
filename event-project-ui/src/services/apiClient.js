@@ -60,6 +60,10 @@ class ApiClient {
   return filteredEvents
 }
 
+async recommendEvents() {
+    return await this.request({endpoint: `events/recommended`, method: `GET`})
+}
+
   async signupUser(credentials) {
     return await this.request({ endpoint: `auth/register`, method: `POST`, data: credentials })
   }
@@ -71,12 +75,21 @@ class ApiClient {
   // async editProfile({ userId, profileUpdate}) {
   //   return await this.request({ endpoint: `profile/${userId}`, method: `PATCH`, data: profileUpdate })
   // }
+  
+  async addFavorite() {
+    return await this.request({ endpoint: `events/favorites`, method: `POST`})
+  }
+
+  async getCategories() {
+    return await this.request({ endpoint: `events/categories`, method: `GET`})
+  }
 
   async logoutUser() {
     this.setToken(null)
     localStorage.setItem(this.tokenName, "")
   }
 }
+
 
 //CHANGED TO LOCAL HOST AT 3000
 const API = new ApiClient(process.env.REACT_APP_REMOTE_HOST_URL || "http://localhost:3001")
