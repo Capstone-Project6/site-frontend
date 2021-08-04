@@ -77,10 +77,9 @@ export default function EventgoerProfile({ user, setUser }){
     const [error, setError] = useState(null)
     const [isUpdating, setIsUpdating] = useState(false)
     const [isFetching, setIsFetching] = useState(false)
-    // const [profile_picture, setprofilePicture] = useState("")
-    // const [city, setCity] = useState("")
-    // const [state, setState] = useState("")
     const [open, setOpen] = useState(false);
+
+    //This profile update is being sent to the endpoint that is reached by the editProfile function
     const[profileUpdate, setProfileUpdate] = useState({
         profile_picture: "",
         city: "",
@@ -97,33 +96,48 @@ export default function EventgoerProfile({ user, setUser }){
         //data holds key/value pairs 
         const data = new FormData();
         data.append("file", image);
+
+        //IMAGE IS CORRECTLY SUBMITTED
         console.log("UPLOADED IMAGE", image)
+
         //The upload preset defines the default behavior for uploads
         data.append("upload_preset", "profilePic");
         //cloudinary dashboard account
         data.append("cloud_name","sitegroup6");
 
-        fetch("  https://api.cloudinary.com/v1_1/sitegroup6/image/upload",{
-            method:"post",
-            body: data
-        })
+        // fetch("  https://api.cloudinary.com/v1_1/sitegroup6/image/upload",{
+        //     method:"post",
+        //     body: data
+        // })
+
+        const options = {
+            method: "POST",
+            body: data,
+        };
+
+        return fetch(
+            "https://api.cloudinary.com/v1_1/sitegroup6/image/upload",
+            options
+        )
             .then(resp => resp.json())
             .then(data => {
                 setUrl(data.url)
-                console.log("PROFILE PICTURE DATA", profileUpdate.profile_picture)
-                console.log("Response data from Cloudinary", data)
+                // console.log("PROFILE PICTURE DATA", profileUpdate.profile_picture)
+                // console.log("Response data from Cloudinary", data)
             })
             .catch(err => setError(err))
     };
 
+    console.log(url)
     useEffect(() => {    
-        setProfileUpdate(profileUpdate => ({...profileUpdate, profile_picture: url}))
+        setUser(profileUpdate => ({...profileUpdate, profile_picture: url}))
     }, [url])
         
-    console.log("UPLOADED IMAGE LINK", url)
+    // console.log("UPLOADED IMAGE LINK", url)
 
     const handleOnInputChange = (event) => {
         setProfileUpdate((u) => ({ ...u, [event.target.name]: event.target.value }))
+        console.log("Profile Pic uploaded", profileUpdate.profile_picture)
     }
     
     //This function is run after the "submit" button is clicked on the pop-up
@@ -132,7 +146,7 @@ export default function EventgoerProfile({ user, setUser }){
         setError((e) => ({ ...e, profileUpdate: null }))
 
         const { data, error } = await apiClient.editProfile({ profileUpdate, userId })
-        console.log("Profile Update", profileUpdate)
+        // console.log("Profile Update", profileUpdate)
         // console.log("data from editProfile", data)
         // const updatedUser = await apiClient.fetchUserFromToken()
         // console.log("Updated User", updatedUser)
@@ -140,7 +154,7 @@ export default function EventgoerProfile({ user, setUser }){
         if (data) {
             // setUser(updatedUser.user)
             // setUser(updatedUser.data.user)
-            setUser(data => ({...data, city: profileUpdate.city, state: profileUpdate.state, profile_picture: profileUpdate.profile_picture}))
+            setUser(data => ({...data, city: profileUpdate.city, state: profileUpdate.state, profile_picture: url}))
         }
         if (error) {
             setError(error)
@@ -149,7 +163,7 @@ export default function EventgoerProfile({ user, setUser }){
         setIsUpdating(false)
     }
     
-    // console.log("User", user)
+    console.log("User", user)
 
     const handleClickOpen = () => {
         setOpen(true);
