@@ -6,7 +6,7 @@ import Navbar from '../Navbar/Navbar';
 import Home from '../Home/Home';
 import Login from '../Login/Login';
 import Signup from '../SignUp/SignUp';
-import Interests from '../Interests/Interests';
+import Interests from '../Interests/interests';
 import EventgoerProfile from '../EventgoerProfile/EventgoerProfile';
 import Filter from '../Filter/Filter';
 import './App.css';
