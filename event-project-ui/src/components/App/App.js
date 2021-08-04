@@ -24,9 +24,33 @@ function App() {
   const [isFetching, setIsFetching] = useState(false)
 
   const [filteredEvents, setFilteredEvents] = useState([])
-  
+
+  const [interests, setInterests] = useState([])
+
+  // const [posts, setPosts] = useState([])
 
   
+
+  useEffect(() => {
+    const fetchInterests = async () => {
+      setIsFetching(true)
+
+      const { data, error } = await apiClient.getCategories()
+      console.log("category data", data)
+      if (data) {
+        setInterests(data.categories)
+      }
+      if (error) {
+        setError(error)
+      }
+
+      setIsFetching(false)
+    }
+
+    fetchInterests()
+  }, [])
+
+
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -51,9 +75,12 @@ function App() {
     //The user is being fetched using the api token and the apiClient file
     const fetchUser = async () => {
       //fetchUserFromToken() returns the user (by using auth/me)
-      const { data } = await apiClient.fetchUserFromToken()
+      const { data, error } = await apiClient.fetchUserFromToken()
       if (data) {
         setUser(data.user)
+      }
+      if (error){
+        setError(error)
       }
     }
 
@@ -91,7 +118,7 @@ function App() {
           <Route path="/" element={<Home user={user} error={error} events={events} isFetching={isFetching} />}></Route>
           <Route path="/login" element={<Login user={user} setUser={setUser} />}></Route>
           <Route path="/signup" element={<Signup user={user} setUser={setUser} />}></Route>
-          <Route path="/interests" element={<Interests user={user} setUser={setUser} />}></Route>
+          <Route path="/interests" element={<Interests user={user} interests={interests} setUser={setUser} />}></Route>
           <Route path="/filter" element={<Filter user={user} setUser={setUser} filteredEvents={filteredEvents}/>}></Route>
           {/* updatePost={updatePost} */}
           <Route path="/eventgoerProfile" element={<EventgoerProfile user={user} setUser={setUser} />}></Route>
