@@ -29,16 +29,12 @@ export default function InterestsCard( { interest, user }) {
     const handleFormat = (event, newFormats) => {
       setFormats(newFormats);
     };
-
-    const handleOnClick = async () => {
-        await apiClient.addFavorite()
-    }
     
     return (
 
         <div className="InterestsCard">
             <ToggleButtonGroup className={classes.root} value={formats} onChange={handleFormat} aria-label="text formatting">
-                <ToggleButton value="clicked" onClick={handleOnClick}>
+                <ToggleButton value="clicked">
                 <Card>
                     <CardActionArea>
                         <CardMedia
