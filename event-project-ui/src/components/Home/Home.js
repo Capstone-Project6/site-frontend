@@ -8,13 +8,8 @@ import './Home.css'
 import apiClient from "../../services/apiClient"
 
 //the Home function takes in an object that is an array of events
-<<<<<<< HEAD
-export default function Home( { user, isFetching, events, error }){
-    // const[userLoggedIn, setUserLoggedIn] = useState(false);
-=======
 export default function Home( { user, isFetching, events, error, setError}){
     const[userLoggedIn, setUserLoggedIn] = useState(false);
->>>>>>> interests
     const [topEventsBtnClicked, setTopEventsBtnClicked] = useState(true);
     const[recommendedBtnClicked, setRecommendedBtnClicked] = useState(false);
     const [alignment, setAlignment] = useState('left');

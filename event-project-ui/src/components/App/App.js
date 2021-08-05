@@ -111,12 +111,9 @@ function App() {
     setError(null)
   }
 
-<<<<<<< HEAD
-=======
 // console.log(filteredEvents)  
 //  console.log(events)
 
->>>>>>> interests
  return (
    <div className="App">
       <BrowserRouter>

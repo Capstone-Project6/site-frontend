@@ -77,14 +77,7 @@ async recommendEvents(userId) {
   // async editProfile({ userId, profileUpdate}) {
   //   return await this.request({ endpoint: `profile/${userId}`, method: `PATCH`, data: profileUpdate })
   // }
-<<<<<<< HEAD
 }
-=======
-  
-  async addFavorite(favorites, userId) {
-    return await this.request({ endpoint: `events/${userId}/favorites`, method: `POST`, data: favorites})
-  }
->>>>>>> interests
 
 async addFavorite() {
   return await this.request({ endpoint: `events/favorites`, method: `POST`})
