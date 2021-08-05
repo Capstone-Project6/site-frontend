@@ -14,6 +14,7 @@ import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import { blue } from '@material-ui/core/colors';
 import apiClient from "../../services/apiClient"
+import Interests from './interests';
 
 const useStyles = makeStyles({
     root: {
@@ -29,12 +30,22 @@ export default function InterestsCard( { interest, user }) {
     const handleFormat = (event, newFormats) => {
       setFormats(newFormats);
     };
+
+    const favorites = {
+        "categories_id": interest.category_id,
+        "categories_name": interest.category_name
+    }
+    
+
+    const handleOnClick = async () => {
+        await apiClient.addFavorite(favorites, user.id)
+    }
     
     return (
 
         <div className="InterestsCard">
             <ToggleButtonGroup className={classes.root} value={formats} onChange={handleFormat} aria-label="text formatting">
-                <ToggleButton value="clicked">
+                <ToggleButton value="clicked" onClick={handleOnClick}>
                 <Card>
                     <CardActionArea>
                         <CardMedia

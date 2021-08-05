@@ -25,7 +25,7 @@ const useStyles = makeStyles({
 //add this param: { event }
 export default function Event( { event, user }) {
     const classes = useStyles();
-    console.log("Event", event)
+    // console.log("Event", event)
     return (
         <div className="individualEvent">
                 <Card className={classes.root}>

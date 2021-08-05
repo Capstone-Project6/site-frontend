@@ -5,6 +5,7 @@ import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 // import { Link } from "react-router-dom"
 import Event from '../Event/Event'
 import './Home.css'
+import apiClient from "../../services/apiClient"
 
 //the Home function takes in an object that is an array of events
 export default function Home( { user, isFetching, events, error }){
@@ -16,6 +17,9 @@ export default function Home( { user, isFetching, events, error }){
     const handleAlignment = (event, newAlignment) => {
         setAlignment(newAlignment);
     };
+    const handleRecommended = async () => {
+        await apiClient.recommendEvents(user.id)
+    }
 
 
     return(
@@ -30,7 +34,7 @@ export default function Home( { user, isFetching, events, error }){
                 <ToggleButton onClick={() => {setTopEventsBtnClicked(true); setRecommendedBtnClicked(false); }} value="left" aria-label="left aligned">
                     Top Events
                 </ToggleButton>
-                <ToggleButton onClick={() => {setRecommendedBtnClicked(true); setTopEventsBtnClicked(false);}} value="right" aria-label="right aligned">
+                <ToggleButton onClick={() => {setRecommendedBtnClicked(true); setTopEventsBtnClicked(false); handleRecommended()}} value="right" aria-label="right aligned">
                     Recommended Events
                 </ToggleButton>
             </ToggleButtonGroup>
