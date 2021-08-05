@@ -8,18 +8,27 @@ import './Home.css'
 import apiClient from "../../services/apiClient"
 
 //the Home function takes in an object that is an array of events
-export default function Home( { user, isFetching, events, error }){
+export default function Home( { user, isFetching, events, error, setError}){
     const[userLoggedIn, setUserLoggedIn] = useState(false);
     const [topEventsBtnClicked, setTopEventsBtnClicked] = useState(true);
     const[recommendedBtnClicked, setRecommendedBtnClicked] = useState(false);
     const [alignment, setAlignment] = useState('left');
+    const [recommended, setRecommended] = useState([])
+
 
     const handleAlignment = (event, newAlignment) => {
         setAlignment(newAlignment);
     };
     const handleRecommended = async () => {
-        await apiClient.recommendEvents(user.id)
-    }
+              const { data, error } = await apiClient.recommendEvents(user.id)
+              if (data) {
+                  console.log(data)
+                setRecommended(data.recommendations)
+              }
+              if (error) {
+                setError(error)
+              }
+            }
 
 
     return(
@@ -59,7 +68,7 @@ export default function Home( { user, isFetching, events, error }){
                             ))
                         ) : (
                             //instead this will be a user's RECOMMENDED events
-                            events.map((event) => (
+                            recommended.map((event) => (
                                 <Event event={event} user={user} key={event.id} />
                             ))
                         )

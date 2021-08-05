@@ -119,7 +119,7 @@ function App() {
       <BrowserRouter>
         <Navbar user={user} setUser={setUser} handleLogout={handleLogout} setFilteredEvents={setFilteredEvents}/>
         <Routes>
-          <Route path="/" element={<Home user={user} error={error} events={events} isFetching={isFetching} />}></Route>
+          <Route path="/" element={<Home user={user} error={error} setError={setError} events={events} isFetching={isFetching} />}></Route>
           <Route path="/login" element={<Login user={user} setUser={setUser} />}></Route>
           <Route path="/signup" element={<Signup user={user} setUser={setUser} />}></Route>
           <Route path="/interests" element={<Interests user={user} interests={interests} setUser={setUser} />}></Route>
