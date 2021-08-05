@@ -36,7 +36,7 @@ function App() {
       setIsFetching(true)
 
       const { data, error } = await apiClient.getCategories()
-      console.log("category data", data)
+      // console.log("category data", data)
       if (data) {
         setInterests(data.categories)
       }
@@ -57,7 +57,7 @@ function App() {
       setIsFetching(true)
 
       const { data, error } = await apiClient.listEvents()
-      console.log("data", data)
+      // console.log("data", data)
       if (data) {
         setEvents(data.feed)
       }
@@ -77,6 +77,7 @@ function App() {
       //fetchUserFromToken() returns the user (by using auth/me)
       const { data, error } = await apiClient.fetchUserFromToken()
       if (data) {
+        console.log(data.user)
         setUser(data.user)
       }
       if (error){
@@ -110,12 +111,18 @@ function App() {
     setError(null)
   }
 
+<<<<<<< HEAD
+=======
+// console.log(filteredEvents)  
+//  console.log(events)
+
+>>>>>>> interests
  return (
    <div className="App">
       <BrowserRouter>
         <Navbar user={user} setUser={setUser} handleLogout={handleLogout} setFilteredEvents={setFilteredEvents}/>
         <Routes>
-          <Route path="/" element={<Home user={user} error={error} events={events} isFetching={isFetching} />}></Route>
+          <Route path="/" element={<Home user={user} error={error} setError={setError} events={events} isFetching={isFetching} />}></Route>
           <Route path="/login" element={<Login user={user} setUser={setUser} />}></Route>
           <Route path="/signup" element={<Signup user={user} setUser={setUser} />}></Route>
           <Route path="/interests" element={<Interests user={user} interests={interests} setUser={setUser} />}></Route>

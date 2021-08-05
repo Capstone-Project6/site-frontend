@@ -60,8 +60,8 @@ class ApiClient {
   return filteredEvents
 }
 
-async recommendEvents() {
-    return await this.request({endpoint: `events/recommended`, method: `GET`})
+async recommendEvents(userId) {
+    return await this.request({endpoint: `events/${userId}/recommended`, method: `GET`})
 }
 
   async signupUser(credentials) {
@@ -77,7 +77,14 @@ async recommendEvents() {
   // async editProfile({ userId, profileUpdate}) {
   //   return await this.request({ endpoint: `profile/${userId}`, method: `PATCH`, data: profileUpdate })
   // }
+<<<<<<< HEAD
 }
+=======
+  
+  async addFavorite(favorites, userId) {
+    return await this.request({ endpoint: `events/${userId}/favorites`, method: `POST`, data: favorites})
+  }
+>>>>>>> interests
 
 async addFavorite() {
   return await this.request({ endpoint: `events/favorites`, method: `POST`})

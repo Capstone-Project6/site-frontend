@@ -5,17 +5,35 @@ import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 // import { Link } from "react-router-dom"
 import Event from '../Event/Event'
 import './Home.css'
+import apiClient from "../../services/apiClient"
 
 //the Home function takes in an object that is an array of events
+<<<<<<< HEAD
 export default function Home( { user, isFetching, events, error }){
     // const[userLoggedIn, setUserLoggedIn] = useState(false);
+=======
+export default function Home( { user, isFetching, events, error, setError}){
+    const[userLoggedIn, setUserLoggedIn] = useState(false);
+>>>>>>> interests
     const [topEventsBtnClicked, setTopEventsBtnClicked] = useState(true);
     const[recommendedBtnClicked, setRecommendedBtnClicked] = useState(false);
     const [alignment, setAlignment] = useState('left');
+    const [recommended, setRecommended] = useState([])
+
 
     const handleAlignment = (event, newAlignment) => {
         setAlignment(newAlignment);
     };
+    const handleRecommended = async () => {
+              const { data, error } = await apiClient.recommendEvents(user.id)
+              if (data) {
+                  console.log(data)
+                setRecommended(data.recommendations)
+              }
+              if (error) {
+                setError(error)
+              }
+            }
 
 
     return(
@@ -30,7 +48,7 @@ export default function Home( { user, isFetching, events, error }){
                 <ToggleButton onClick={() => {setTopEventsBtnClicked(true); setRecommendedBtnClicked(false); }} value="left" aria-label="left aligned">
                     Top Events
                 </ToggleButton>
-                <ToggleButton onClick={() => {setRecommendedBtnClicked(true); setTopEventsBtnClicked(false);}} value="right" aria-label="right aligned">
+                <ToggleButton onClick={() => {setRecommendedBtnClicked(true); setTopEventsBtnClicked(false); handleRecommended()}} value="right" aria-label="right aligned">
                     Recommended Events
                 </ToggleButton>
             </ToggleButtonGroup>
@@ -55,7 +73,7 @@ export default function Home( { user, isFetching, events, error }){
                             ))
                         ) : (
                             //instead this will be a user's RECOMMENDED events
-                            events.map((event) => (
+                            recommended.map((event) => (
                                 <Event event={event} user={user} key={event.id} />
                             ))
                         )
