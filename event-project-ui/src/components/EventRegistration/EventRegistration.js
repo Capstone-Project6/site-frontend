@@ -37,7 +37,9 @@ export default function EventRegistration({user}){
 
     const useStyles = makeStyles({
         eventRegistrationContent : {
-            
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-around"
         }
     });
     

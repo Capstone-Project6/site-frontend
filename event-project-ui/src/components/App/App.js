@@ -123,7 +123,8 @@ function App() {
           <Route path="/filter" element={<Filter user={user} setUser={setUser} filteredEvents={filteredEvents}/>}></Route>
           {/* updatePost={updatePost} */}
           <Route path="/eventgoerProfile" element={<EventgoerProfile user={user} setUser={setUser} />}></Route>
-          <Route path="/eventRegistration/:id" element={<EventRegistration user={user} />} />
+          {/* "/eventRegistration/:id" */}
+          <Route path="/eventRegistration" element={<EventRegistration user={user} />} />
         </Routes>
       </BrowserRouter>
     </div>
