@@ -53,7 +53,11 @@ export default function InterestsCard( { interest, user }) {
                             alt="Contemplative Reptile"
                             height="275"
                             image={interest.category_image}
+                            name={interest.category_name}
                         />
+                                            <Typography variant="h5" component="h5">
+            {interest.category_name}
+          </Typography>
                     </CardActionArea>
                 </Card>
                 </ToggleButton>

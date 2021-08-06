@@ -41,6 +41,7 @@ export default function Navbar({ user, handleLogout, setFilteredEvents }){
            onRequestSearch= {async () => {          
             navigate("/filter")
             setFilteredEvents(await apiClient.searchEvents(searchTerm))
+            setSearchTerm("")
           }}
   />
         }
