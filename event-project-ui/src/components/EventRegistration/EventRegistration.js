@@ -4,7 +4,10 @@ import { useParams } from "react-router-dom"
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
 import CardActionArea from '@material-ui/core/CardActionArea';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import CardMedia from '@material-ui/core/CardMedia';
 import { spacing, typography } from '@material-ui/system';
 import { makeStyles } from '@material-ui/core/styles';
@@ -53,7 +56,6 @@ export default function EventRegistration({user}){
             justifyContent: "space-between"
         },
         registrationForm: {
-            background: "#C4C4C4",
             margin: 40
         },
         eventPosterContainer: {
@@ -67,7 +69,6 @@ export default function EventRegistration({user}){
         aboutContainer: {
             background: "#C4C4C4",
             borderRadius: 10,
-            height: 100
         },
         aboutBox: {
             height: "100%"
@@ -82,10 +83,24 @@ export default function EventRegistration({user}){
             flexDirection: "row",
             justifyContent: "space-between"
         },
-        aboutBoxTitle: {
+        form: {
+            width:"100%"
+        },
+        formTitle: {
+            display:"flex",
+            justifyContent: "center",
+            height: "10%",
+            alignItems: "center"
+        },
+        formFields: {
             display: "flex",
-            justifyContent: "center"
-        }
+            flexDirection: "column",
+            justifyContent: "space-around",
+            height: "90%"
+        },
+        cardContent: {
+            height: "85%"
+        },
     });
     
     const classes = useStyles();
@@ -110,7 +125,6 @@ export default function EventRegistration({user}){
                         <Grid container className={classes.eventInfo}>
                             <Grid item className={classes.eventPosterContainer}>
                                 <Card className={classes.eventPosterCard}>
-                                    <CardActionArea>
                                         <CardMedia
                                             component="img"
                                             alt="Stock party image"
@@ -149,13 +163,12 @@ export default function EventRegistration({user}){
                                                 </Box>
                                             </Box>
                                         </CardContent>
-                                    </CardActionArea>
                                 </Card>
                             </Grid>
                             <Box className={classes.aboutContainer} mt={5}>
                                 <Box className={classes.aboutBox} m={2}>
                                    <Box className={classes.aboutBoxTitle}>
-                                       <Typography>
+                                       <Typography  variant="h6" component="h2">
                                            About
                                        </Typography>
                                    </Box>
@@ -168,9 +181,60 @@ export default function EventRegistration({user}){
                             </Box>
                         </Grid>
                         <Grid container className={classes.registrationForm}>
-                            <Grid item>
-                                <Typography> Registration Form</Typography>
-                            </Grid>
+                            <Card className={classes.form}>
+                                <CardContent className={classes.cardContent}>
+                                    <Box className={classes.formTitle}>
+                                        <Typography variant="h5">
+                                            Event Registration
+                                        </Typography>
+                                    </Box>
+                                    <Box className={classes.formFields} ml={5} mr={5}>
+                                        <Box className={classes.inputField}>
+                                            <Typography>
+                                                First Name
+                                            </Typography>
+                                            <Box className={classes.textBox} mt={1}>
+                                                <TextField id="outlined-basic" variant="outlined" label="First Name" fullWidth />
+                                            </Box>
+                                        </Box>
+                                        <Box className={classes.inputField}>
+                                            <Typography>
+                                                Last Name
+                                            </Typography>
+                                            <Box className={classes.textBox} mt={1}>
+                                                <TextField id="outlined-basic" variant="outlined" label="Last Name" fullWidth />
+                                            </Box>
+                                        </Box>
+                                        <Box className={classes.inputField}>
+                                            <Typography>
+                                                Email
+                                            </Typography>
+                                            <Box className={classes.textBox} mt={1}>
+                                                <TextField id="outlined-basic" variant="outlined" label="Email" fullWidth />
+                                            </Box>
+                                        </Box>
+                                        <Box className={classes.inputField}>
+                                            <Typography>
+                                                Phone Number
+                                            </Typography>
+                                            <Box className={classes.textBox} mt={1}>
+                                                <TextField id="outlined-basic" variant="outlined" label="Phone Number" fullWidth />
+                                            </Box>
+                                        </Box>
+                                        <Box className={classes.inputField}>
+                                            <Typography>
+                                                Number of Tickets
+                                            </Typography>
+                                            <Box className={classes.textBox} mt={1}>
+                                                <TextField id="outlined-basic" variant="outlined" label="Number of Tickets" fullWidth />
+                                            </Box>
+                                        </Box>
+                                    </Box>
+                                </CardContent>
+                                <CardActions>
+                                    <Button> Register</Button>
+                                </CardActions>
+                            </Card>
                         </Grid>
                     </Box>
                 </div>
