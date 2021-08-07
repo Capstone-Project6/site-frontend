@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
-import { spacing } from '@material-ui/system';
+import { spacing, typography } from '@material-ui/system';
 import { makeStyles } from '@material-ui/core/styles';
 import './EventRegistration.css'
 import { CardContent, Typography } from '@material-ui/core';
@@ -60,13 +60,31 @@ export default function EventRegistration({user}){
             margin: "auto",
 
         },
+        eventName: {
+            display: "flex",
+            justifyContent: "center"
+        },
         aboutContainer: {
-            background: "#F0F8FF",
+            background: "#C4C4C4",
             borderRadius: 10,
             height: 100
         },
         aboutBox: {
             height: "100%"
+        },
+        dateAndTimeSection: {
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between"
+        },
+        locationSection: {
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between"
+        },
+        aboutBoxTitle: {
+            display: "flex",
+            justifyContent: "center"
         }
     });
     
@@ -88,7 +106,6 @@ export default function EventRegistration({user}){
         return (
             <>
                 <div className="eventRegistrationContent">
-                    <h1 className="eventRegistrationTitle"> Event Name</h1>
                     <Box className={classes.eventRegistrationContent}>
                         <Grid container className={classes.eventInfo}>
                             <Grid item className={classes.eventPosterContainer}>
@@ -100,20 +117,55 @@ export default function EventRegistration({user}){
                                             image="https://images.pexels.com/photos/1684187/pexels-photo-1684187.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260"
                                         />
                                         <CardContent>
-                                            <Typography>
-                                                Details
-                                            </Typography>
+                                            <Box className={classes.eventName}>
+                                                <Typography variant="h5" component="h1">
+                                                    Color Run
+                                                </Typography>
+                                            </Box>
+                                            <Box className={classes.dateAndTimeSection}>
+                                                <Box className={classes.dateAndTimeLabel} fontWeight="fontWeightBold" fontSize={16}>
+                                                        Date and Time
+                                                </Box>
+                                                <Box className={classes.dateAndTimeInfo}>
+                                                    <Typography component="p">
+                                                        August 21, 2021
+                                                    </Typography>
+                                                    <Typography component="p">
+                                                        8:00pm - 1:00am
+                                                    </Typography>
+                                                </Box>
+                                            </Box>
+                                            <Box className={classes.locationSection} mt={2}>
+                                                <Box className={classes.locationLabel} fontWeight="fontWeightBold" fontSize={16}>
+                                                    Location
+                                                </Box>
+                                                <Box className={classes.locationInfo}>
+                                                    <Typography component="p">
+                                                        Piedmont Park
+                                                    </Typography>
+                                                    <Typography component="p">
+                                                        Atlanta, GA
+                                                    </Typography>
+                                                </Box>
+                                            </Box>
                                         </CardContent>
                                     </CardActionArea>
                                 </Card>
                             </Grid>
-                            <Grid item className={classes.aboutContainer}>
-                                <Box className={classes.aboutBox}>
-                                    <Typography>
-                                        About
-                                    </Typography>
+                            <Box className={classes.aboutContainer} mt={5}>
+                                <Box className={classes.aboutBox} m={2}>
+                                   <Box className={classes.aboutBoxTitle}>
+                                       <Typography>
+                                           About
+                                       </Typography>
+                                   </Box>
+                                   <Box className={classes.aboutBoxContent}>
+                                       <Typography>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                       </Typography>
+                                   </Box>
                                 </Box>
-                            </Grid>
+                            </Box>
                         </Grid>
                         <Grid container className={classes.registrationForm}>
                             <Grid item>
