@@ -9,10 +9,39 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import CardMedia from '@material-ui/core/CardMedia';
-import { spacing, typography } from '@material-ui/system';
+import PropTypes from 'prop-types';
+import MaskedInput from 'react-text-mask';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+// import NumberFormat from 'react-number-format';
 import { makeStyles } from '@material-ui/core/styles';
+import Input from '@material-ui/core/Input';
+import { spacing, typography } from '@material-ui/system';
 import './EventRegistration.css'
 import { CardContent, Typography } from '@material-ui/core';
+
+function TextMaskCustom(props) {
+    const { inputRef, ...other } = props;
+  
+    return (
+      <MaskedInput
+        {...other}
+        ref={(ref) => {
+          inputRef(ref ? ref.inputElement : null);
+        }}
+        mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+        placeholderChar={'\u2000'}
+        showMask
+      />
+    );
+  }
+  
+  TextMaskCustom.propTypes = {
+    inputRef: PropTypes.func.isRequired,
+  };
 
 export default function EventRegistration({user}){
     // const { id } = useParams()
@@ -101,9 +130,38 @@ export default function EventRegistration({user}){
         cardContent: {
             height: "85%"
         },
+        formControl: {
+            width: 150
+        },
+        inputRow: {
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between"
+        },
+        formButtonContainer: {
+            display: "flex",
+            justifyContent: "center"
+        }
     });
     
     const classes = useStyles();
+    const [values, setValues] = React.useState({
+        textmask: '(1  )    -    ',
+        numberformat: '1320',
+    });
+
+    const handleChange = (event) => {
+        setValues({
+          ...values,
+          [event.target.name]: event.target.value,
+        });
+      };
+    
+    const [ticketRequest, setTicketRequest] = useState('');
+
+    const handleTicketChange = (event) => {
+        setTicketRequest(event.target.value);
+    };
 
     const renderEventContent = () => {
         // if(isLoading){
@@ -213,26 +271,53 @@ export default function EventRegistration({user}){
                                                 <TextField id="outlined-basic" variant="outlined" label="Email" fullWidth />
                                             </Box>
                                         </Box>
-                                        <Box className={classes.inputField}>
-                                            <Typography>
-                                                Phone Number
-                                            </Typography>
-                                            <Box className={classes.textBox} mt={1}>
-                                                <TextField id="outlined-basic" variant="outlined" label="Phone Number" fullWidth />
+                                        <Box className={classes.inputRow}>
+                                            <Box mr={2}>
+                                                <Typography>
+                                                    Phone Number
+                                                </Typography>
+                                                <Box className={classes.textBox} mt={1}>
+                                                <FormControl>
+                                                    {/* <InputLabel htmlFor="formatted-text-mask-input">react-text-mask</InputLabel> */}
+                                                    <Input
+                                                    value={values.textmask}
+                                                    onChange={handleChange}
+                                                    name="textmask"
+                                                    id="formatted-text-mask-input"
+                                                    inputComponent={TextMaskCustom}
+                                                    />
+                                                </FormControl>
+                                                </Box>
                                             </Box>
-                                        </Box>
-                                        <Box className={classes.inputField}>
-                                            <Typography>
-                                                Number of Tickets
-                                            </Typography>
-                                            <Box className={classes.textBox} mt={1}>
-                                                <TextField id="outlined-basic" variant="outlined" label="Number of Tickets" fullWidth />
+                                            <Box ml={2}>
+                                                <Typography>
+                                                    Number of Tickets
+                                                </Typography>
+                                                <Box className={classes.textBox} mt={1}>
+                                                <FormControl variant="outlined" className={classes.formControl}>
+                                                        <InputLabel id="demo-simple-select-outlined-label">Ticket Number</InputLabel>
+                                                        <Select
+                                                        labelId="demo-simple-select-outlined-label"
+                                                        id="demo-simple-select-outlined"
+                                                        value={ticketRequest}
+                                                        onChange={handleTicketChange}
+                                                        label="Age"
+                                                        >
+                                                        <MenuItem value="">
+                                                            <em>None</em>
+                                                        </MenuItem>
+                                                        <MenuItem value={1}>One</MenuItem>
+                                                        <MenuItem value={2}>Two</MenuItem>
+                                                        <MenuItem value={3}>Three</MenuItem>
+                                                        </Select>
+                                                    </FormControl>
+                                                </Box>
                                             </Box>
                                         </Box>
                                     </Box>
                                 </CardContent>
-                                <CardActions>
-                                    <Button> Register</Button>
+                                <CardActions className={classes.formButtonContainer}>
+                                    <Button color="primary" variant="contained" size="large" > Register</Button>
                                 </CardActions>
                             </Card>
                         </Grid>
