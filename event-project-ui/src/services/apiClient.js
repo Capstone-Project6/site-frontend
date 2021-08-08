@@ -91,8 +91,10 @@ class ApiClient {
     return await this.request({ endpoint: `events/${id}`, method: `GET` })
   }
 
-  async eventRegistration(form, userId) {
-    return await this.request({endpoint: `event-register/${userId}`, method: `POST`, data: form})
+  async eventRegistration({form, userId}) {
+    console.log("User ID inside apiClient", userId)
+    console.log("form inside apiClient", form)
+    return await this.request({endpoint: `events/event-register/${userId}`, method: `POST`, data: form})
   }
 
   async logoutUser() {

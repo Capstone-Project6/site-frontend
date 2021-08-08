@@ -49,6 +49,7 @@ export default function EventRegistration({user, individualEvent}){
     // const { id } = useParams() OR individualEvent.id
     const id = 12
     const [event, setEvent] = useState({})
+    const[endingDate, setEndingDate] = useState(false)
     const[isLoading, setIsLoading] = useState(false)
     const [isProcessing, setIsProcessing] = useState(false);
     const [isFetching, setIsFetching] = useState(false);
@@ -59,7 +60,7 @@ export default function EventRegistration({user, individualEvent}){
         email: "",
         phone_number: "",
         tickets_number: "",
-        event_id: ""
+        event_id: id
     })
 
     useEffect(() => {
@@ -154,26 +155,43 @@ export default function EventRegistration({user, individualEvent}){
     
     const classes = useStyles();
 
+    function checkEndingDate() {
+        if(event["Ending Date"] !== null){
+            setEndingDate(true)
+        }
+        console.log("Ending date? ", endingDate)
+    }
+
     const handleOnInputChange = (event) => {
         setForm((f) => ({ ...f, [event.target.name]: event.target.value}))
     }
+
+    
     const [values, setValues] = React.useState({
         textmask: '(1  )    -    ',
         numberformat: '1320',
     });
-
+    
+    
     const handlePhoneNumberChange = (event) => {
         setValues({
-          ...values,
-          [event.target.name]: event.target.value,
+            ...values,
+            [event.target.name]: event.target.value,
         })
-       
-        setForm((f) => ({...f, [values.textmask]: form.phone_number}))
-      };
+    };
     
+    useEffect(() => {    
+        setForm(data => ({...data, phone_number: values.textmask}))
+    }, [values.textmask])
+
     const handleOnSubmit = async () => {
         setIsProcessing(true)
         setError((e) => ({ ...e, form: null }))
+
+        console.log("User's phone number: ", values.textmask)
+
+        console.log("User id", userId)
+        console.log("Input data", form)
 
         const { data, error } = await apiClient.eventRegistration({form, userId})
         if(data){
@@ -216,7 +234,7 @@ export default function EventRegistration({user, individualEvent}){
                                         <CardContent>
                                             <Box className={classes.eventName}>
                                                 <Typography variant="h5" component="h1">
-                                                    Color Run
+                                                    {event["Event Name"]}
                                                 </Typography>
                                             </Box>
                                             <Box className={classes.dateAndTimeSection}>
@@ -224,11 +242,19 @@ export default function EventRegistration({user, individualEvent}){
                                                         Date and Time
                                                 </Box>
                                                 <Box className={classes.dateAndTimeInfo}>
+                                                    {/* checks whether or not the event spans a single day or multiple days */}
+                                                    {checkEndingDate()}
+                                                    {endingDate? (
+                                                        <Typography component="p">
+                                                            {event["Beginning Date"]} - {event["Ending Date"]}
+                                                        </Typography>
+                                                    ) : (
+                                                        <Typography component="p">
+                                                            {event["Beginning Date"]}
+                                                        </Typography>
+                                                    )}
                                                     <Typography component="p">
-                                                        August 21, 2021
-                                                    </Typography>
-                                                    <Typography component="p">
-                                                        8:00pm - 1:00am
+                                                        {event["Beginning Time"]} - {event["Ending Time"]}
                                                     </Typography>
                                                 </Box>
                                             </Box>
@@ -238,10 +264,10 @@ export default function EventRegistration({user, individualEvent}){
                                                 </Box>
                                                 <Box className={classes.locationInfo}>
                                                     <Typography component="p">
-                                                        Piedmont Park
+                                                        {event.Venue}
                                                     </Typography>
                                                     <Typography component="p">
-                                                        Atlanta, GA
+                                                        {event.City}, {event.State}
                                                     </Typography>
                                                 </Box>
                                             </Box>
@@ -281,6 +307,7 @@ export default function EventRegistration({user, individualEvent}){
                                                     id="outlined-basic" 
                                                     variant="outlined" 
                                                     label="First Name" 
+                                                    name="first_name"
                                                     value={form.first_name}
                                                     onChange={handleOnInputChange}
                                                     fullWidth 
@@ -296,6 +323,7 @@ export default function EventRegistration({user, individualEvent}){
                                                     id="outlined-basic" 
                                                     variant="outlined" 
                                                     label="Last Name" 
+                                                    name="last_name"
                                                     value={form.last_name}
                                                     onChange={handleOnInputChange}
                                                     fullWidth 
@@ -311,6 +339,7 @@ export default function EventRegistration({user, individualEvent}){
                                                     id="outlined-basic" 
                                                     variant="outlined" 
                                                     label="Email" 
+                                                    name="email"
                                                     value={form.email}
                                                     onChange={handleOnInputChange}
                                                     fullWidth 
@@ -346,6 +375,7 @@ export default function EventRegistration({user, individualEvent}){
                                                         labelId="demo-simple-select-outlined-label"
                                                         id="demo-simple-select-outlined"
                                                         value={form.tickets_number}
+                                                        name="tickets_number"
                                                         onChange={handleOnInputChange}
                                                         label="Age"
                                                         >
