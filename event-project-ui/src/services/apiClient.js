@@ -58,11 +58,11 @@ class ApiClient {
     }
   })
   return filteredEvents
-}
+  }
 
-async recommendEvents() {
-    return await this.request({endpoint: `events/recommended`, method: `GET`})
-}
+  async recommendEvents() {
+      return await this.request({endpoint: `events/recommended`, method: `GET`})
+  }
 
   async signupUser(credentials) {
     return await this.request({ endpoint: `auth/register`, method: `POST`, data: credentials })
@@ -79,18 +79,26 @@ async recommendEvents() {
   // }
 }
 
-async addFavorite() {
-  return await this.request({ endpoint: `events/favorites`, method: `POST`})
-}
+  async addFavorite() {
+    return await this.request({ endpoint: `events/favorites`, method: `POST`})
+  }
 
-async getCategories() {
-  return await this.request({ endpoint: `events/categories`, method: `GET`})
-}
+  async getCategories() {
+    return await this.request({ endpoint: `events/categories`, method: `GET`})
+  }
 
-async logoutUser() {
-  this.setToken(null)
-  localStorage.setItem(this.tokenName, "")
-}
+  async fetchPostById(id) {
+    return await this.request({ endpoint: `events/${id}`, method: `GET` })
+  }
+
+  async eventRegistration(form, userId) {
+    return await this.request({endpoint: `event-register/${userId}`, method: `POST`, data: form})
+  }
+
+  async logoutUser() {
+    this.setToken(null)
+    localStorage.setItem(this.tokenName, "")
+  }
 }
 
 

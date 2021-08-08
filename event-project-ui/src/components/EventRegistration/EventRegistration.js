@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom"
+import apiClient from "../../services/apiClient"
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
@@ -43,33 +44,40 @@ function TextMaskCustom(props) {
     inputRef: PropTypes.func.isRequired,
   };
 
-export default function EventRegistration({user}){
-    // const { id } = useParams()
-    const { id } = 10
+export default function EventRegistration({user, individualEvent}){
+    const userId = user.id
+    // const { id } = useParams() OR individualEvent.id
+    const id = 12
     const [event, setEvent] = useState({})
     const[isLoading, setIsLoading] = useState(false)
+    const [isProcessing, setIsProcessing] = useState(false);
+    const [isFetching, setIsFetching] = useState(false);
     const[error, setError] = useState(null)
+    const[form, setForm] = useState({
+        first_name: "",
+        last_name: "",
+        email: "",
+        phone_number: "",
+        tickets_number: "",
+        event_id: ""
+    })
 
-    // useEffect(() => {
-    //     const getProductById = async () => {
-    //         setIsLoading(true)
+    useEffect(() => {
+        const fetchIndividualEvent = async () => {
+            setIsFetching(true)
+            const { data, error } = await apiClient.fetchPostById(id)
+            if (data) {
+                setEvent(data.event)
+                console.log("Individual event: ", data.event)
+            }
+            if (error) {
+                setError(error)
+            }
+            setIsFetching(false)
+        }
 
-    //         try{
-    //             const res = await axios.get(`http://localhost:3001/products/${id}`)
-    //             console.log({res})
-    //             if(res?.data?.product){
-    //                 setProduct(res.data.product)
-    //             } else {
-    //                 setError("Product not found.")
-    //             }
-    //         } catch(err){
-    //             console.log({err})
-    //             setError("Product not found.")
-    //         }
-    //         setIsLoading(false)
-    //     }
-    //     getProductById()
-    // }, [id])
+        fetchIndividualEvent()
+    }, [])
 
     const useStyles = makeStyles({
         eventRegistrationContent : {
@@ -145,23 +153,39 @@ export default function EventRegistration({user}){
     });
     
     const classes = useStyles();
+
+    const handleOnInputChange = (event) => {
+        setForm((f) => ({ ...f, [event.target.name]: event.target.value}))
+    }
     const [values, setValues] = React.useState({
         textmask: '(1  )    -    ',
         numberformat: '1320',
     });
 
-    const handleChange = (event) => {
+    const handlePhoneNumberChange = (event) => {
         setValues({
           ...values,
           [event.target.name]: event.target.value,
-        });
+        })
+       
+        setForm((f) => ({...f, [values.textmask]: form.phone_number}))
       };
     
-    const [ticketRequest, setTicketRequest] = useState('');
+    const handleOnSubmit = async () => {
+        setIsProcessing(true)
+        setError((e) => ({ ...e, form: null }))
 
-    const handleTicketChange = (event) => {
-        setTicketRequest(event.target.value);
-    };
+        const { data, error } = await apiClient.eventRegistration({form, userId})
+        if(data){
+            console.log("You have successfully registered!")
+            console.log("Registration data ", data.registration)
+        }
+        if(error) {
+            setError((e) => ({ ...e, form: error }))
+        }
+
+        setIsProcessing(false)
+    }
 
     const renderEventContent = () => {
         // if(isLoading){
@@ -177,6 +201,7 @@ export default function EventRegistration({user}){
         // }
 
         return (
+             // image="https://images.pexels.com/photos/1684187/pexels-photo-1684187.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260"
             <>
                 <div className="eventRegistrationContent">
                     <Box className={classes.eventRegistrationContent}>
@@ -186,7 +211,7 @@ export default function EventRegistration({user}){
                                         <CardMedia
                                             component="img"
                                             alt="Stock party image"
-                                            image="https://images.pexels.com/photos/1684187/pexels-photo-1684187.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260"
+                                            image={event["Event Image"]}
                                         />
                                         <CardContent>
                                             <Box className={classes.eventName}>
@@ -252,7 +277,14 @@ export default function EventRegistration({user}){
                                                 First Name
                                             </Typography>
                                             <Box className={classes.textBox} mt={1}>
-                                                <TextField id="outlined-basic" variant="outlined" label="First Name" fullWidth />
+                                                <TextField 
+                                                    id="outlined-basic" 
+                                                    variant="outlined" 
+                                                    label="First Name" 
+                                                    value={form.first_name}
+                                                    onChange={handleOnInputChange}
+                                                    fullWidth 
+                                                />
                                             </Box>
                                         </Box>
                                         <Box className={classes.inputField}>
@@ -260,7 +292,14 @@ export default function EventRegistration({user}){
                                                 Last Name
                                             </Typography>
                                             <Box className={classes.textBox} mt={1}>
-                                                <TextField id="outlined-basic" variant="outlined" label="Last Name" fullWidth />
+                                                <TextField 
+                                                    id="outlined-basic" 
+                                                    variant="outlined" 
+                                                    label="Last Name" 
+                                                    value={form.last_name}
+                                                    onChange={handleOnInputChange}
+                                                    fullWidth 
+                                                />
                                             </Box>
                                         </Box>
                                         <Box className={classes.inputField}>
@@ -268,7 +307,14 @@ export default function EventRegistration({user}){
                                                 Email
                                             </Typography>
                                             <Box className={classes.textBox} mt={1}>
-                                                <TextField id="outlined-basic" variant="outlined" label="Email" fullWidth />
+                                                <TextField 
+                                                    id="outlined-basic" 
+                                                    variant="outlined" 
+                                                    label="Email" 
+                                                    value={form.email}
+                                                    onChange={handleOnInputChange}
+                                                    fullWidth 
+                                                />
                                             </Box>
                                         </Box>
                                         <Box className={classes.inputRow}>
@@ -281,7 +327,7 @@ export default function EventRegistration({user}){
                                                     {/* <InputLabel htmlFor="formatted-text-mask-input">react-text-mask</InputLabel> */}
                                                     <Input
                                                     value={values.textmask}
-                                                    onChange={handleChange}
+                                                    onChange={handlePhoneNumberChange}
                                                     name="textmask"
                                                     id="formatted-text-mask-input"
                                                     inputComponent={TextMaskCustom}
@@ -299,8 +345,8 @@ export default function EventRegistration({user}){
                                                         <Select
                                                         labelId="demo-simple-select-outlined-label"
                                                         id="demo-simple-select-outlined"
-                                                        value={ticketRequest}
-                                                        onChange={handleTicketChange}
+                                                        value={form.tickets_number}
+                                                        onChange={handleOnInputChange}
                                                         label="Age"
                                                         >
                                                         <MenuItem value="">
@@ -317,7 +363,7 @@ export default function EventRegistration({user}){
                                     </Box>
                                 </CardContent>
                                 <CardActions className={classes.formButtonContainer}>
-                                    <Button color="primary" variant="contained" size="large" > Register</Button>
+                                    <Button color="primary" variant="contained" size="large" onClick={handleOnSubmit} > Register</Button>
                                 </CardActions>
                             </Card>
                         </Grid>
