@@ -17,6 +17,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Paper from '@material-ui/core/Paper';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 // import NumberFormat from 'react-number-format';
 import { makeStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
@@ -47,7 +50,7 @@ function TextMaskCustom(props) {
 export default function EventRegistration({user, individualEvent}){
     const userId = user.id
     // const { id } = useParams() OR individualEvent.id
-    const id = 12
+    const id = 10
     const [event, setEvent] = useState({})
     const[endingDate, setEndingDate] = useState(false)
     const[isLoading, setIsLoading] = useState(false)
@@ -62,6 +65,7 @@ export default function EventRegistration({user, individualEvent}){
         tickets_number: "",
         event_id: id
     })
+    var ticketRows = [];
 
     useEffect(() => {
         const fetchIndividualEvent = async () => {
@@ -70,13 +74,18 @@ export default function EventRegistration({user, individualEvent}){
             if (data) {
                 setEvent(data.event)
                 console.log("Individual event: ", data.event)
+                console.log("Tickets left", data.event["Tickets left"])
+                for(var i = 1; i< data.event["Tickets left"] + 1; i++){
+                    console.log("Ticket amount: ", i)
+                    ticketRows.push(<MenuItem value={i}>{i}</MenuItem>);
+                }
+        
             }
             if (error) {
                 setError(error)
             }
             setIsFetching(false)
         }
-
         fetchIndividualEvent()
     }, [])
 
@@ -155,12 +164,12 @@ export default function EventRegistration({user, individualEvent}){
     
     const classes = useStyles();
 
-    function checkEndingDate() {
-        if(event["Ending Date"] !== null){
-            setEndingDate(true)
-        }
-        console.log("Ending date? ", endingDate)
-    }
+    // function createTicketRows() {
+    //     for(var i = 0; i< event["Ticket number"]; i++){
+    //         ticketRows.push(<MenuItem value={i}>{i}</MenuItem>);
+    //     }
+    //     console.log(ticketRows)
+    // }
 
     const handleOnInputChange = (event) => {
         setForm((f) => ({ ...f, [event.target.name]: event.target.value}))
@@ -243,8 +252,7 @@ export default function EventRegistration({user, individualEvent}){
                                                 </Box>
                                                 <Box className={classes.dateAndTimeInfo}>
                                                     {/* checks whether or not the event spans a single day or multiple days */}
-                                                    {checkEndingDate()}
-                                                    {endingDate? (
+                                                    {(event["Ending Date"] !== null)? (
                                                         <Typography component="p">
                                                             {event["Beginning Date"]} - {event["Ending Date"]}
                                                         </Typography>
@@ -283,7 +291,7 @@ export default function EventRegistration({user, individualEvent}){
                                    </Box>
                                    <Box className={classes.aboutBoxContent}>
                                        <Typography>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                            {event.Description}
                                        </Typography>
                                    </Box>
                                 </Box>
@@ -377,7 +385,7 @@ export default function EventRegistration({user, individualEvent}){
                                                         value={form.tickets_number}
                                                         name="tickets_number"
                                                         onChange={handleOnInputChange}
-                                                        label="Age"
+                                                        label="Tickets"
                                                         >
                                                         <MenuItem value="">
                                                             <em>None</em>
@@ -385,6 +393,7 @@ export default function EventRegistration({user, individualEvent}){
                                                         <MenuItem value={1}>One</MenuItem>
                                                         <MenuItem value={2}>Two</MenuItem>
                                                         <MenuItem value={3}>Three</MenuItem>
+                                                        {/* {ticketRows} */}
                                                         </Select>
                                                     </FormControl>
                                                 </Box>
