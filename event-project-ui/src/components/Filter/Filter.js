@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -97,6 +98,7 @@ export default function Filter ({user, filteredEvents}){
   const [hasLowestPrice, setHasLowestPrice] = useState(false)
   const [hasGreatestPrice, setHasGreatestPrice] = useState(false)
   const [indexValue, setIndexValue] = useState(0)
+  const[filterCriteria, setFilterCriteria] = useState({})
   const priceRanges = [
     [null, null],
     [null, 10],
@@ -107,6 +109,12 @@ export default function Filter ({user, filteredEvents}){
     [50, null]
   ];
   
+  useEffect(() => {
+    console.log("changed index value", indexValue)
+    console.log(filterCriteria)
+
+  }, [indexValue])
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -115,11 +123,13 @@ export default function Filter ({user, filteredEvents}){
     setOpen(false);
   };
 
-  const handleOnInputChange = (value) => {
-    setIndexValue(value);
-    console.log(value)
-    return;
+  const handleOnInputChange = (event) => {
+    setIndexValue(parseInt(event.target[event.target.selectedIndex].value))
+    const price = { priceRanges, indexValue}
+    setFilterCriteria(price)
   }
+
+
     return (
         <div>
             <div className={classes.root}>
@@ -165,7 +175,7 @@ export default function Filter ({user, filteredEvents}){
           defaultValue=""
           value={indexValue}
           name="indexValue"
-          onChange={(event, value) => { handleOnInputChange(value) }}
+          onChange={handleOnInputChange}
           id="grouped-native-select"
         >
           <option aria-label="None" value="" />
