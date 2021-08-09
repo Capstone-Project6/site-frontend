@@ -87,11 +87,28 @@ export default function EventgoerProfile({ user, setUser }){
     const [error, setError] = useState(null)
     const [isUpdating, setIsUpdating] = useState(false)
     const [isFetching, setIsFetching] = useState(false)
+    const [registeredEvents, setRegisteredEvents] = useState([])
+    const [userHasRegisteredEvents, setUserHasRegisteredEvents] = useState(false)
+    const [currentButtonClicked, setCurrentButtonClicked] = useState(0)
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState(0);
 
+    // useEffect(() => {
+    //     const fetchRegisteredEvents = async () => {
+    //         setIsFetching(true)
+    //         const { data} = await apiClient.registeredEvents(userId)
+    //         if (data) {
+    //             setRegisteredEvents(data.registeredEvents)
+    //             setUserHasRegisteredEvents(true)
+    //         }
+    //         setIsFetching(false)
+    //     }
+    //     fetchRegisteredEvents()
+    // }, [])
+
     const handleChange = (event, newValue) => {
         setValue(newValue);
+        console.log("current value", value)
     };
 
     //This profile update is being sent to the endpoint that is reached by the editProfile function
@@ -256,13 +273,59 @@ export default function EventgoerProfile({ user, setUser }){
                             textColor="primary"
                             centered
                         >
-                            <Tab label="Registered Events" />
-                            <Tab label="Attended Events" />
-                            <Tab label="Recommendations" />
-                            <Tab label="Reviews" />
+                            <Tab label="Registered Events"  onClick={setCurrentButtonClicked(0)}/>
+                            <Tab label="Attended Events"  onClick={setCurrentButtonClicked(1)}/>
+                            <Tab label="Recommendations"  onClick={setCurrentButtonClicked(2)}/>
+                            <Tab label="Reviews"  onClick={setCurrentButtonClicked(3)}/>
                         </Tabs>
                     </Paper>
                 </Box>
+            </Box>
+            <Box className={classes.profileTabContent}>
+                {/*
+                    if button is clicked{
+                        render (
+                            
+                        )
+                    }
+                */}
+                {/* 
+                    if(currentButtonClicked == 0){
+                        if(userHasRegisteredEvents){
+                            display registered events
+                        }
+                        else {
+                            display "user does not currently have registered events"
+                        }
+                    }
+                    else if(currentButtonClicked == 1){
+                        if(userHasAttendedEvents){
+                            display attended events
+                        }
+                        else {
+                            display "user does not currently have attended events"
+                        }
+                    }
+                    else if(currentButtonClicked == 2){
+                        if(userHasRecommendations){
+                            display recommendations
+                        }
+                        else {
+
+                        }
+                    }
+                    else {
+                        if(userHasReviews){
+                            display reviews
+                        }
+                        else {
+                            
+                        }
+                    }
+                
+                
+                
+                */}
             </Box>
         </div>
     )
