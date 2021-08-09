@@ -194,18 +194,18 @@ export default function EventgoerProfile({ user, setUser }){
         setOpen(false);
     };
 
-    const handleProfileTabContent = () => {
-        if(currentButtonClicked == 0) {
-            if(userHasRegisteredEvents == true){
-                registeredEvents.map((event) => (
-                    return <Event event={event} user={user} key={event.id} />;
+    // const handleProfileTabContent = () => {
+    //     if(currentButtonClicked == 0) {
+    //         if(userHasRegisteredEvents == true){
+    //             registeredEvents.map((event) => (
+    //                 return <Event event={event} user={user} key={event.id} />;
             
-            }
-            if(userHasRegisteredEvents == false{
-                <h2> You do not currently have any registered events.</h2>
-            }
-        }
-    };
+    //         }
+    //         if(userHasRegisteredEvents == false{
+    //             <h2> You do not currently have any registered events.</h2>
+    //         }
+    //     }
+    // };
     
     const classes = useStyles();
     
@@ -310,9 +310,9 @@ export default function EventgoerProfile({ user, setUser }){
                 </Box>
             </Box>
 
-            <Box className={classes.profileTabContent}>
+            {/* <Box className={classes.profileTabContent}>
                 {handleProfileTabContent}
-            </Box>
+            </Box> */}
 
             {/* <Box className={classes.profileTabContent}> */}
                 {/* 
