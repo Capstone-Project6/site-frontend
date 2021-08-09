@@ -10,6 +10,7 @@ import Interests from '../Interests/interests';
 import EventgoerProfile from '../EventgoerProfile/EventgoerProfile';
 import Filter from '../Filter/Filter';
 import './App.css';
+import EventRegistration from '../EventRegistration/EventRegistration';
 // import { useNavigate} from "react-router-dom";
 
 
@@ -126,6 +127,8 @@ function App() {
           <Route path="/filter" element={<Filter user={user} setUser={setUser} filteredEvents={filteredEvents}/>}></Route>
           {/* updatePost={updatePost} */}
           <Route path="/eventgoerProfile" element={<EventgoerProfile user={user} setUser={setUser} />}></Route>
+          {/* "/eventRegistration/:id" */}
+          <Route path="/eventRegistration" element={<EventRegistration user={user} />} />
         </Routes>
       </BrowserRouter>
     </div>

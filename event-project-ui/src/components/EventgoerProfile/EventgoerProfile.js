@@ -14,6 +14,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 // import { textAlign } from '@material-ui/system';
 import EditIcon from '@material-ui/icons/Edit';
 import './EventgoerProfile.css'
@@ -24,7 +27,7 @@ const useStyles = makeStyles({
         width: "95%",
         height: 255,
         margin: "auto",
-        borderRadius: 20,
+        borderRadius: 5,
         direction: "column",
         justifyContent: "center",
         alignItems: "center"
@@ -55,7 +58,8 @@ const useStyles = makeStyles({
     profileTitles: {
         display: "flex",
         justifyContent: "center",
-        margin: 20,
+        width: "100%",
+        background: "#C4C4C"
     },
     editButton: {
         height: 25,
@@ -68,6 +72,12 @@ const useStyles = makeStyles({
         height: 40,
         background:"grey",
         color:"white",
+    },
+    profileTabsContainer: {
+        width: "95%"
+    },
+    profileTabs: {
+        flexGrow: 1,
     }
 });
 
@@ -78,6 +88,11 @@ export default function EventgoerProfile({ user, setUser }){
     const [isUpdating, setIsUpdating] = useState(false)
     const [isFetching, setIsFetching] = useState(false)
     const [open, setOpen] = useState(false);
+    const [value, setValue] = useState(0);
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
 
     //This profile update is being sent to the endpoint that is reached by the editProfile function
     const[profileUpdate, setProfileUpdate] = useState({
@@ -158,11 +173,12 @@ export default function EventgoerProfile({ user, setUser }){
     return (
         <div className="eventgoerProfile">
             <Grid container className={classes.header}>
-                <Grid container item className={classes.profileHeaderContent}>
-                    <Grid container item className={classes.avatarContainer}>
+            {/* <div className="header"> */}
+                <Box container item className={classes.profileHeaderContent}>
+                    <Grid container className={classes.avatarContainer}>
                         <Avatar alt="profile picture" src={user.profile_picture} className={classes.avatar} />
                     </Grid>
-                    <Grid container item className={classes.profileHeaderInfo}>
+                    <Grid container className={classes.profileHeaderInfo}>
                         <Typography variant="h5" align="center" component="h1">
                            {user.first_name} {user.last_name}
                         </Typography> 
@@ -173,7 +189,7 @@ export default function EventgoerProfile({ user, setUser }){
                             Following
                         </Typography>
                     </Grid>
-                </Grid>
+                </Box>
                 <Grid className={classes.editBox}>
                     {/* below is the pop up button */}
                     {/* variant="outlined */}
@@ -230,20 +246,24 @@ export default function EventgoerProfile({ user, setUser }){
                     </Dialog>
                 </Grid>
             </Grid>
-            <Grid container className={classes.profileTitles} >
-                <Grid item className={classes.paddingRight}>
-                    <Typography color="primaryMain"> Upcoming Events</Typography>
-                </Grid>
-                <Grid item className={classes.paddingRight}>
-                    <Typography> Attended Events</Typography>
-                </Grid>
-                <Grid item className={classes.paddingRight}>
-                    <Typography> Recommended Events</Typography>
-                </Grid>
-                <Grid item>
-                    <Typography> Reviews </Typography>
-                </Grid>
-            </Grid>
+            <Box className={classes.profileTitles} >
+                <Box className={classes.profileTabsContainer}>
+                    <Paper className={classes.profileTabs}>
+                        <Tabs
+                            value={value}
+                            onChange={handleChange}
+                            indicatorColor="primary"
+                            textColor="primary"
+                            centered
+                        >
+                            <Tab label="Registered Events" />
+                            <Tab label="Attended Events" />
+                            <Tab label="Recommendations" />
+                            <Tab label="Reviews" />
+                        </Tabs>
+                    </Paper>
+                </Box>
+            </Box>
         </div>
     )
 }
