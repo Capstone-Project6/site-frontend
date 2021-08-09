@@ -96,7 +96,16 @@ export default function Filter ({user, filteredEvents}){
   const [lowestPrice, setLowestPrice] = useState(0)
   const [hasLowestPrice, setHasLowestPrice] = useState(false)
   const [hasGreatestPrice, setHasGreatestPrice] = useState(false)
-
+  const [indexValue, setIndexValue] = useState(0)
+  const priceRanges = [
+    [null, null],
+    [null, 10],
+    [null, 20],
+    [20, 30],
+    [30, 40],
+    [40, 50],
+    [50, null]
+  ];
   
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -105,6 +114,12 @@ export default function Filter ({user, filteredEvents}){
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const handleOnInputChange = (value) => {
+    setIndexValue(value);
+    console.log(value)
+    return;
+  }
     return (
         <div>
             <div className={classes.root}>
@@ -145,15 +160,22 @@ export default function Filter ({user, filteredEvents}){
               <div>
       <FormControl className={classes.formControl}>
         <InputLabel htmlFor="grouped-native-select">Filter</InputLabel>
-        <Select native defaultValue="" id="grouped-native-select">
+        <Select 
+          native 
+          defaultValue=""
+          value={indexValue}
+          name="indexValue"
+          onChange={(event, value) => { handleOnInputChange(value) }}
+          id="grouped-native-select"
+        >
           <option aria-label="None" value="" />
-            <option value={1}>Free</option>
-            <option value={2}>Under $10</option>
-            <option value={3}>Under $20</option>
-            <option value={4}>$20 - $30</option>
-            <option value={5}>$30 - $40</option>
-            <option value={6}>$40 - $50</option>
-            <option value={7}>Over $50</option>
+            <option value={0}>Free</option>
+            <option value={1}>Under $10</option>
+            <option value={2}>Under $20</option>
+            <option value={3}>$20 - $30</option>
+            <option value={4}>$30 - $40</option>
+            <option value={5}>$40 - $50</option>
+            <option value={6}>Over $50</option>
           
         </Select>
       </FormControl>
