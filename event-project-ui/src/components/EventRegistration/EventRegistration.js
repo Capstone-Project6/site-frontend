@@ -50,7 +50,7 @@ function TextMaskCustom(props) {
 export default function EventRegistration({user, individualEvent}){
     const userId = user.id
     // const { id } = useParams() OR individualEvent.id
-    const id = 10
+    const id = 3
     const [event, setEvent] = useState({})
     const[endingDate, setEndingDate] = useState(false)
     const[isLoading, setIsLoading] = useState(false)
@@ -66,6 +66,7 @@ export default function EventRegistration({user, individualEvent}){
         event_id: id
     })
     var ticketRows = [];
+    let x = 1;
 
     useEffect(() => {
         const fetchIndividualEvent = async () => {
@@ -74,9 +75,7 @@ export default function EventRegistration({user, individualEvent}){
             if (data) {
                 setEvent(data.event)
                 console.log("Individual event: ", data.event)
-                console.log("Tickets left", data.event["Tickets left"])
                 for(var i = 1; i< data.event["Tickets left"] + 1; i++){
-                    console.log("Ticket amount: ", i)
                     ticketRows.push(<MenuItem value={i}>{i}</MenuItem>);
                 }
         
@@ -393,7 +392,9 @@ export default function EventRegistration({user, individualEvent}){
                                                         <MenuItem value={1}>One</MenuItem>
                                                         <MenuItem value={2}>Two</MenuItem>
                                                         <MenuItem value={3}>Three</MenuItem>
-                                                        {/* {ticketRows} */}
+                                                        {/* {ticketRows.map((x) => (
+                                                            <MenuItem value={x}>{x}</MenuItem>
+                                                        ))} */}
                                                         </Select>
                                                     </FormControl>
                                                 </Box>
