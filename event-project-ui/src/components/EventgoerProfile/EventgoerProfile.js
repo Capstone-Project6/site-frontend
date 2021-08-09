@@ -89,26 +89,35 @@ export default function EventgoerProfile({ user, setUser }){
     const [isFetching, setIsFetching] = useState(false)
     const [registeredEvents, setRegisteredEvents] = useState([])
     const [userHasRegisteredEvents, setUserHasRegisteredEvents] = useState(false)
+    const [userHasAttendedEvents, setUserHasAttendedEvents] = useState(false)
+    const [userHasRecommendation, setUserHasRecommendations] = useState(false)
+    const [userHasReviews, setUserHasReviews] = useState(false)
     const [currentButtonClicked, setCurrentButtonClicked] = useState(0)
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState(0);
 
-    // useEffect(() => {
-    //     const fetchRegisteredEvents = async () => {
-    //         setIsFetching(true)
-    //         const { data} = await apiClient.registeredEvents(userId)
-    //         if (data) {
-    //             setRegisteredEvents(data.registeredEvents)
-    //             setUserHasRegisteredEvents(true)
-    //         }
-    //         setIsFetching(false)
-    //     }
-    //     fetchRegisteredEvents()
-    // }, [])
+    useEffect(() => {
+        const fetchRegisteredEvents = async () => {
+            setIsFetching(true)
+            const { data} = await apiClient.registeredEvents(userId)
+            if (data) {
+                setRegisteredEvents(data.registeredEvents)
+                setUserHasRegisteredEvents(true)
+            }
+            setIsFetching(false)
+        }
+        fetchRegisteredEvents()
+    }, [])
 
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
+    // const handleChange = (event, newValue) => {
+    //     setValue(newValue);
+    //     console.log("current value", value)
+    // };
+
+     const handleChange = (value) => {
+        setCurrentButtonClicked(value);
         console.log("current value", value)
+        return;
     };
 
     //This profile update is being sent to the endpoint that is reached by the editProfile function
@@ -183,6 +192,19 @@ export default function EventgoerProfile({ user, setUser }){
     
     const handleClose = () => {
         setOpen(false);
+    };
+
+    const handleProfileTabContent = () => {
+        if(currentButtonClicked == 0) {
+            if(userHasRegisteredEvents == true){
+                registeredEvents.map((event) => (
+                    return <Event event={event} user={user} key={event.id} />;
+            
+            }
+            if(userHasRegisteredEvents == false{
+                <h2> You do not currently have any registered events.</h2>
+            }
+        }
     };
     
     const classes = useStyles();
@@ -267,28 +289,32 @@ export default function EventgoerProfile({ user, setUser }){
                 <Box className={classes.profileTabsContainer}>
                     <Paper className={classes.profileTabs}>
                         <Tabs
-                            value={value}
-                            onChange={handleChange}
+                            // value={value}
+                            value={currentButtonClicked}
+                            // onChange={handleChange}
+                            onChange={(event, value) => { handleChange(value) }} 
                             indicatorColor="primary"
                             textColor="primary"
                             centered
                         >
-                            <Tab label="Registered Events"  onClick={setCurrentButtonClicked(0)}/>
+                            {/* <Tab label="Registered Events"  onClick={setCurrentButtonClicked(0)}/>
                             <Tab label="Attended Events"  onClick={setCurrentButtonClicked(1)}/>
                             <Tab label="Recommendations"  onClick={setCurrentButtonClicked(2)}/>
-                            <Tab label="Reviews"  onClick={setCurrentButtonClicked(3)}/>
+                            <Tab label="Reviews"  onClick={setCurrentButtonClicked(3)}/> */}
+                            <Tab label="Registered Events"  value={0}/>
+                            <Tab label="Attended Events" value={1}/>
+                            <Tab label="Recommendations" value={2}/>
+                            <Tab label="Reviews" value={3} />
                         </Tabs>
                     </Paper>
                 </Box>
             </Box>
+
             <Box className={classes.profileTabContent}>
-                {/*
-                    if button is clicked{
-                        render (
-                            
-                        )
-                    }
-                */}
+                {handleProfileTabContent}
+            </Box>
+
+            {/* <Box className={classes.profileTabContent}> */}
                 {/* 
                     if(currentButtonClicked == 0){
                         if(userHasRegisteredEvents){
@@ -326,7 +352,8 @@ export default function EventgoerProfile({ user, setUser }){
                 
                 
                 */}
-            </Box>
+            {/* </Box> */}
         </div>
     )
 }
+
