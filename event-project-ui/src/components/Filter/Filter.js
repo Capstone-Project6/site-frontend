@@ -18,6 +18,15 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import Event from '../Event/Event'
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import Button from '@material-ui/core/Button';
+import Hidden from '@material-ui/core/Hidden';
+import './Filter.css'
+import { useState } from 'react';
 
 const drawerWidth = 240;
 
@@ -79,10 +88,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Filter ({user, filteredEvents}){
-    const classes = useStyles();
+  const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
+  const [greatestPrice, setGreatestPrice] = useState(0)
+  const [lowestPrice, setLowestPrice] = useState(0)
+  const [hasLowestPrice, setHasLowestPrice] = useState(false)
+  const [hasGreatestPrice, setHasGreatestPrice] = useState(false)
+
+  
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -123,12 +138,27 @@ export default function Filter ({user, filteredEvents}){
         </div>
         <Divider />
         <List>
-          {['Price Range', 'Date', 'Location', 'Event type'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
+
+            <ListItem button>
+              <ListItemText primary="Price"/>
+              
+              <div>
+      <FormControl className={classes.formControl}>
+        <InputLabel htmlFor="grouped-native-select">Filter</InputLabel>
+        <Select native defaultValue="" id="grouped-native-select">
+          <option aria-label="None" value="" />
+            <option value={1}>Free</option>
+            <option value={2}>Under $10</option>
+            <option value={3}>Under $20</option>
+            <option value={4}>$20 - $30</option>
+            <option value={5}>$30 - $40</option>
+            <option value={6}>$40 - $50</option>
+            <option value={7}>Over $50</option>
+          
+        </Select>
+      </FormControl>
+    </div>
             </ListItem>
-          ))}
         </List>
         <Divider />
       </Drawer>
