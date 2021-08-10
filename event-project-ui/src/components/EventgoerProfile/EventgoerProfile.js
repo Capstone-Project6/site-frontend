@@ -100,18 +100,18 @@ export default function EventgoerProfile({ user, setUser }){
     const [userHasReviews, setUserHasReviews] = useState(false)
     const [currentButtonClicked, setCurrentButtonClicked] = useState(0)
 
-    useEffect(() => {
-        const fetchRegisteredEvents = async () => {
-            setIsFetching(true)
-            const { data} = await apiClient.registeredEvents(userId)
-            if (data) {
-                setRegisteredEvents(data.registeredEvents)
-                setUserHasRegisteredEvents(true)
-            }
-            setIsFetching(false)
-        }
-        fetchRegisteredEvents()
-    }, [])
+    // useEffect(() => {
+    //     const fetchRegisteredEvents = async () => {
+    //         setIsFetching(true)
+    //         const { data} = await apiClient.registeredEvents(userId)
+    //         if (data) {
+    //             setRegisteredEvents(data.registeredEvents)
+    //             setUserHasRegisteredEvents(true)
+    //         }
+    //         setIsFetching(false)
+    //     }
+    //     fetchRegisteredEvents()
+    // }, [])
 
     // const handleChange = (event, newValue) => {
     //     setValue(newValue);
