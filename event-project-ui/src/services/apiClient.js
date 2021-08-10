@@ -14,7 +14,7 @@ class ApiClient {
     localStorage.setItem(this.tokenName, token)
   }
 
-  async request({ endpoint, method = `GET`, data = {} }) {
+  async request({ endpoint, method = `GET`, data = {}, params = {} }) {
     const url = `${this.remoteHostUrl}/${endpoint}`
 
     const headers = {
@@ -23,7 +23,7 @@ class ApiClient {
     }
 
     try {
-      const res = await axios({ url, method, data, headers })
+      const res = await axios({ url, method, data, headers, params })
       return { data: res.data, error: null }
     } catch (error) {
       console.error("APIclient.makeRequest.error:")
@@ -71,6 +71,10 @@ class ApiClient {
   async logoutUser() {
     this.setToken(null)
     localStorage.setItem(this.tokenName, "")
+  }
+
+  async filterEvents({filterCriteria}){
+    return await this.request({endpoint: `events/filtered-events`, method: `GET`, params: filterCriteria})
   }
 }
 
