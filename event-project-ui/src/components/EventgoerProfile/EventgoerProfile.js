@@ -88,14 +88,17 @@ export default function EventgoerProfile({ user, setUser }){
     const [error, setError] = useState(null)
     const [isUpdating, setIsUpdating] = useState(false)
     const [isFetching, setIsFetching] = useState(false)
-    const [registeredEvents, setRegisteredEvents] = useState([])
-    const [userHasRegisteredEvents, setUserHasRegisteredEvents] = useState(false)
-    const [userHasAttendedEvents, setUserHasAttendedEvents] = useState(false)
-    const [userHasRecommendation, setUserHasRecommendations] = useState(false)
-    const [userHasReviews, setUserHasReviews] = useState(false)
-    const [currentButtonClicked, setCurrentButtonClicked] = useState(0)
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState(0);
+    const [registeredEvents, setRegisteredEvents] = useState([])
+    const [attendedEvents, setAttendedEvents] = useState([])
+    const [recommendations, setRecommendations] = useState([])
+    const [reviews, setReviews] = useState([])
+    const [userHasRegisteredEvents, setUserHasRegisteredEvents] = useState(false)
+    const [userHasAttendedEvents, setUserHasAttendedEvents] = useState(false)
+    const [userHasRecommendations, setUserHasRecommendations] = useState(false)
+    const [userHasReviews, setUserHasReviews] = useState(false)
+    const [currentButtonClicked, setCurrentButtonClicked] = useState(0)
 
     useEffect(() => {
         const fetchRegisteredEvents = async () => {
@@ -198,31 +201,87 @@ export default function EventgoerProfile({ user, setUser }){
     
     const classes = useStyles();
     
-    // const handleProfileTabContent = () => {
-    //     if(currentButtonClicked === 0) {
-    //         if(userHasRegisteredEvents === true){
-    //             return (
-    //                     <>
-    //                         <div>
-    //                             {registeredEvents.map((event) => (
-    //                                 <Event event={event} user={user} key={event.id} />
-    //                             ))}
-    //                         </div>
-    //                     </>
-    //             )
-            
-    //         }
-    //         if(userHasRegisteredEvents === false) {
-    //             return (
-    //                 <div>
-    //                     <h2> You do not currently have any registered events.</h2>
-    //                 </div>
-    //             )
-    //         }
-    //     }
+    const handleProfileTabContent = () => {
+        console.log("registered events", registeredEvents)
+        if(currentButtonClicked === 0) {
+            if(userHasRegisteredEvents === true){
+                return (
+                        <div className="feed">
+                            {registeredEvents.map((event) => (
+                                <Event event={event} user={user} key={event.id} />
+                            ))}
+                        </div>
+                )
+            }
+            else {
+                return (
+                    <div>
+                        <h2> You do not currently have any registered events.</h2>
+                    </div>
+                )
+            }
+        }
 
-        
+        if(currentButtonClicked === 1) {
+            if(userHasAttendedEvents === true){
+                return (
+                        <div className="feed">
+                            {attendedEvents.map((event) => (
+                                <Event event={event} user={user} key={event.id} />
+                            ))}
+                        </div>
+                )
+            }
+            else {
+                return (
+                    <div>
+                        <h2> You do not currently have any previously attended events.</h2>
+                    </div>
+                )
+            }
+        }
+
+        if(currentButtonClicked === 2) {
+            if(userHasRecommendations === true){
+                return (
+                        <div className="feed">
+                            {recommendations.map((event) => (
+                                <Event event={event} user={user} key={event.id} />
+                            ))}
+                        </div>
+                )
+            }
+            
+            else {
+                return (
+                    <div>
+                        <h2> You do not currently have any recommendations.</h2>
+                    </div>
+                )
+            }
+        }
+
+        if(currentButtonClicked === 3) {
+            if(userHasReviews === true){
+                return (
+                        <div className="feed">
+                            {reviews.map((event) => (
+                                <Event event={event} user={user} key={event.id} />
+                            ))}
+                        </div>
+                )
+            }
+            
+            else {
+                return (
+                    <div>
+                        <h2> You do not currently have any reviews.</h2>
+                    </div>
+                )
+            }
+        }
     };
+
     return (
         <div className="eventgoerProfile">
             <Grid container className={classes.header}>
@@ -320,49 +379,11 @@ export default function EventgoerProfile({ user, setUser }){
                 </Box>
             </Box>
 
-            {/* <Box className={classes.profileTabContent}>
-                {handleProfileTabContent}
-            </Box> */}
+            <Box className={classes.profileTabContent}>
+                {handleProfileTabContent()}
+            </Box>
 
-            {/* <Box className={classes.profileTabContent}> */}
-                {/* 
-                    if(currentButtonClicked == 0){
-                        if(userHasRegisteredEvents){
-                            display registered events
-                        }
-                        else {
-                            display "user does not currently have registered events"
-                        }
-                    }
-                    else if(currentButtonClicked == 1){
-                        if(userHasAttendedEvents){
-                            display attended events
-                        }
-                        else {
-                            display "user does not currently have attended events"
-                        }
-                    }
-                    else if(currentButtonClicked == 2){
-                        if(userHasRecommendations){
-                            display recommendations
-                        }
-                        else {
-
-                        }
-                    }
-                    else {
-                        if(userHasReviews){
-                            display reviews
-                        }
-                        else {
-                            
-                        }
-                    }
-                
-                
-                
-                */}
-            {/* </Box> */}
+            
         </div>
     )
 }
