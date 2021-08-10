@@ -198,28 +198,28 @@ export default function EventgoerProfile({ user, setUser }){
     
     const classes = useStyles();
     
-    const handleProfileTabContent = () => {
-        if(currentButtonClicked === 0) {
-            if(userHasRegisteredEvents === true){
-                return (
-                        <>
-                            <div>
-                                {registeredEvents.map((event) => (
-                                    <Event event={event} user={user} key={event.id} />
-                                ))}
-                            </div>
-                        </>
-                )
+    // const handleProfileTabContent = () => {
+    //     if(currentButtonClicked === 0) {
+    //         if(userHasRegisteredEvents === true){
+    //             return (
+    //                     <>
+    //                         <div>
+    //                             {registeredEvents.map((event) => (
+    //                                 <Event event={event} user={user} key={event.id} />
+    //                             ))}
+    //                         </div>
+    //                     </>
+    //             )
             
-            }
-            if(userHasRegisteredEvents === false) {
-                return (
-                    <div>
-                        <h2> You do not currently have any registered events.</h2>
-                    </div>
-                )
-            }
-        }
+    //         }
+    //         if(userHasRegisteredEvents === false) {
+    //             return (
+    //                 <div>
+    //                     <h2> You do not currently have any registered events.</h2>
+    //                 </div>
+    //             )
+    //         }
+    //     }
 
         
     };
