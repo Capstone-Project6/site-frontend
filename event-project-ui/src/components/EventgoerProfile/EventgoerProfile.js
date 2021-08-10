@@ -2,6 +2,7 @@ import {useState, useEffect } from "react"
 // import {Link} from 'react-router-dom'
 import axios from 'axios';
 import apiClient from "../../services/apiClient"
+import Event from "../Event/Event";
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -194,21 +195,34 @@ export default function EventgoerProfile({ user, setUser }){
         setOpen(false);
     };
 
-    // const handleProfileTabContent = () => {
-    //     if(currentButtonClicked == 0) {
-    //         if(userHasRegisteredEvents == true){
-    //             registeredEvents.map((event) => (
-    //                 return <Event event={event} user={user} key={event.id} />;
-            
-    //         }
-    //         if(userHasRegisteredEvents == false{
-    //             <h2> You do not currently have any registered events.</h2>
-    //         }
-    //     }
-    // };
     
     const classes = useStyles();
     
+    const handleProfileTabContent = () => {
+        if(currentButtonClicked === 0) {
+            if(userHasRegisteredEvents === true){
+                return (
+                        <>
+                            <div>
+                                {registeredEvents.map((event) => (
+                                    <Event event={event} user={user} key={event.id} />
+                                ))}
+                            </div>
+                        </>
+                )
+            
+            }
+            if(userHasRegisteredEvents === false) {
+                return (
+                    <div>
+                        <h2> You do not currently have any registered events.</h2>
+                    </div>
+                )
+            }
+        }
+
+        
+    };
     return (
         <div className="eventgoerProfile">
             <Grid container className={classes.header}>
@@ -297,10 +311,6 @@ export default function EventgoerProfile({ user, setUser }){
                             textColor="primary"
                             centered
                         >
-                            {/* <Tab label="Registered Events"  onClick={setCurrentButtonClicked(0)}/>
-                            <Tab label="Attended Events"  onClick={setCurrentButtonClicked(1)}/>
-                            <Tab label="Recommendations"  onClick={setCurrentButtonClicked(2)}/>
-                            <Tab label="Reviews"  onClick={setCurrentButtonClicked(3)}/> */}
                             <Tab label="Registered Events"  value={0}/>
                             <Tab label="Attended Events" value={1}/>
                             <Tab label="Recommendations" value={2}/>
