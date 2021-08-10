@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -26,6 +27,7 @@ import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import Hidden from '@material-ui/core/Hidden';
 import './Filter.css'
+import { useState } from 'react';
 
 const drawerWidth = 240;
 
@@ -93,9 +95,31 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Filter ({user, filteredEvents}){
-    const classes = useStyles();
+  const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+
+  const [greatestPrice, setGreatestPrice] = useState(0)
+  const [lowestPrice, setLowestPrice] = useState(0)
+  const [hasLowestPrice, setHasLowestPrice] = useState(false)
+  const [hasGreatestPrice, setHasGreatestPrice] = useState(false)
+  const [indexValue, setIndexValue] = useState(0)
+  const[filterCriteria, setFilterCriteria] = useState({})
+  const priceRanges = [
+    [null, null],
+    [null, 10],
+    [null, 20],
+    [20, 30],
+    [30, 40],
+    [40, 50],
+    [50, null]
+  ];
+  
+  useEffect(() => {
+    console.log("changed index value", indexValue)
+    console.log(filterCriteria)
+
+  }, [indexValue])
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -104,6 +128,14 @@ export default function Filter ({user, filteredEvents}){
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const handleOnInputChange = (event) => {
+    setIndexValue(parseInt(event.target[event.target.selectedIndex].value))
+    const price = { priceRanges, indexValue}
+    setFilterCriteria(price)
+  }
+
+
     return (
         <div>
             <div className={classes.root}>
@@ -137,27 +169,34 @@ export default function Filter ({user, filteredEvents}){
         </div>
         <Divider />
         <List>
-          {['Price', 'Date', 'Location', 'Category'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemText primary={text} />
+
+            <ListItem button>
+              <ListItemText primary="Price"/>
+              
               <div>
       <FormControl className={classes.formControl}>
         <InputLabel htmlFor="grouped-native-select">Filter</InputLabel>
-        <Select native defaultValue="" id="grouped-native-select">
+        <Select 
+          native 
+          defaultValue=""
+          value={indexValue}
+          name="indexValue"
+          onChange={handleOnInputChange}
+          id="grouped-native-select"
+        >
           <option aria-label="None" value="" />
-          <optgroup label="Category 1">
-            <option value={1}>Option 1</option>
-            <option value={2}>Option 2</option>
-          </optgroup>
-          <optgroup label="Category 2">
-            <option value={3}>Option 3</option>
-            <option value={4}>Option 4</option>
-          </optgroup>
+            <option value={0}>Free</option>
+            <option value={1}>Under $10</option>
+            <option value={2}>Under $20</option>
+            <option value={3}>$20 - $30</option>
+            <option value={4}>$30 - $40</option>
+            <option value={5}>$40 - $50</option>
+            <option value={6}>Over $50</option>
+          
         </Select>
       </FormControl>
     </div>
             </ListItem>
-          ))}
         </List>
         <Divider />
         <Button>Apply Filters</Button>
