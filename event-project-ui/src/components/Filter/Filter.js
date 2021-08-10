@@ -223,7 +223,10 @@ export default function Filter ({user, filteredEvents}){
         <Divider />
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 {/* 

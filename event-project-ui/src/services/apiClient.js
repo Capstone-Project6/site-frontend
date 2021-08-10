@@ -72,6 +72,14 @@ class ApiClient {
     this.setToken(null)
     localStorage.setItem(this.tokenName, "")
   }
+<<<<<<< Updated upstream
+=======
+
+  async filterEvents({filterCriteria}){
+    return await this.request({endpoint: `events/filtered-events`, method: `GET`, params: filterCriteria})
+  }
+}
+>>>>>>> Stashed changes
 
   async filterEvents({filterCriteria}){
     return await this.request({endpoint: `events/filtered-events`, method: `GET`, params: filterCriteria})
