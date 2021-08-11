@@ -2,6 +2,7 @@ import {useState, useEffect } from "react"
 // import {Link} from 'react-router-dom'
 import axios from 'axios';
 import apiClient from "../../services/apiClient"
+import Event from "../Event/Event";
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -81,7 +82,7 @@ const useStyles = makeStyles({
     }
 });
 
-export default function EventgoerProfile({ user, setUser }){
+export default function EventgoerProfile({ user, setUser, registeredEvents, attendedEvents, recommendations, reviews, userHasRegisteredEvents, userHasAttendedEvents, userHasRecommendations, userHasReviews }){
     //this is the current user's id
     const userId = user.id
     const [error, setError] = useState(null)
@@ -89,9 +90,12 @@ export default function EventgoerProfile({ user, setUser }){
     const [isFetching, setIsFetching] = useState(false)
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState(0);
+    const [currentButtonClicked, setCurrentButtonClicked] = useState(0)
 
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
+    const handleChange = (value) => {
+        setCurrentButtonClicked(value);
+        console.log("current value", value)
+        return;
     };
 
     //This profile update is being sent to the endpoint that is reached by the editProfile function
@@ -167,9 +171,91 @@ export default function EventgoerProfile({ user, setUser }){
     const handleClose = () => {
         setOpen(false);
     };
+
     
     const classes = useStyles();
     
+    const handleProfileTabContent = () => {
+        console.log("registered events", registeredEvents)
+        if(currentButtonClicked === 0) {
+            if(registeredEvents.length !== 0){
+                return (
+                        <div className="feed">
+                            {registeredEvents.map((event) => (
+                                <Event event={event} user={user} key={event.id} />
+                            ))}
+                        </div>
+                )
+            }
+            else {
+                return (
+                    <div>
+                        <h2> You do not currently have any registered events.</h2>
+                    </div>
+                )
+            }
+        }
+
+        if(currentButtonClicked === 1) {
+            if(attendedEvents.length !== 0){
+                return (
+                        <div className="feed">
+                            {attendedEvents.map((event) => (
+                                <Event event={event} user={user} key={event.id} />
+                            ))}
+                        </div>
+                )
+            }
+            else {
+                return (
+                    <div>
+                        <h2> You do not currently have any previously attended events.</h2>
+                    </div>
+                )
+            }
+        }
+
+        if(currentButtonClicked === 2) {
+            if(recommendations.length !== 0){
+                return (
+                        <div className="feed">
+                            {recommendations.map((event) => (
+                                <Event event={event} user={user} key={event.id} />
+                            ))}
+                        </div>
+                )
+            }
+            
+            else {
+                return (
+                    <div>
+                        <h2> You do not currently have any recommendations.</h2>
+                    </div>
+                )
+            }
+        }
+
+        if(currentButtonClicked === 3) {
+            if(reviews.length !== 0){
+                return (
+                        <div className="feed">
+                            {reviews.map((event) => (
+                                <Event event={event} user={user} key={event.id} />
+                            ))}
+                        </div>
+                )
+            }
+            
+            else {
+                return (
+                    <div>
+                        <h2> You do not currently have any reviews.</h2>
+                    </div>
+                )
+            }
+        }
+    };
+
     return (
         <div className="eventgoerProfile">
             <Grid container className={classes.header}>
@@ -250,20 +336,29 @@ export default function EventgoerProfile({ user, setUser }){
                 <Box className={classes.profileTabsContainer}>
                     <Paper className={classes.profileTabs}>
                         <Tabs
-                            value={value}
-                            onChange={handleChange}
+                            // value={value}
+                            value={currentButtonClicked}
+                            // onChange={handleChange}
+                            onChange={(event, value) => { handleChange(value) }} 
                             indicatorColor="primary"
                             textColor="primary"
                             centered
                         >
-                            <Tab label="Registered Events" />
-                            <Tab label="Attended Events" />
-                            <Tab label="Recommendations" />
-                            <Tab label="Reviews" />
+                            <Tab label="Registered Events"  value={0}/>
+                            <Tab label="Attended Events" value={1}/>
+                            <Tab label="Recommendations" value={2}/>
+                            <Tab label="Reviews" value={3} />
                         </Tabs>
                     </Paper>
                 </Box>
             </Box>
+
+            <Box className={classes.profileTabContent}>
+                {handleProfileTabContent()}
+            </Box>
+
+            
         </div>
     )
 }
+
