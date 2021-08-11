@@ -82,7 +82,7 @@ const useStyles = makeStyles({
     }
 });
 
-export default function EventgoerProfile({ user, setUser }){
+export default function EventgoerProfile({ user, setUser, registeredEvents, attendedEvents, recommendations, reviews, userHasRegisteredEvents, userHasAttendedEvents, userHasRecommendations, userHasReviews }){
     //this is the current user's id
     const userId = user.id
     const [error, setError] = useState(null)
@@ -90,35 +90,9 @@ export default function EventgoerProfile({ user, setUser }){
     const [isFetching, setIsFetching] = useState(false)
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState(0);
-    const [registeredEvents, setRegisteredEvents] = useState([])
-    const [attendedEvents, setAttendedEvents] = useState([])
-    const [recommendations, setRecommendations] = useState([])
-    const [reviews, setReviews] = useState([])
-    const [userHasRegisteredEvents, setUserHasRegisteredEvents] = useState(false)
-    const [userHasAttendedEvents, setUserHasAttendedEvents] = useState(false)
-    const [userHasRecommendations, setUserHasRecommendations] = useState(false)
-    const [userHasReviews, setUserHasReviews] = useState(false)
     const [currentButtonClicked, setCurrentButtonClicked] = useState(0)
 
-    // useEffect(() => {
-    //     const fetchRegisteredEvents = async () => {
-    //         setIsFetching(true)
-    //         const { data} = await apiClient.registeredEvents(userId)
-    //         if (data) {
-    //             setRegisteredEvents(data.registeredEvents)
-    //             setUserHasRegisteredEvents(true)
-    //         }
-    //         setIsFetching(false)
-    //     }
-    //     fetchRegisteredEvents()
-    // }, [])
-
-    // const handleChange = (event, newValue) => {
-    //     setValue(newValue);
-    //     console.log("current value", value)
-    // };
-
-     const handleChange = (value) => {
+    const handleChange = (value) => {
         setCurrentButtonClicked(value);
         console.log("current value", value)
         return;
@@ -204,7 +178,7 @@ export default function EventgoerProfile({ user, setUser }){
     const handleProfileTabContent = () => {
         console.log("registered events", registeredEvents)
         if(currentButtonClicked === 0) {
-            if(userHasRegisteredEvents === true){
+            if(registeredEvents.length !== 0){
                 return (
                         <div className="feed">
                             {registeredEvents.map((event) => (
@@ -223,7 +197,7 @@ export default function EventgoerProfile({ user, setUser }){
         }
 
         if(currentButtonClicked === 1) {
-            if(userHasAttendedEvents === true){
+            if(attendedEvents.length !== 0){
                 return (
                         <div className="feed">
                             {attendedEvents.map((event) => (
@@ -242,7 +216,7 @@ export default function EventgoerProfile({ user, setUser }){
         }
 
         if(currentButtonClicked === 2) {
-            if(userHasRecommendations === true){
+            if(recommendations.length !== 0){
                 return (
                         <div className="feed">
                             {recommendations.map((event) => (
@@ -262,7 +236,7 @@ export default function EventgoerProfile({ user, setUser }){
         }
 
         if(currentButtonClicked === 3) {
-            if(userHasReviews === true){
+            if(reviews.length !== 0){
                 return (
                         <div className="feed">
                             {reviews.map((event) => (
