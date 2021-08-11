@@ -1,21 +1,22 @@
-import {Link, useLocation} from 'react-router-dom'
-import './Navbar.css'
-import SearchBar from "material-ui-search-bar";
 import React from 'react'
+import {Link, useLocation} from 'react-router-dom'
+import profileIcon from "../../profileIcon.png"
+import SearchBar from "material-ui-search-bar";
 import { useNavigate} from "react-router-dom";
-import Event from "../Event/Event"
-import { useState, useEffect } from 'react';
+// import Event from "../Event/Event"
+import { useState} from 'react';
 import apiClient from "../../services/apiClient"
+import './Navbar.css'
 
 //added parameter
 export default function Navbar({ user, handleLogout, setFilteredEvents }){
     const [searchTerm, setSearchTerm] = useState("")
   //This const will hold an event
-  const [events, setEvents] = useState([])
+//   const [events, setEvents] = useState([])
   //This const handles errors
-  const [error, setError] = useState(null)
+//   const [error, setError] = useState(null)
   //This const determines if events are being fetched
-  const [isFetching, setIsFetching] = useState(false)
+//   const [isFetching, setIsFetching] = useState(false)
     const navigate = useNavigate();
     const location = useLocation()
     const showSearch = location.pathname !== "/signup" && location.pathname !== "/login"
@@ -40,6 +41,7 @@ export default function Navbar({ user, handleLogout, setFilteredEvents }){
            onRequestSearch= {async () => {          
             navigate("/filter")
             setFilteredEvents(await apiClient.searchEvents(searchTerm))
+            setSearchTerm("")
           }}
   />
         }
@@ -50,12 +52,11 @@ export default function Navbar({ user, handleLogout, setFilteredEvents }){
                             {/* <li>
                                 <span>{user.email}</span>
                             </li> */}
-                            {/* <li>
-                                <Link to="/eventgoerProfile"> 
-                                    <span> {user.first_name}</span>
-                                    <span> </span>
+                            <li>
+                                <Link className="profileButton" to="/eventgoerProfile"> 
+                                    <span className="profileButtonItem"> {user.email} <img className="profileIcon" src={profileIcon} alt="profile icon"/> </span>
                                 </Link>
-                            </li> */}
+                            </li>
 
                             <li className="logout">
                                 <span onClick={handleLogout}> Logout</span>

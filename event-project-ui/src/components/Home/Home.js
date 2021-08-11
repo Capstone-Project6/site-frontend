@@ -3,207 +3,33 @@ import { useState } from 'react';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 // import { Link } from "react-router-dom"
-import partyPhoto from "../../partyPhoto.jpg"
-import concertPhoto from "../../concertPhoto.jpg"
 import Event from '../Event/Event'
 import './Home.css'
+import apiClient from "../../services/apiClient"
 
 //the Home function takes in an object that is an array of events
-export default function Home( { user, isFetching, events, error }){
+export default function Home( { user, isFetching, events, error, setError}){
     const[userLoggedIn, setUserLoggedIn] = useState(false);
     const [topEventsBtnClicked, setTopEventsBtnClicked] = useState(true);
     const[recommendedBtnClicked, setRecommendedBtnClicked] = useState(false);
     const [alignment, setAlignment] = useState('left');
+    const [recommended, setRecommended] = useState([])
+
 
     const handleAlignment = (event, newAlignment) => {
         setAlignment(newAlignment);
     };
+    const handleRecommended = async () => {
+              const { data, error } = await apiClient.recommendEvents(user.id)
+              if (data) {
+                  console.log(data)
+                setRecommended(data.recommendations)
+              }
+              if (error) {
+                setError(error)
+              }
+            }
 
-    // if( user?.email? ) {
-    //     setUserLoggedIn(true);
-    // }
-
-    // const topEventsData = [
-    //     { 
-    //         id: 1,
-    //         eventImage: partyPhoto,
-    //         eventName: "Loft Party",
-    //         eventDescription: "Check out our fun event!",
-    //         date: "August 2, 2021",
-    //         beginningTime: " 9:00pm",
-    //         endTime: "1:00am",
-    //         location: "Atlanta, GA",
-    //         venue: "The Loft"
-    //     },
-    //     {
-    //         id: 2,
-    //         eventImage: partyPhoto,
-    //         eventName: "Loft Party",
-    //         eventDescription: "Check out our fun event!",
-    //         date: "August 2, 2021",
-    //         beginningTime: " 9:00pm",
-    //         endTime: "1:00am",
-    //         location: "Atlanta, GA",
-    //         venue: "The Loft"
-    //     },
-    //     {
-    //         id: 3,
-    //         eventImage: partyPhoto,
-    //         eventName: "Loft Party",
-    //         eventDescription: "Check out our fun event!",
-    //         date: "August 2, 2021",
-    //         beginningTime: " 9:00pm",
-    //         endTime: "1:00am",
-    //         location: "Atlanta, GA",
-    //         venue: "The Loft"
-    //     },
-    //     {
-    //         id: 4,
-    //         eventImage: partyPhoto,
-    //         eventName: "Loft Party",
-    //         eventDescription: "Check out our fun event!",
-    //         date: "August 2, 2021",
-    //         beginningTime: " 9:00pm",
-    //         endTime: "1:00am",
-    //         location: "Atlanta, GA",
-    //         venue: "The Loft"
-    //     },
-    //     {
-    //         id: 5,
-    //         eventImage: partyPhoto,
-    //         eventName: "Loft Party",
-    //         eventDescription: "Check out our fun event!",
-    //         date: "August 2, 2021",
-    //         beginningTime: " 9:00pm",
-    //         endTime: "1:00am",
-    //         location: "Atlanta, GA",
-    //         venue: "The Loft"
-    //     },
-    //     {
-    //         id: 6,
-    //         eventImage: partyPhoto,
-    //         eventName: "Loft Party",
-    //         eventDescription: "Check out our fun event!",
-    //         date: "August 2, 2021",
-    //         beginningTime: " 9:00pm",
-    //         endTime: "1:00am",
-    //         location: "Atlanta, GA",
-    //         venue: "The Loft"
-    //     },
-    //     {
-    //         id: 7,
-    //         eventImage: partyPhoto,
-    //         eventName: "Loft Party",
-    //         eventDescription: "Check out our fun event!",
-    //         date: "August 2, 2021",
-    //         beginningTime: " 9:00pm",
-    //         endTime: "1:00am",
-    //         location: "Atlanta, GA",
-    //         venue: "The Loft"
-    //     },
-    //     {
-    //         id: 8,
-    //         eventImage: partyPhoto,
-    //         eventName: "Loft Party",
-    //         eventDescription: "Check out our fun event!",
-    //         date: "August 2, 2021",
-    //         beginningTime: " 9:00pm",
-    //         endTime: "1:00am",
-    //         location: "Atlanta, GA",
-    //         venue: "The Loft"
-    //     },
-    // ];
-
-    // const recommendedEventsData = [
-    //     { 
-    //         id: 1,
-    //         eventImage: concertPhoto,
-    //         eventName: "Fun Event",
-    //         eventDescription: "Check out our fun event!",
-    //         date: "August 2, 2021",
-    //         beginningTime: " 9:00pm",
-    //         endTime: "1:00am",
-    //         location: "Atlanta, GA",
-    //         venue: "The Loft"
-    //     },
-    //     {
-    //         id: 2,
-    //         eventImage: concertPhoto,
-    //         eventName: "Fun Event",
-    //         eventDescription: "Check out our fun event!",
-    //         date: "August 2, 2021",
-    //         beginningTime: " 9:00pm",
-    //         endTime: "1:00am",
-    //         location: "Atlanta, GA",
-    //         venue: "The Loft"
-    //     },
-    //     {
-    //         id: 3,
-    //         eventImage: concertPhoto,
-    //         eventName: "Fun Event",
-    //         eventDescription: "Check out our fun event!",
-    //         date: "August 2, 2021",
-    //         beginningTime: " 9:00pm",
-    //         endTime: "1:00am",
-    //         location: "Atlanta, GA",
-    //         venue: "The Loft"
-    //     },
-    //     {
-    //         id: 4,
-    //         eventImage: concertPhoto,
-    //         eventName: "Fun Event",
-    //         eventDescription: "Check out our fun event!",
-    //         date: "August 2, 2021",
-    //         beginningTime: " 9:00pm",
-    //         endTime: "1:00am",
-    //         location: "Atlanta, GA",
-    //         venue: "The Loft"
-    //     },
-    //     {
-    //         id: 5,
-    //         eventImage: concertPhoto,
-    //         eventName: "Fun Event",
-    //         eventDescription: "Check out our fun event!",
-    //         date: "August 2, 2021",
-    //         beginningTime: " 9:00pm",
-    //         endTime: "1:00am",
-    //         location: "Atlanta, GA",
-    //         venue: "The Loft"
-    //     },
-    //     {
-    //         id: 6,
-    //         eventImage: concertPhoto,
-    //         eventName: "Fun Event",
-    //         eventDescription: "Check out our fun event!",
-    //         date: "August 2, 2021",
-    //         beginningTime: " 9:00pm",
-    //         endTime: "1:00am",
-    //         location: "Atlanta, GA",
-    //         venue: "The Loft"
-    //     },
-    //     {
-    //         id: 7,
-    //         eventImage: concertPhoto,
-    //         eventName: "Fun Event",
-    //         eventDescription: "Check out our fun event!",
-    //         date: "August 2, 2021",
-    //         beginningTime: " 9:00pm",
-    //         endTime: "1:00am",
-    //         location: "Atlanta, GA",
-    //         venue: "The Loft"
-    //     },
-    //     {
-    //         id: 8,
-    //         eventImage: concertPhoto,
-    //         eventName: "Fun Event",
-    //         eventDescription: "Check out our fun event!",
-    //         date: "August 2, 2021",
-    //         beginningTime: " 9:00pm",
-    //         endTime: "1:00am",
-    //         location: "Atlanta, GA",
-    //         venue: "The Loft"
-    //     },
-    // ];
 
     return(
         <div className="home">
@@ -217,7 +43,7 @@ export default function Home( { user, isFetching, events, error }){
                 <ToggleButton onClick={() => {setTopEventsBtnClicked(true); setRecommendedBtnClicked(false); }} value="left" aria-label="left aligned">
                     Top Events
                 </ToggleButton>
-                <ToggleButton onClick={() => {setRecommendedBtnClicked(true); setTopEventsBtnClicked(false);}} value="right" aria-label="right aligned">
+                <ToggleButton onClick={() => {setRecommendedBtnClicked(true); setTopEventsBtnClicked(false); handleRecommended()}} value="right" aria-label="right aligned">
                     Recommended Events
                 </ToggleButton>
             </ToggleButtonGroup>
@@ -242,7 +68,7 @@ export default function Home( { user, isFetching, events, error }){
                             ))
                         ) : (
                             //instead this will be a user's RECOMMENDED events
-                            events.map((event) => (
+                            recommended.map((event) => (
                                 <Event event={event} user={user} key={event.id} />
                             ))
                         )

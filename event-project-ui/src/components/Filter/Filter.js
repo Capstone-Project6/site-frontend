@@ -86,6 +86,12 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginLeft: 0,
   },
+  
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  }
+
 }));
 
 export default function Filter ({user, filteredEvents}){
@@ -293,9 +299,11 @@ export default function Filter ({user, filteredEvents}){
       >
       </main>
     </div>
+    <div className="feed">
     {filteredEvents.map((event) => (
         <Event event={event} user={user} key={event.id} />
     ))}
+    </div>
     </div>
     )
 }
