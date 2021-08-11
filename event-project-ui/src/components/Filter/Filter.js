@@ -221,17 +221,6 @@ export default function Filter ({user, filteredEvents}){
             </ListItem>
         </List>
         <Divider />
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 {/* 
         <Divider />
         <List>
@@ -296,7 +285,6 @@ export default function Filter ({user, filteredEvents}){
         <Divider /> */}
         <Button>Apply Filters</Button>
 
->>>>>>> Stashed changes
       </Drawer>
       <main
         className={clsx(classes.content, {
