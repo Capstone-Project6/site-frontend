@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -18,6 +19,15 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import Event from '../Event/Event'
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import Button from '@material-ui/core/Button';
+import Hidden from '@material-ui/core/Hidden';
+import './Filter.css'
+import { useState } from 'react';
 
 const drawerWidth = 240;
 
@@ -76,12 +86,40 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginLeft: 0,
   },
+  
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  }
+
 }));
 
 export default function Filter ({user, filteredEvents}){
-    const classes = useStyles();
+  const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+
+  const [greatestPrice, setGreatestPrice] = useState(0)
+  const [lowestPrice, setLowestPrice] = useState(0)
+  const [hasLowestPrice, setHasLowestPrice] = useState(false)
+  const [hasGreatestPrice, setHasGreatestPrice] = useState(false)
+  const [indexValue, setIndexValue] = useState(0)
+  const[filterCriteria, setFilterCriteria] = useState({})
+  const priceRanges = [
+    [null, null],
+    [null, 10],
+    [null, 20],
+    [20, 30],
+    [30, 40],
+    [40, 50],
+    [50, null]
+  ];
+  
+  useEffect(() => {
+    console.log("changed index value", indexValue)
+    console.log(filterCriteria)
+
+  }, [indexValue])
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -90,6 +128,14 @@ export default function Filter ({user, filteredEvents}){
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const handleOnInputChange = (event) => {
+    setIndexValue(parseInt(event.target[event.target.selectedIndex].value))
+    const price = { priceRanges, indexValue}
+    setFilterCriteria(price)
+  }
+
+
     return (
         <div>
             <div className={classes.root}>
@@ -123,14 +169,38 @@ export default function Filter ({user, filteredEvents}){
         </div>
         <Divider />
         <List>
-          {['Price Range', 'Date', 'Location', 'Event type'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
+
+            <ListItem button>
+              <ListItemText primary="Price"/>
+              
+              <div>
+      <FormControl className={classes.formControl}>
+        <InputLabel htmlFor="grouped-native-select">Filter</InputLabel>
+        <Select 
+          native 
+          defaultValue=""
+          value={indexValue}
+          name="indexValue"
+          onChange={handleOnInputChange}
+          id="grouped-native-select"
+        >
+          <option aria-label="None" value="" />
+            <option value={0}>Free</option>
+            <option value={1}>Under $10</option>
+            <option value={2}>Under $20</option>
+            <option value={3}>$20 - $30</option>
+            <option value={4}>$30 - $40</option>
+            <option value={5}>$40 - $50</option>
+            <option value={6}>Over $50</option>
+          
+        </Select>
+      </FormControl>
+    </div>
             </ListItem>
-          ))}
         </List>
         <Divider />
+        <Button>Apply Filters</Button>
+
       </Drawer>
       <main
         className={clsx(classes.content, {
@@ -139,9 +209,11 @@ export default function Filter ({user, filteredEvents}){
       >
       </main>
     </div>
+    <div className="feed">
     {filteredEvents.map((event) => (
         <Event event={event} user={user} key={event.id} />
     ))}
+    </div>
     </div>
     )
 }

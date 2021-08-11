@@ -58,7 +58,11 @@ class ApiClient {
     }
   })
   return filteredEvents
-}
+  }
+
+  async recommendEvents(userId) {
+      return await this.request({endpoint: `events/${userId}/recommended`, method: `GET`})
+  }
 
   async signupUser(credentials) {
     return await this.request({ endpoint: `auth/register`, method: `POST`, data: credentials })
@@ -68,15 +72,39 @@ class ApiClient {
     return await this.request({ endpoint: `auth/login`, method: `POST`, data: credentials })
   }
 
+  async editProfile({ userId, profileUpdate}) {
+    return await this.request({ endpoint: `profile/${userId}`, method: `PATCH`, data: profileUpdate })
   // async editProfile({ userId, profileUpdate}) {
   //   return await this.request({ endpoint: `profile/${userId}`, method: `PATCH`, data: profileUpdate })
   // }
+}
+
+async addFavorite(favorites, userId) {
+  return await this.request({ endpoint: `events/${userId}/favorites`, method: `POST`, data: favorites})
+}
+
+  async getCategories() {
+    return await this.request({ endpoint: `events/categories`, method: `GET`})
+  }
+
+  async fetchPostById(id) {
+    return await this.request({ endpoint: `events/${id}`, method: `GET` })
+  }
+
+  async eventRegistration({form, userId}) {
+    return await this.request({endpoint: `events/event-register/${userId}`, method: `POST`, data: form})
+  }
+
+  async registeredEvents(userId) {
+    return await this.request({endpoint: `events/registered/${userId}`, method: `GET`})
+  }
 
   async logoutUser() {
     this.setToken(null)
     localStorage.setItem(this.tokenName, "")
   }
 }
+
 
 //CHANGED TO LOCAL HOST AT 3000
 const API = new ApiClient(process.env.REACT_APP_REMOTE_HOST_URL || "http://localhost:3001")

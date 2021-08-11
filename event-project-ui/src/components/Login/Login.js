@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
-import axios from "axios"
+import {useNavigate } from "react-router-dom"
+// import axios from "axios"
 import apiClient from "../../services/apiClient"
 import "./Login.css"
 
@@ -50,6 +50,7 @@ export default function Login({ user, setUser }) {
       setIsProcessing(false)
     }
 
+    console.log("USER,", user.email)
       
     return (
         <div className="Login">
