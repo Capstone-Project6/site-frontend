@@ -57,6 +57,10 @@ export default function Navbar({ user, handleLogout, setFilteredEvents }){
                                 </Link>
                             </li>
 
+                            <li className="makeEvent">
+                                 <Link to="/create">Create Event</Link>
+                            </li>
+
                             <li className="logout">
                                 <span onClick={handleLogout}> Logout</span>
                             </li>
