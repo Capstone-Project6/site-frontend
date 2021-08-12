@@ -73,6 +73,7 @@ export default function Login({ user, setUser }) {
                             //ADDED THE VALUE AND ONCHANGE
                             value={form.email}
                             onChange={handleOnInputChange}
+                            className="input"
                         />
                         {/* ADDED THIS ERROR */}
                         {errors.email && <span className="error">{errors.email}</span>}
@@ -87,6 +88,7 @@ export default function Login({ user, setUser }) {
                             //ADDED THE VALUE AND ONCHANGE
                             value={form.password}
                             onChange={handleOnInputChange} 
+                            className="input"
                         />
                         {/* for above input:
                             value={form.password}

@@ -78,6 +78,12 @@ function App() {
     fetchInterests()
   }, [])
 
+  // useEffect(() => {
+  //   console.log("INTERESTS", interests)
+  // }, [interests])
+
+  console.log("INTERESTS", interests)
+  
   useEffect(() => {
         const fetchRegisteredEvents = async () => {
             setIsFetching(true)
@@ -146,7 +152,7 @@ function App() {
           {/* updatePost={updatePost} */}
           <Route path="/eventgoerProfile" element={<EventgoerProfile user={user} setUser={setUser} registeredEvents={registeredEvents} attendedEvents={attendedEvents} recommendations={recommendations} reviews={reviews}/>}></Route>
           {/* "/eventRegistration/:id" */}
-          <Route path="/eventRegistration" element={<EventRegistration user={user} />} />
+          <Route path="/eventRegistration/:id" element={<EventRegistration user={user} />} />
         </Routes>
       </BrowserRouter>
     </div>

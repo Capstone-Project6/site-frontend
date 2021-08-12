@@ -24,7 +24,7 @@ import './EventgoerProfile.css'
 
 const useStyles = makeStyles({
     header: {
-        background: "#C4C4C4",
+        background: "#d7d6d6",
         width: "95%",
         height: 255,
         margin: "auto",
@@ -64,6 +64,7 @@ const useStyles = makeStyles({
     },
     editButton: {
         height: 25,
+        width: 180
     },
     buttonAndDialog: {
         width: 200,
@@ -71,7 +72,6 @@ const useStyles = makeStyles({
     editBox: {
         width: 150,
         height: 40,
-        background:"grey",
         color:"white",
     },
     profileTabsContainer: {
@@ -189,7 +189,7 @@ export default function EventgoerProfile({ user, setUser, registeredEvents, atte
             }
             else {
                 return (
-                    <div>
+                    <div className="noInfoMessage">
                         <h2> You do not currently have any registered events.</h2>
                     </div>
                 )
@@ -208,7 +208,7 @@ export default function EventgoerProfile({ user, setUser, registeredEvents, atte
             }
             else {
                 return (
-                    <div>
+                    <div className="noInfoMessage">
                         <h2> You do not currently have any previously attended events.</h2>
                     </div>
                 )
@@ -228,7 +228,7 @@ export default function EventgoerProfile({ user, setUser, registeredEvents, atte
             
             else {
                 return (
-                    <div>
+                    <div className="noInfoMessage">
                         <h2> You do not currently have any recommendations.</h2>
                     </div>
                 )
@@ -248,7 +248,7 @@ export default function EventgoerProfile({ user, setUser, registeredEvents, atte
             
             else {
                 return (
-                    <div>
+                    <div className="noInfoMessage">
                         <h2> You do not currently have any reviews.</h2>
                     </div>
                 )
@@ -260,7 +260,7 @@ export default function EventgoerProfile({ user, setUser, registeredEvents, atte
         <div className="eventgoerProfile">
             <Grid container className={classes.header}>
             {/* <div className="header"> */}
-                <Box container item className={classes.profileHeaderContent}>
+                <Box container item className={classes.profileHeaderContent} ml={20}>
                     <Grid container className={classes.avatarContainer}>
                         <Avatar alt="profile picture" src={user.profile_picture} className={classes.avatar} />
                     </Grid>
@@ -279,7 +279,7 @@ export default function EventgoerProfile({ user, setUser, registeredEvents, atte
                 <Grid className={classes.editBox}>
                     {/* below is the pop up button */}
                     {/* variant="outlined */}
-                    <Button className={classes.editButton} onClick={handleClickOpen}>
+                    <Button className={classes.editButton} onClick={handleClickOpen} variant="contained" color="primary">
                         Edit Profile <EditIcon/>
                     </Button>
                     {/* <EditIcon/> */}

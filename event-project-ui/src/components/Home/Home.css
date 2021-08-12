@@ -1,5 +1,9 @@
+.indivEvent {
+    text-decoration: none;
+}
 .homePageTitle {
     text-align: center;
+    color: white;
 }
 
 .feed {

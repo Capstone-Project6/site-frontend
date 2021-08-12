@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 // import { Link } from "react-router-dom"
@@ -28,9 +29,9 @@ export default function Home( { user, isFetching, events, error, setError}){
               if (error) {
                 setError(error)
               }
-            }
-
-
+    }
+    
+    console.log("events", events)
     return(
         <div className="home">
             {user?.email? (
@@ -39,6 +40,7 @@ export default function Home( { user, isFetching, events, error, setError}){
                 exclusive
                 onChange={handleAlignment}
                 aria-label="text alignment"
+                color="white"
             >
                 <ToggleButton onClick={() => {setTopEventsBtnClicked(true); setRecommendedBtnClicked(false); }} value="left" aria-label="left aligned">
                     Top Events
@@ -64,18 +66,24 @@ export default function Home( { user, isFetching, events, error, setError}){
                             //     <Event event={event} user={user} key={event.id} />
                             // ))
                             events.map((event) => (
-                                <Event event={event} user={user} key={event.id} />
+                                <Link to={`/eventRegistration/${event["Event ID"]}`}  className="indivEvent" key={event["Event ID"]}>
+                                    <Event event={event} user={user} key={event["Event ID"]} />
+                                </Link>
                             ))
                         ) : (
                             //instead this will be a user's RECOMMENDED events
                             recommended.map((event) => (
-                                <Event event={event} user={user} key={event.id} />
+                                <Link to={`/eventRegistration/${event["Event ID"]}`} className="indivEvent" key={event["Event ID"]}>
+                                    <Event event={event} user={user} key={event["Event ID"]} />
+                                </Link>
                             ))
                         )
                 ) : (
                     <>
                         {events.map((event) => (
-                            <Event event={event} user={user} key={event.id} />
+                            <Link to={`/eventRegistration/${event["Event ID"]}`} className="indivEvent" key={event["Event ID"]}>
+                                <Event event={event} user={user} key={event["Event ID"]} />
+                            </Link>
                         ))}
                     </>
                 )}

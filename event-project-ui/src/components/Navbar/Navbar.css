@@ -5,7 +5,7 @@
     /* position: absolute; */
     top: 0;
     left: 0;
-    background-color: grey;
+    background-color: #005860;
     margin-bottom: 20px;
     /* display: block; */
 }
@@ -49,9 +49,12 @@
 .logout { cursor: pointer; }
 
 .profileButton{
-    background-color: #C4C4C4;
+    background-color: #d7d6d6;
+    border-radius: 5px;
     display: flex;
     flex-direction: row;
+    align-items: center;
+    height: 40px;
 }
 
 .profileButtonItem {
