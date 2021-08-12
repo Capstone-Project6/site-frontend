@@ -20,7 +20,7 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import Event from '../Event/Event'
 import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
+// import option from '@material-ui/core/option';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
@@ -28,6 +28,7 @@ import Button from '@material-ui/core/Button';
 import Hidden from '@material-ui/core/Hidden';
 import './Filter.css'
 import { useState } from 'react';
+import apiClient from '../../services/apiClient';
 
 const drawerWidth = 240;
 
@@ -116,10 +117,39 @@ export default function Filter ({user, filteredEvents}){
   ];
   
   useEffect(() => {
-    console.log("changed index value", indexValue)
-    console.log(filterCriteria)
+    let minValue = 0
+    let maxValue = 0
+    let ranges = priceRanges[indexValue]
+
+    if (ranges !== undefined){
+    if (ranges[0] === null){
+      minValue = 0
+    }
+    else {
+      minValue = ranges[0]
+    }
+    if (ranges[1] === null){
+      maxValue = 0
+    }
+    else{
+      maxValue = ranges[1]
+    }
+  }
+  else{
+    return
+  }
+
+    let price = {
+      "minValue": minValue,
+      "maxValue": maxValue
+    }
+    setFilterCriteria(price)
 
   }, [indexValue])
+
+
+  console.log("changed index value", indexValue)
+  console.log(filterCriteria)
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -130,9 +160,12 @@ export default function Filter ({user, filteredEvents}){
   };
 
   const handleOnInputChange = (event) => {
-    setIndexValue(parseInt(event.target[event.target.selectedIndex].value))
-    const price = { priceRanges, indexValue}
-    setFilterCriteria(price)
+    // setIndexValue(parseInt(event.target[event.target.selectedIndex].value))
+    setIndexValue(parseInt(event.target.value))
+  }
+
+  const handleOnClick = async () => {
+    await apiClient.filterEvents({filterCriteria})
   }
 
 
@@ -199,7 +232,117 @@ export default function Filter ({user, filteredEvents}){
             </ListItem>
         </List>
         <Divider />
-        <Button>Apply Filters</Button>
+        {/* <Divider />
+        <List>
+
+            <ListItem button>
+              <ListItemText primary="Category"/>
+              
+              <div>
+      <FormControl className={classes.formControl}>
+        <InputLabel htmlFor="grouped-native-select">Filter</InputLabel>
+        <Select 
+          native 
+          defaultValue=""
+          value={indexValue}
+          name="indexValue"
+          onChange={handleOnInputChange}
+          id="grouped-native-select"
+        >
+          <option aria-label="None" value="" />
+            <option value={0}>Music</option>
+            <option value={1}>Sports</option>
+            <option value={2}>Charity</option>
+            <option value={3}>Food</option>
+            <option value={4}>Gaming</option>
+            <option value={5}>Entertainment</option>
+            <option value={6}>Business</option>
+          
+        </Select>
+      </FormControl>
+    </div>
+            </ListItem>
+        </List>
+        <Divider />
+
+        <Divider />
+        <List>
+
+            <ListItem button>
+              <ListItemText primary="Location"/>
+              
+              <div>
+      <FormControl className={classes.formControl}>
+        <InputLabel htmlFor="grouped-native-select">Filter</InputLabel>
+        <Select 
+          native 
+          defaultValue=""
+          value={indexValue}
+          name="indexValue"
+          onChange={handleOnInputChange}
+          id="grouped-native-select"
+        >
+          <option aria-label="None" value="" />
+          <option value="AL">Alabama</option>
+          <option value="AK">Alaska</option>
+          <option value="AZ">Arizona</option>
+          <option value="AR">Arizona</option>
+          <option value="CA">California</option>
+          <option value="CO">Colorado</option>
+          <option value="CT">Connecticut</option>
+          <option value="DE">Delaware</option>
+          <option value="DC">District of Columbia</option>
+          <option value="FL">Florida</option>
+          <option value="GA">Georgia</option>
+          <option value="HI">Hawaii</option>
+          <option value="ID">Idaho</option>
+          <option value="IL">Illinois</option>
+          <option value="IN">Indiana</option>
+          <option value="IA">Iowa</option>
+          <option value="KS">Kansas</option>
+          <option value="KY">Kentucky</option>
+          <option value="LA">Louisiana</option>
+          <option value="ME">Maine</option>
+          <option value="MD">Maryland</option>
+          <option value="MA">Massachusetts</option>
+          <option value="MI">Michigan</option>
+          <option value="MN">Minnesota</option>
+          <option value="MS">Mississippi</option>
+          <option value="MO">Missouri</option>
+          <option value="MT">Montana</option>
+          <option value="NE">Nebraska</option>
+          <option value="NV">Nevada</option>
+          <option value="NH">New Hampshire</option>
+          <option value="NJ">New Jersey</option>
+          <option value="NM">New Mexico</option>
+          <option value="NY">New York</option>
+          <option value="NC">North Carolina</option>
+          <option value="ND">North Dakota</option>
+          <option value="OH">Ohio</option>
+          <option value="OK">Oklahoma</option>
+          <option value="OR">Oregon</option>
+          <option value="PA">Pennsylvania</option>
+          <option value="RI">Rhode Island</option>
+          <option value="SC">South Carolina</option>
+          <option value="SD">South Dakota</option>
+          <option value="TN">Tennessee</option>
+          <option value="TX">Texas</option>
+          <option value="UT">Utah</option>
+          <option value="VT">Vermont</option>
+          <option value="VA">Virginia</option>
+          <option value="WA">Washington</option>
+          <option value="WV">West Virginia</option>
+          <option value="WI">Wisconsin</option>
+          <option value="WY">Wyoming</option>
+          
+        </Select>
+      </FormControl>
+    </div>
+            </ListItem>
+        </List>
+        <Divider /> */}
+
+        <Button onClick={handleOnClick}>Apply Filters</Button>
 
       </Drawer>
       <main
