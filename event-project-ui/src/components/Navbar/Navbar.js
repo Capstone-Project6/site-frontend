@@ -27,7 +27,7 @@ export default function Navbar({ user, handleLogout, setFilteredEvents }){
             <div class="navContent">
                 {/* site name/logo that is towards the left of the navbar */}
                 <Link to="/">
-                    <h1 className="siteLogo"> EventMe</h1>
+                    <h1 className="siteLogo"> Event Me</h1>
                 </Link>
                 {/* <form id="search-form" autocomplete="off">
          <input id="search-input" type="text" size="50" placeholder="Enter a category, event name, organizer name, etc." name="event-search"/>
