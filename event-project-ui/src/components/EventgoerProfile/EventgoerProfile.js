@@ -82,7 +82,7 @@ const useStyles = makeStyles({
     }
 });
 
-export default function EventgoerProfile({ user, setUser, registeredEvents, attendedEvents, recommendations, reviews, userHasRegisteredEvents, userHasAttendedEvents, userHasRecommendations, userHasReviews }){
+export default function EventgoerProfile({ user, setUser, registeredEvents, recommendations, reviews, }){
     //this is the current user's id
     const userId = user.id
     const [error, setError] = useState(null)
@@ -197,25 +197,6 @@ export default function EventgoerProfile({ user, setUser, registeredEvents, atte
         }
 
         if(currentButtonClicked === 1) {
-            if(attendedEvents.length !== 0){
-                return (
-                        <div className="feed">
-                            {attendedEvents.map((event) => (
-                                <Event event={event} user={user} key={event.id} />
-                            ))}
-                        </div>
-                )
-            }
-            else {
-                return (
-                    <div className="noInfoMessage">
-                        <h2> You do not currently have any previously attended events.</h2>
-                    </div>
-                )
-            }
-        }
-
-        if(currentButtonClicked === 2) {
             if(recommendations.length !== 0){
                 return (
                         <div className="feed">
@@ -225,35 +206,35 @@ export default function EventgoerProfile({ user, setUser, registeredEvents, atte
                         </div>
                 )
             }
-            
             else {
                 return (
                     <div className="noInfoMessage">
-                        <h2> You do not currently have any recommendations.</h2>
+                        <h2> You do not currently have any previously recommendations events.</h2>
                     </div>
                 )
             }
         }
 
-        if(currentButtonClicked === 3) {
-            if(reviews.length !== 0){
-                return (
-                        <div className="feed">
-                            {reviews.map((event) => (
-                                <Event event={event} user={user} key={event.id} />
-                            ))}
-                        </div>
-                )
-            }
+
+        // if(currentButtonClicked === 3) {
+        //     if(reviews.length !== 0){
+        //         return (
+        //                 <div className="feed">
+        //                     {reviews.map((event) => (
+        //                         <Event event={event} user={user} key={event.id} />
+        //                     ))}
+        //                 </div>
+        //         )
+        //     }
             
-            else {
-                return (
-                    <div className="noInfoMessage">
-                        <h2> You do not currently have any reviews.</h2>
-                    </div>
-                )
-            }
-        }
+        //     else {
+        //         return (
+        //             <div className="noInfoMessage">
+        //                 <h2> You do not currently have any reviews.</h2>
+        //             </div>
+        //         )
+        //     }
+        // }
     };
 
     return (
@@ -345,9 +326,8 @@ export default function EventgoerProfile({ user, setUser, registeredEvents, atte
                             centered
                         >
                             <Tab label="Registered Events"  value={0}/>
-                            <Tab label="Attended Events" value={1}/>
-                            <Tab label="Recommendations" value={2}/>
-                            <Tab label="Reviews" value={3} />
+                            <Tab label="Recommendations" value={1}/>
+                            {/* <Tab label="Reviews" value={3} /> */}
                         </Tabs>
                     </Paper>
                 </Box>

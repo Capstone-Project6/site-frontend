@@ -30,7 +30,6 @@ function App() {
   const [interests, setInterests] = useState([])
   
   const [registeredEvents, setRegisteredEvents] = useState([])
-  const [attendedEvents, setAttendedEvents] = useState([])
   const [recommendations, setRecommendations] = useState([])
   const [reviews, setReviews] = useState([])
   // const [userHasRegisteredEvents, setUserHasRegisteredEvents] = useState(false)
@@ -150,7 +149,7 @@ function App() {
           <Route path="/interests" element={<Interests user={user} interests={interests} setUser={setUser} />}></Route>
           <Route path="/filter" element={<Filter user={user} setUser={setUser} filteredEvents={filteredEvents}/>}></Route>
           {/* updatePost={updatePost} */}
-          <Route path="/eventgoerProfile" element={<EventgoerProfile user={user} setUser={setUser} registeredEvents={registeredEvents} attendedEvents={attendedEvents} recommendations={recommendations} reviews={reviews}/>}></Route>
+          <Route path="/eventgoerProfile" element={<EventgoerProfile user={user} setUser={setUser} registeredEvents={registeredEvents} recommendations={recommendations} reviews={reviews}/>}></Route>
           {/* "/eventRegistration/:id" */}
           <Route path="/eventRegistration/:id" element={<EventRegistration user={user} />} />
         </Routes>
