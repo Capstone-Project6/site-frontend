@@ -38,6 +38,10 @@ function App() {
   // const [userHasReviews, setUserHasReviews] = useState(false)
 
   useEffect(() => {
+    document.title = "Event Me"
+  }, [])
+
+  useEffect(() => {
     //The user is being fetched using the api token and the apiClient file
     const fetchUser = async () => {
       //fetchUserFromToken() returns the user (by using auth/me)

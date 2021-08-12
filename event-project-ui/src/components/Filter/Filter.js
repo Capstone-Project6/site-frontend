@@ -29,6 +29,7 @@ import Hidden from '@material-ui/core/Hidden';
 import './Filter.css'
 import { useState } from 'react';
 import apiClient from '../../services/apiClient';
+import { Link } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -357,7 +358,9 @@ export default function Filter ({user, filteredEvents}){
     </div>
     <div className="feed">
     {filteredEvents.map((event) => (
-        <Event event={event} user={user} key={event.id} />
+        <Link to={`/eventRegistration/${event["Event ID"]}`} className="indivEvent" key={event["Event ID"]}>
+                                    <Event event={event} user={user} key={event["Event ID"]} />
+                                </Link>
     ))}
     </div>
     </div>
