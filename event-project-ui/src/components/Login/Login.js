@@ -18,9 +18,11 @@ export default function Login({ user, setUser }) {
     useEffect(()=> {
         //If the user is already logged in, redirect them to the homepage
         if(user?.email){
-            navigate("/")
+           navigate("/")
         }
+        
     }, [user, navigate])
+
 
     const handleOnInputChange = (event) => {
         if (event.target.name === "email") {

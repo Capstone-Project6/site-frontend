@@ -409,7 +409,7 @@ export default function EventRegistration({user, individualEvent}){
                         </Grid>
                     </Box>
                 </div>
-            </>
+             </>
         )
     }
 
