@@ -141,7 +141,6 @@ function App() {
           <Route path="/login" element={<Login user={user} setUser={setUser} />}></Route>
           <Route path="/signup" element={<Signup user={user} setUser={setUser} />}></Route>
           <Route path="/create" element={<Create/>}></Route>
-          <Route path="/interests" element={<Interests user={user} setUser={setUser} />}></Route>
           <Route path="/interests" element={<Interests user={user} interests={interests} setUser={setUser} />}></Route>
           <Route path="/filter" element={<Filter user={user} setUser={setUser} filteredEvents={filteredEvents}/>}></Route>
           {/* updatePost={updatePost} */}
