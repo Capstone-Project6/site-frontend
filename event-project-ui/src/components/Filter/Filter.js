@@ -52,6 +52,9 @@ const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
   },
+  searchResults: {
+    height: 700,
+  },
   hide: {
     display: 'none',
   },
@@ -137,7 +140,7 @@ export default function Filter ({user, filteredEvents}){
 
 
     return (
-        <div>
+        <div className={classes.searchResults}>
             <div className={classes.root}>
       <CssBaseline />
         <Toolbar>

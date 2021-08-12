@@ -50,7 +50,7 @@ function TextMaskCustom(props) {
 export default function EventRegistration({user, individualEvent}){
     const userId = user.id
     // const { id } = useParams() OR individualEvent.id
-    const id = 7
+    const { id } = useParams()
     const [event, setEvent] = useState({})
     const[endingDate, setEndingDate] = useState(false)
     const[isLoading, setIsLoading] = useState(false)

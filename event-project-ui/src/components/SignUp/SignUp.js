@@ -82,6 +82,7 @@ export default function Signup({ user, setUser }){
                             placeholder="Enter your first name"
                             value={form.firstName}
                             onChange={handleOnInputChange} 
+                            className="input"
                             />
                         {errors.firstName && <span className="error">{errors.firstName}</span>}
                     </div>
@@ -94,6 +95,7 @@ export default function Signup({ user, setUser }){
                             placeholder="Enter your last name"
                             value={form.lasttName}
                             onChange={handleOnInputChange} 
+                            className="input"
                             />
                         {errors.lastName && <span className="error">{errors.lastName}</span>}
                     </div>
@@ -106,6 +108,7 @@ export default function Signup({ user, setUser }){
                             placeholder="Enter a valid email"
                             value={form.email}
                             onChange={handleOnInputChange}
+                            className="input"
                             />
                         {errors.email && <span className="error">{errors.email}</span>}
                     </div>
@@ -118,6 +121,7 @@ export default function Signup({ user, setUser }){
                             placeholder="Enter a secure password"
                             value={form.password}
                             onChange={handleOnInputChange} 
+                            className="input"
                             />
                         {errors.password && <span className="error">{errors.password}</span>}
                     </div>

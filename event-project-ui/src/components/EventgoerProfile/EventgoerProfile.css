@@ -1,3 +1,7 @@
+.eventgoerProfile {
+    height: 800px;
+}
+
 .feed {
     margin-top: 30px;
     margin-left:auto;
@@ -7,4 +11,12 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, 345px);
     grid-gap: 10px;
+}
+
+.noInfoMessage {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   height: 300px;
+   color: white;
 }
