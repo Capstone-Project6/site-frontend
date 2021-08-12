@@ -14,7 +14,7 @@ import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import { blue } from '@material-ui/core/colors';
 import apiClient from "../../services/apiClient"
-import Interests from './interests';
+import Interests from './Interests';
 
 const useStyles = makeStyles({
     root: {

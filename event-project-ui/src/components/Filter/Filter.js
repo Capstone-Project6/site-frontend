@@ -28,6 +28,7 @@ import Button from '@material-ui/core/Button';
 import Hidden from '@material-ui/core/Hidden';
 import './Filter.css'
 import { useState } from 'react';
+import apiClient from '../../services/apiClient';
 
 const drawerWidth = 240;
 
@@ -163,6 +164,10 @@ export default function Filter ({user, filteredEvents}){
     setIndexValue(parseInt(event.target.value))
   }
 
+  const handleOnClick = async () => {
+    await apiClient.filterEvents({filterCriteria})
+  }
+
 
     return (
         <div>
@@ -227,69 +232,8 @@ export default function Filter ({user, filteredEvents}){
             </ListItem>
         </List>
         <Divider />
-{/* 
-        <Divider />
-        <List>
 
-            <ListItem button>
-              <ListItemText primary="Location"/>
-              
-              <div>
-      <FormControl className={classes.formControl}>
-        <InputLabel htmlFor="grouped-native-select">Filter</InputLabel>
-        <Select 
-          native 
-          defaultValue=""
-          value={indexValue}
-          name="indexValue"
-          onChange={handleOnInputChange}
-          id="grouped-native-select"
-        >
-          <option aria-label="None" value="" />
-            <option value={0}>List States Here</option>
-        </Select>
-      </FormControl>
-    </div>
-            </ListItem>
-        </List>
-        <Divider />
-
-        <Divider />
-        <List>
-
-            <ListItem button>
-              <ListItemText primary="Category"/>
-              
-              <div>
-      <FormControl className={classes.formControl}>
-        <InputLabel htmlFor="grouped-native-select">Filter</InputLabel>
-        <Select 
-          native 
-          defaultValue=""
-          value={indexValue}
-          name="indexValue"
-          onChange={handleOnInputChange}
-          id="grouped-native-select"
-        >
-          <option aria-label="None" value="" />
-            <option value={0}>Sports</option>
-            <option value={1}>Food</option>
-            <option value={2}>Music</option>
-            <option value={3}>Charity</option>
-            <option value={4}>Gaming</option>
-            <option value={5}>Party</option>
-            <option value={6}>Entertainment</option>
-            <option value={6}>Business</option>
-            <option value={6}>Education</option>
-            <option value={6}>Social</option>
-          
-        </Select>
-      </FormControl>
-    </div>
-            </ListItem>
-        </List>
-        <Divider /> */}
-        <Button>Apply Filters</Button>
+        <Button onClick={handleOnClick}>Apply Filters</Button>
 
       </Drawer>
       <main
