@@ -58,9 +58,14 @@ export default function Navbar({ user, handleLogout, setFilteredEvents }){
                                 </Link>
                             </li>
 
+                            <li className="makeEvent">
+                                 <Link to="/create">Create Event</Link>
+                            </li>
+
                             <li className="logout">
                                 <span onClick={handleLogout}> Logout</span>
                             </li>
+                            
                         </>
                     ) : (
                         <>
@@ -70,6 +75,7 @@ export default function Navbar({ user, handleLogout, setFilteredEvents }){
                             <li className="signUpLabel">
                                 <Link to="/signup">Sign Up</Link>
                             </li>
+
                         </>
                     )}
                 </ul>

@@ -50,7 +50,7 @@ function TextMaskCustom(props) {
 export default function EventRegistration({user, individualEvent}){
     const userId = user.id
     // const { id } = useParams() OR individualEvent.id
-    const id = 3
+    const id = 7
     const [event, setEvent] = useState({})
     const[endingDate, setEndingDate] = useState(false)
     const[isLoading, setIsLoading] = useState(false)
@@ -65,8 +65,8 @@ export default function EventRegistration({user, individualEvent}){
         tickets_number: "",
         event_id: id
     })
-    var ticketRows = [];
-    let x = 1;
+    // var ticketRows = [];
+    // let x = 1;
 
     useEffect(() => {
         const fetchIndividualEvent = async () => {
@@ -74,10 +74,10 @@ export default function EventRegistration({user, individualEvent}){
             const { data, error } = await apiClient.fetchPostById(id)
             if (data) {
                 setEvent(data.event)
-                console.log("Individual event: ", data.event)
-                for(var i = 1; i< data.event["Tickets left"] + 1; i++){
-                    ticketRows.push(<MenuItem value={i}>{i}</MenuItem>);
-                }
+                // console.log("Individual event: ", data.event)
+                // for(var i = 1; i< data.event["Tickets left"] + 1; i++){
+                //     ticketRows.push(<MenuItem value={i}>{i}</MenuItem>);
+                // }
         
             }
             if (error) {
@@ -409,7 +409,7 @@ export default function EventRegistration({user, individualEvent}){
                         </Grid>
                     </Box>
                 </div>
-            </>
+             </>
         )
     }
 

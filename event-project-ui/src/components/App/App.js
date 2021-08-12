@@ -6,6 +6,7 @@ import Navbar from '../Navbar/Navbar';
 import Home from '../Home/Home';
 import Login from '../Login/Login';
 import Signup from '../SignUp/SignUp';
+import Create from '../createEvent/createEvent'
 import Interests from '../Interests/Interests';
 import EventgoerProfile from '../EventgoerProfile/EventgoerProfile';
 import Filter from '../Filter/Filter';
@@ -27,50 +28,15 @@ function App() {
   const [filteredEvents, setFilteredEvents] = useState([])
 
   const [interests, setInterests] = useState([])
-
-  // const [posts, setPosts] = useState([])
-
   
-
-  useEffect(() => {
-    const fetchInterests = async () => {
-      setIsFetching(true)
-
-      const { data, error } = await apiClient.getCategories()
-      // console.log("category data", data)
-      if (data) {
-        setInterests(data.categories)
-      }
-      if (error) {
-        setError(error)
-      }
-
-      setIsFetching(false)
-    }
-
-    fetchInterests()
-  }, [])
-
-
-
-  useEffect(() => {
-    const fetchEvents = async () => {
-      setIsFetching(true)
-
-      const { data, error } = await apiClient.listEvents()
-      // console.log("data", data)
-      if (data) {
-        setEvents(data.feed)
-      }
-      if (error) {
-        setError(error)
-      }
-
-      setIsFetching(false)
-    }
-
-    fetchEvents()
-  }, [])
+  const [registeredEvents, setRegisteredEvents] = useState([])
+  const [attendedEvents, setAttendedEvents] = useState([])
+  const [recommendations, setRecommendations] = useState([])
+  const [reviews, setReviews] = useState([])
+  // const [userHasRegisteredEvents, setUserHasRegisteredEvents] = useState(false)
+  // const [userHasAttendedEvents, setUserHasAttendedEvents] = useState(false)
+  // const [userHasRecommendations, setUserHasRecommendations] = useState(false)
+  // const [userHasReviews, setUserHasReviews] = useState(false)
 
   useEffect(() => {
     //The user is being fetched using the api token and the apiClient file
@@ -92,6 +58,57 @@ function App() {
         fetchUser()
       }
   }, [])
+
+  useEffect(() => {
+    const fetchInterests = async () => {
+      setIsFetching(true)
+
+      const { data, error } = await apiClient.getCategories()
+      // console.log("category data", data)
+      if (data) {
+        setInterests(data.categories)
+      }
+      if (error) {
+        setError(error)
+      }
+
+      setIsFetching(false)
+    }
+
+    fetchInterests()
+  }, [])
+
+  useEffect(() => {
+        const fetchRegisteredEvents = async () => {
+            setIsFetching(true)
+            const { data} = await apiClient.registeredEvents(user.id)
+            if (data) {
+                setRegisteredEvents(data.registeredEvents)
+            }
+            setIsFetching(false)
+        }
+        fetchRegisteredEvents()
+    }, [user])
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      setIsFetching(true)
+
+      const { data, error } = await apiClient.listEvents()
+      // console.log("data", data)
+      if (data) {
+        setEvents(data.feed)
+      }
+      if (error) {
+        setError(error)
+      }
+
+      setIsFetching(false)
+    }
+
+    fetchEvents()
+  }, [])
+
 
 
   // const updatePost = ({ postId, postUpdate }) => {
@@ -123,10 +140,12 @@ function App() {
           <Route path="/" element={<Home user={user} error={error} setError={setError} events={events} isFetching={isFetching} />}></Route>
           <Route path="/login" element={<Login user={user} setUser={setUser} />}></Route>
           <Route path="/signup" element={<Signup user={user} setUser={setUser} />}></Route>
+          <Route path="/create" element={<Create/>}></Route>
+          <Route path="/interests" element={<Interests user={user} setUser={setUser} />}></Route>
           <Route path="/interests" element={<Interests user={user} interests={interests} setUser={setUser} />}></Route>
           <Route path="/filter" element={<Filter user={user} setUser={setUser} filteredEvents={filteredEvents}/>}></Route>
           {/* updatePost={updatePost} */}
-          <Route path="/eventgoerProfile" element={<EventgoerProfile user={user} setUser={setUser} />}></Route>
+          <Route path="/eventgoerProfile" element={<EventgoerProfile user={user} setUser={setUser} registeredEvents={registeredEvents} attendedEvents={attendedEvents} recommendations={recommendations} reviews={reviews}/>}></Route>
           {/* "/eventRegistration/:id" */}
           <Route path="/eventRegistration" element={<EventRegistration user={user} />} />
         </Routes>

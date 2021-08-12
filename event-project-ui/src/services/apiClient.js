@@ -60,9 +60,9 @@ class ApiClient {
   return filteredEvents
   }
 
-async recommendEvents(userId) {
-    return await this.request({endpoint: `events/${userId}/recommended`, method: `GET`})
-}
+  async recommendEvents(userId) {
+      return await this.request({endpoint: `events/${userId}/recommended`, method: `GET`})
+  }
 
   async signupUser(credentials) {
     return await this.request({ endpoint: `auth/register`, method: `POST`, data: credentials })
@@ -93,6 +93,10 @@ async addFavorite(favorites, userId) {
 
   async eventRegistration({form, userId}) {
     return await this.request({endpoint: `events/event-register/${userId}`, method: `POST`, data: form})
+  }
+
+  async registeredEvents(userId) {
+    return await this.request({endpoint: `events/registered/${userId}`, method: `GET`})
   }
 
   async logoutUser() {
