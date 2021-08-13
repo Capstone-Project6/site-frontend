@@ -100,6 +100,19 @@ function App() {
         fetchRegisteredEvents()
     }, [user])
 
+    useEffect(() => {
+      const fetchUserRecommendedEvents = async () => {
+          setIsFetching(true)
+          const { data} = await apiClient.userRecommendedEvents(user.id)
+          if (data) {
+              console.log("recommended data", data)
+              setRecommendations(data.userRecommededEvents)
+          }
+          setIsFetching(false)
+      }
+      fetchUserRecommendedEvents()
+  }, [user])
+
   useEffect(() => {
     const fetchEvents = async () => {
       setIsFetching(true)

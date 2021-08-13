@@ -79,9 +79,13 @@ class ApiClient {
   // }
 }
 
-async addFavorite(favorites, userId) {
-  return await this.request({ endpoint: `events/${userId}/favorites`, method: `POST`, data: favorites})
-}
+  async addFavorite(favorites, userId) {
+    return await this.request({ endpoint: `events/${userId}/favorites`, method: `POST`, data: favorites})
+  }
+
+  async addUserRecommendation({event, userId}) {
+    return await this.request({ endpoint: `events/userRecommendation/${userId}`, method: `POST`, data: event})
+  }
 
   async getCategories() {
     return await this.request({ endpoint: `events/categories`, method: `GET`})
@@ -97,6 +101,10 @@ async addFavorite(favorites, userId) {
 
   async registeredEvents(userId) {
     return await this.request({endpoint: `events/registered/${userId}`, method: `GET`})
+  }
+
+  async userRecommendedEvents(userId) {
+    return await this.request({endpoint: `events/userRecommendations/${userId}`, method: `GET`})
   }
 
   async logoutUser() {

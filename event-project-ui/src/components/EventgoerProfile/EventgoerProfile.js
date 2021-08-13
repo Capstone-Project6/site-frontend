@@ -175,6 +175,8 @@ export default function EventgoerProfile({ user, setUser, registeredEvents, atte
     
     const classes = useStyles();
     
+    console.log("RECOMMENDATIONS", recommendations)
+    
     const handleProfileTabContent = () => {
         console.log("registered events", registeredEvents)
         if(currentButtonClicked === 0) {
