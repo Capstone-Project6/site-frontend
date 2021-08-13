@@ -83,6 +83,10 @@ async addFavorite(favorites, userId) {
   return await this.request({ endpoint: `events/${userId}/favorites`, method: `POST`, data: favorites})
 }
 
+async addUserRecommendatino(id, userId) {
+  return await this.request({ endpoint: `/addRecommendation/${userId}`, method: `POST`, data: id})
+}
+
   async getCategories() {
     return await this.request({ endpoint: `events/categories`, method: `GET`})
   }

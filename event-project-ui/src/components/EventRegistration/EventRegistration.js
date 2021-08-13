@@ -213,6 +213,21 @@ export default function EventRegistration({user, individualEvent}){
         setIsProcessing(false)
     }
 
+    const handleOnRecommendationSubmit = async () => {
+        setIsProcessing(true)
+        setError((e) => ({ ...e, form: null }))
+
+        const { data, error } = await apiClient.addRecommendation({id, userId})
+        if(data){
+            console.log("You have successfully added a recommendation!")
+        }
+        if(error) {
+            setError((e) => ({ ...e, form: error }))
+        }
+
+        setIsProcessing(false)
+    }
+
     const renderEventContent = () => {
         // if(isLoading){
         //     return <h1>Loading...</h1>
@@ -278,6 +293,7 @@ export default function EventRegistration({user, individualEvent}){
                                                     </Typography>
                                                 </Box>
                                             </Box>
+                                            <Button color="primary" variant="contained" size="large" onClick={handleOnRecommendationSubmit} > Add Recommendedation</Button>
                                         </CardContent>
                                 </Card>
                             </Grid>
