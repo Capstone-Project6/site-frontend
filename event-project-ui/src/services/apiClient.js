@@ -60,6 +60,23 @@ class ApiClient {
   return filteredEvents
   }
 
+  async searchAndFilterEvents(searchTerm, searchAndFilter) {
+    console.log("Search", searchAndFilter)
+    const filteredEvents = 
+    searchAndFilter.filter((val) => {
+      if (searchTerm === ""){
+      return false;
+    }
+    else if (val["Event Name"].toLowerCase().includes(searchTerm.toLowerCase())){
+      return true;
+    }
+    else{
+    return false;
+    }
+  })
+  return filteredEvents
+  }
+
 async recommendEvents(userId) {
     return await this.request({endpoint: `events/${userId}/recommended`, method: `GET`})
 }

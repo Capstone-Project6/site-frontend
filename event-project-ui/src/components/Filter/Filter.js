@@ -95,7 +95,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-export default function Filter ({user, filteredEvents}){
+export default function Filter ({user, filteredEvents, filterSet, setFilterSet}){
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -146,6 +146,7 @@ export default function Filter ({user, filteredEvents}){
       "maxValue": maxValue
     }
     setFilterCriteria(price)
+    setFilterSet(false)
 
   }, [indexValue])
 
@@ -169,9 +170,9 @@ export default function Filter ({user, filteredEvents}){
   const handleOnClick = async () => {
       //fetchUserFromToken() returns the user (by using auth/me)
       const { data, error } = await apiClient.filterEvents({filterCriteria})
+      console.log("rightNow", data)
       if (data) {
-        console.log(data.user)
-        setSearchAndFilter(data.user)
+        setSearchAndFilter(data.filtered)
       }
       if (error){
         setError(error)
