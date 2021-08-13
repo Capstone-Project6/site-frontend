@@ -105,6 +105,8 @@ export default function Filter ({user, filteredEvents}){
   const [hasLowestPrice, setHasLowestPrice] = useState(false)
   const [hasGreatestPrice, setHasGreatestPrice] = useState(false)
   const [indexValue, setIndexValue] = useState(0)
+  const [error, setError] = useState(null)
+  const [searchAndFilter, setSearchAndFilter ] = useState([])
   const[filterCriteria, setFilterCriteria] = useState({})
   const priceRanges = [
     [null, null],
@@ -165,7 +167,15 @@ export default function Filter ({user, filteredEvents}){
   }
 
   const handleOnClick = async () => {
-    await apiClient.filterEvents({filterCriteria})
+      //fetchUserFromToken() returns the user (by using auth/me)
+      const { data, error } = await apiClient.filterEvents({filterCriteria})
+      if (data) {
+        console.log(data.user)
+        setSearchAndFilter(data.user)
+      }
+      if (error){
+        setError(error)
+      }
   }
 
 
