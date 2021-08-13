@@ -11,6 +11,7 @@ import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import { positions, width } from '@material-ui/system';
 import "./createEvent.css"
+import { Navigate, useNavigate} from "react-router-dom"
 import {
   MuiPickersUtilsProvider,
   KeyboardTimePicker,
@@ -77,6 +78,7 @@ export default function CreateEvent() {
 
   const classes = useStyles();
   const [value, setValue] = React.useState('Controlled');
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -102,6 +104,9 @@ export default function CreateEvent() {
     setEndDate(date);
   };
 
+  const handleOnSubmit = () => {
+    navigate("/")
+  }
 
   
   return (
@@ -266,6 +271,8 @@ export default function CreateEvent() {
           <MenuItem value="WV">West Virginia</MenuItem>
           <MenuItem value="WI">Wisconsin</MenuItem>
           <MenuItem value="WY">Wyoming</MenuItem>
+          <MenuItem value="WY">Bottom</MenuItem>
+
         </Select>
       </FormControl>
         </div>
@@ -348,9 +355,9 @@ export default function CreateEvent() {
       <h2 className="completed">You're Done! Time to Submit!</h2>
       </div>
 
-      <Button variant="contained" size="medium" color="primary" className={classes.margin} style={{marginLeft:"200px"}}>
+      <Button onClick={handleOnSubmit} variant="contained" size="medium" color="primary" className={classes.margin} style={{marginLeft:"200px"}}>
         SUBMIT
-      </Button>
+      </Button >
       </div>
 
     

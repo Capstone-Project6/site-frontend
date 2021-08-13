@@ -91,7 +91,7 @@ function App() {
   useEffect(() => {
         const fetchRegisteredEvents = async () => {
             setIsFetching(true)
-            const { data} = await apiClient.registeredEvents(user.id)
+            const { data } = await apiClient.registeredEvents(user.id)
             if (data) {
                 setRegisteredEvents(data.registeredEvents)
             }

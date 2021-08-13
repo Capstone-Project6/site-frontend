@@ -14,6 +14,7 @@ import { blue } from '@material-ui/core/colors';
 import { CenterFocusStrong } from '@material-ui/icons';
 import { flexbox } from '@material-ui/system';
 import { useNavigate, Link } from "react-router-dom";
+import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles({
     root: {
@@ -26,6 +27,11 @@ const useStyles = makeStyles({
       alignItems: "center"
 
     },
+    box: {
+        display: "flex",
+        justifyContent: "center"
+    }
+
   });
 
 export default function Interests( { user, isFetching, interests, error }){
@@ -57,7 +63,9 @@ export default function Interests( { user, isFetching, interests, error }){
                         ))}
                         </div>
                     </>
+                    <Box className={classes.box}>
                     <Button className={classes.root} onClick={handleOnSubmit}>Submit</Button>
+                    </Box>
 
         </div>
     )

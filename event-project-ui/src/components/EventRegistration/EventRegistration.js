@@ -278,6 +278,7 @@ export default function EventRegistration({user, individualEvent}){
                                                     </Typography>
                                                 </Box>
                                             </Box>
+                                            <Button color="primary" variant="contained" size="large" onClick={handleOnSubmit} > Add to recommendations</Button>
                                         </CardContent>
                                 </Card>
                             </Grid>
