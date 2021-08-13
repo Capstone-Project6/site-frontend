@@ -14,7 +14,7 @@ class ApiClient {
     localStorage.setItem(this.tokenName, token)
   }
 
-  async request({ endpoint, method = `GET`, data = {} }) {
+  async request({ endpoint, method = `GET`, data = {}, params = {} }) {
     const url = `${this.remoteHostUrl}/${endpoint}`
 
     const headers = {
@@ -23,7 +23,7 @@ class ApiClient {
     }
 
     try {
-      const res = await axios({ url, method, data, headers })
+      const res = await axios({ url, method, data, headers, params })
       return { data: res.data, error: null }
     } catch (error) {
       console.error("APIclient.makeRequest.error:")
@@ -63,6 +63,26 @@ class ApiClient {
   async recommendEvents(userId) {
       return await this.request({endpoint: `events/${userId}/recommended`, method: `GET`})
   }
+  async searchAndFilterEvents(searchTerm, searchAndFilter) {
+    console.log("Search", searchAndFilter)
+    const filteredEvents = 
+    searchAndFilter.filter((val) => {
+      if (searchTerm === ""){
+      return false;
+    }
+    else if (val["Event Name"].toLowerCase().includes(searchTerm.toLowerCase())){
+      return true;
+    }
+    else{
+    return false;
+    }
+  })
+  return filteredEvents
+  }
+
+async recommendEvents(userId) {
+    return await this.request({endpoint: `events/${userId}/recommended`, method: `GET`})
+}
 
   async signupUser(credentials) {
     return await this.request({ endpoint: `auth/register`, method: `POST`, data: credentials })
@@ -102,6 +122,10 @@ async addFavorite(favorites, userId) {
   async logoutUser() {
     this.setToken(null)
     localStorage.setItem(this.tokenName, "")
+  }
+
+  async filterEvents({filterCriteria}){
+    return await this.request({endpoint: `events/filtered-events`, method: `GET`, params: filterCriteria})
   }
 }
 

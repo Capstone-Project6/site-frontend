@@ -12,7 +12,6 @@ import Grid from '@material-ui/core/Grid';
 // import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 // import { flexbox } from '@material-ui/system';
-
 const useStyles = makeStyles({
     root: {
         maxWidth: 345,
@@ -24,6 +23,7 @@ const useStyles = makeStyles({
 
 //add this param: { event }
 export default function Event( { event, user }) {
+    console.log("PRICE", event)
     const classes = useStyles();
     // console.log("Event", event)
     return (
@@ -67,6 +67,9 @@ export default function Event( { event, user }) {
                             </Grid>  */}
                             <Typography variant="body2" color="textSecondary" component="p">
                                 {event.City}, {event.State}
+                            </Typography>
+                            <Typography variant="body2" color="textSecondary" component="p">
+                                ${event.Price}
                             </Typography>
                             <Typography variant="body2" color="textSecondary" component="p">
                                 {event.Venue}

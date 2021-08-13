@@ -9,7 +9,7 @@ import apiClient from "../../services/apiClient"
 import './Navbar.css'
 
 //added parameter
-export default function Navbar({ user, handleLogout, setFilteredEvents }){
+export default function Navbar({ user, handleLogout, setFilteredEvents, filterSet, setFilterSet, searchAndFilter, setSearchAndFilter }){
     const [searchTerm, setSearchTerm] = useState("")
   //This const will hold an event
 //   const [events, setEvents] = useState([])
@@ -38,10 +38,16 @@ export default function Navbar({ user, handleLogout, setFilteredEvents }){
           placeholder="Search Events"
           value={searchTerm}
           onChange={(newValue) => {setSearchTerm(newValue)}}
-           onRequestSearch= {async () => {          
+           onRequestSearch= {async () => {         
             navigate("/filter")
+            if (filterSet){ 
+                setFilteredEvents(await apiClient.searchAndFilterEvents(searchTerm, searchAndFilter))
+                setFilterSet(true)
+            }
+            else{
             setFilteredEvents(await apiClient.searchEvents(searchTerm))
             setSearchTerm("")
+            }
           }}
   />
         }

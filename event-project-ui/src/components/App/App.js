@@ -41,6 +41,10 @@ function App() {
   useEffect(() => {
     document.title = "Event Me"
   }, [])
+  const [filterSet, setFilterSet] = useState(false)
+
+  const [searchAndFilter, setSearchAndFilter ] = useState([])
+  // const [posts, setPosts] = useState([])
 
   useEffect(() => {
     //The user is being fetched using the api token and the apiClient file
@@ -145,14 +149,14 @@ function App() {
  return (
    <div className="App">
       <BrowserRouter>
-        <Navbar user={user} setUser={setUser} handleLogout={handleLogout} setFilteredEvents={setFilteredEvents}/>
+        <Navbar user={user} setUser={setUser} handleLogout={handleLogout} setFilteredEvents={setFilteredEvents} filterSet={filterSet} setFilterSet={setFilterSet} searchAndFilter={searchAndFilter} setSearchAndFilter={setSearchAndFilter}/>
         <Routes>
           <Route path="/" element={<Home user={user} error={error} setError={setError} events={events} isFetching={isFetching} />}></Route>
           <Route path="/login" element={<Login user={user} setUser={setUser} />}></Route>
           <Route path="/signup" element={<Signup user={user} setUser={setUser} />}></Route>
           <Route path="/create" element={<Create/>}></Route>
           <Route path="/interests" element={<Interests user={user} interests={interests} setUser={setUser} />}></Route>
-          <Route path="/filter" element={<Filter user={user} setUser={setUser} filteredEvents={filteredEvents}/>}></Route>
+          <Route path="/filter" element={<Filter user={user} setUser={setUser} filteredEvents={filteredEvents} filterSet={filterSet} setFilterSet={setFilterSet} searchAndFilter={searchAndFilter} setSearchAndFilter={setSearchAndFilter}/>}></Route>
           {/* updatePost={updatePost} */}
           <Route path="/eventgoerProfile" element={<EventgoerProfile user={user} setUser={setUser} registeredEvents={registeredEvents} attendedEvents={attendedEvents} recommendations={recommendations} reviews={reviews}/>}></Route>
           {/* "/eventRegistration/:id" */}
