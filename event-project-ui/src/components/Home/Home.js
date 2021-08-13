@@ -7,14 +7,24 @@ import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import Event from '../Event/Event'
 import './Home.css'
 import apiClient from "../../services/apiClient"
+import { makeStyles } from '@material-ui/core/styles';
 
 //the Home function takes in an object that is an array of events
+const useStyles = makeStyles((theme) => ({
+    button: {
+        color: "black",
+        backgroundColor: "white"
+    }
+   
+  
+  }));
 export default function Home( { user, isFetching, events, error, setError}){
     const[userLoggedIn, setUserLoggedIn] = useState(false);
     const [topEventsBtnClicked, setTopEventsBtnClicked] = useState(true);
     const[recommendedBtnClicked, setRecommendedBtnClicked] = useState(false);
     const [alignment, setAlignment] = useState('left');
     const [recommended, setRecommended] = useState([])
+    const classes = useStyles();
 
 
     const handleAlignment = (event, newAlignment) => {
@@ -31,6 +41,9 @@ export default function Home( { user, isFetching, events, error, setError}){
               }
     }
     
+
+
+    
     console.log("events", events)
     return(
         <div className="home">
@@ -41,11 +54,12 @@ export default function Home( { user, isFetching, events, error, setError}){
                 onChange={handleAlignment}
                 aria-label="text alignment"
                 color="white"
+                
             >
-                <ToggleButton onClick={() => {setTopEventsBtnClicked(true); setRecommendedBtnClicked(false); }} value="left" aria-label="left aligned">
+                <ToggleButton className={classes.button} onClick={() => {setTopEventsBtnClicked(true); setRecommendedBtnClicked(false); }} value="left" aria-label="left aligned">
                     Top Events
                 </ToggleButton>
-                <ToggleButton onClick={() => {setRecommendedBtnClicked(true); setTopEventsBtnClicked(false); handleRecommended()}} value="right" aria-label="right aligned">
+                <ToggleButton className={classes.button} onClick={() => {setRecommendedBtnClicked(true); setTopEventsBtnClicked(false); handleRecommended()}} value="right" aria-label="right aligned">
                     Recommended Events
                 </ToggleButton>
             </ToggleButtonGroup>

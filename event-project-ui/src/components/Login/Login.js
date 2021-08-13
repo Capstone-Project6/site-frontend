@@ -84,7 +84,7 @@ export default function Login({ user, setUser }) {
                         <input
                             type="password"
                             name="password"
-                            placeholder="password"
+                            placeholder="Password"
                             //ADDED THE VALUE AND ONCHANGE
                             value={form.password}
                             onChange={handleOnInputChange} 

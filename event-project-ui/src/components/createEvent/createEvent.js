@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     '& .MuiTextField-root': {
       margin: theme.spacing(1),
       width: '100ch',
-      marginLeft:'400px'
+      marginLeft:'100px'
     },
     // For the venue buttons
     '& > *': {
@@ -48,14 +48,14 @@ const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
     minWidth: 200,
-    marginLeft: '400px',
+    marginLeft: '100px',
     marginBottom:'100px'
   },
   selectEmpty: {
     marginTop: theme.spacing(1),
   },
   locationInfo: {
-    marginLeft: '1000px',
+    marginLeft: '600px',
   },
   input: {
     display: 'none',
@@ -107,14 +107,14 @@ export default function CreateEvent() {
   return (
     <div className="createPage">
       <h1 className="Title">Let's Create an Event!</h1>
+      <div className="background">
       <h2 className="basicInfo">Basic Info</h2>
-      
       
       <div className={classes.root}>
         <TextField
           id="outlined-full-width"
           label="Event Name"
-          style={{ marginBottom: 8, marginLeft: 400 }}
+          style={{ marginBottom: 8, marginLeft: 100 }}
           placeholder="Event Name"
           fullWidth
           margin="normal"
@@ -126,7 +126,7 @@ export default function CreateEvent() {
         <TextField
           id="outlined-full-width"
           label="Event Organizer"
-          style={{ marginBottom: 8, marginLeft:400 }}
+          style={{ marginBottom: 8, marginLeft:100 }}
           placeholder="Event Organizer"
           fullWidth
           margin="normal"
@@ -175,7 +175,7 @@ export default function CreateEvent() {
       <h2 className="venue">Location</h2>
       <div className='locationInfo'>
         <div className={classes.root}>
-        <Button variant="outlined" color="primary" style={{marginLeft:"400px"}}>
+        <Button variant="outlined" color="primary" style={{marginLeft:"100px"}}>
           Venue
         </Button>
         <Button variant="outlined" color="primary">
@@ -187,7 +187,7 @@ export default function CreateEvent() {
         <TextField
           id="outlined-full-width"
           label="Venue"
-          style={{ margin: 8, marginLeft:400 }}
+          style={{ margin: 8, marginLeft:100 }}
           placeholder="Venue Name/ Address"
           fullWidth
           margin="normal"
@@ -274,7 +274,7 @@ export default function CreateEvent() {
       <h2 className="time">Time</h2>
       <div className="timeInfo">
         <div className={classes.root}>
-        <Button variant="outlined" color="primary" style={{marginLeft:"400px"}}>
+        <Button variant="outlined" color="primary" style={{marginLeft:"100px"}}>
           Single Event
         </Button>
         <Button variant="outlined" color="primary">
@@ -339,7 +339,7 @@ export default function CreateEvent() {
         type="file"
       />
       <label htmlFor="contained-button-file">
-        <Button variant="contained" color="primary" component="span" style={{marginLeft:"490px"}}>
+        <Button variant="contained" color="primary" component="span" style={{marginLeft:"190px"}}>
           Upload
         </Button>
       </label>
@@ -348,9 +348,10 @@ export default function CreateEvent() {
       <h2 className="completed">You're Done! Time to Submit!</h2>
       </div>
 
-      <Button variant="contained" size="medium" color="primary" className={classes.margin} style={{marginLeft:"500px"}}>
+      <Button variant="contained" size="medium" color="primary" className={classes.margin} style={{marginLeft:"200px"}}>
         SUBMIT
       </Button>
+      </div>
 
     
       
